@@ -71,7 +71,7 @@ def getZenResponse(url, headers=None, isJson=False, isCookies=False, isProxy=Fal
         if(isCookies and not cookies):
             response = client.get(url, headers=headers)
             cookies = response.cookies
-        params = {"premium_proxy":"true","proxy_country":"us"}
+        params = {"premium_proxy":"true","proxy_country":"us",}
         csheaders = {
             "Referer": "https://www.google.com",
             **(headers or {}),
@@ -1608,8 +1608,9 @@ if __name__ == "__main__":
         # f'https://www.coupons.com/coupon-codes/cozyearth', # Working
         # f'https://www.dealcatcher.com/coupons/cozy-earth', # Working
         # f'https://www.dontpayfull.com/at/cozyearth.com', # Working
-        f'https://www.couponbirds.com/codes/twosvge.com', # Working
-        # f'https://www.offers.com/stores/cozyearth/', # Working
+        # f'https://www.couponbirds.com/codes/twosvge.com', # Working
+        f'https://simplycodes.com/store/soil3.com', # Working
+        #f'https://www.offers.com/stores/twosvge.com', # Working
         # f'https://www.savings.com/coupons/ashleystewart.com', # Working
         # f'https://dealspotr.com/promo-codes/cozyearth.com', # Working
         # f'https://www.promocodes.com/cozy-earth-coupons', # Working
@@ -1677,9 +1678,15 @@ if __name__ == "__main__":
     codes = {}
 
     for url in urls:
-        if('coupert.com' in url):
+        if 'coupert.com' in url:
             key = 'coupert.com'
-            codes[key] = codes[key] + coupert(url) if key in codes else coupert(url)
+            
+            scraped_data = coupert(url)
+         
+            if scraped_data is None:
+                scraped_data = []
+            
+            codes[key] = codes.get(key, []) + scraped_data
         # elif('discountime.com' in url):
         #     key = 'discountime.com'
         #     codes[key] = codes[key] + discountime(url) if key in codes else discountime(url)
@@ -1719,9 +1726,13 @@ if __name__ == "__main__":
         # elif('dontpayfull.com' in url):
         #     key = 'dontpayfull.com'
         #     codes[key] = codes[key] + dontPayFull(url) if key in codes else dontPayFull(url)
-        elif('couponbirds.com' in url):
+        elif 'couponbirds.com' in url:
             key = 'couponbirds.com'
-            codes[key] = codes[key] + couponBirds(url) if key in codes else couponBirds(url)
+            scraped_data = couponBirds(url)
+            
+            if scraped_data is None:
+                scraped_data = []
+            codes[key] = codes.get(key, []) + scraped_data
         # elif('offers.com' in url):
         #     key = 'offers.com'
         #     codes[key] = codes[key] + offersCom(url) if key in codes else offersCom(url)
@@ -1808,9 +1819,14 @@ if __name__ == "__main__":
         #     key = 'promopro.co.uk'
         #     codes[key] = codes[key] + promoPro(url) if key in codes else promoPro(url)
 
-        if 'wethrift.com' in url:
+        elif 'wethrift.com' in url:
             key = 'wethrift.com'
-            codes[key] = codes[key] + savvy(url) if key in codes else savvy(url)
+            scraped_data = savvy(url)
+              
+            if scraped_data is None:
+                scraped_data = []
+              
+            codes[key] = codes.get(key, []) + scraped_data
         # if 'lovedeals.ai' in url:
         #     key = 'lovedeals.ai'
         #     codes[key] = codes[key] + lovedeals(url) if key in codes else lovedeals(url)
@@ -1818,4 +1834,11 @@ if __name__ == "__main__":
         #     key = 'askmeoffers.com'
         #     codes[key] = codes[key] + askmeoffers(url) if key in codes else askmeoffers(url)
     
-    print(f"{G}Crawler finished{E}")
+        print(f"{G}Crawler finished{E}")
+
+        with open('coupons.json', 'w', encoding='utf-8') as f:
+            json.dump(codes, f, indent=4)
+        print(f"{B}Processed: {url} | Data saved to file.{E}")
+
+print(f"{Y}Crawler finished! All data saved to coupons.json{E}")
+
