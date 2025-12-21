@@ -6,7 +6,6 @@ import cloudscraper
 import warnings
 import base64
 import requests
-import os
 
 from html import unescape
 from zenrows import ZenRowsClient
@@ -14,8 +13,6 @@ from fake_useragent import UserAgent
 from requests import Request, Session
 from urllib.request import Request, urlopen
 from urllib.parse import urlparse, parse_qs
-
-
 
 from bs4 import BeautifulSoup, MarkupResemblesLocatorWarning
 
@@ -104,171 +101,56 @@ def writeToFile(filename, data):
     with open(filename, 'w',  encoding='utf-8') as file:
         if(data): file.write(data)
 
-
 def coupert(url):
-    """
-    Scrape coupons from Coupert.com using multiple methods
-    Returns: List of unique coupon codes
-    """
     coupons = []
 
     try:
         print(f'{B}Scraping WEB: {url} {E}')
-        
-        # Extract store domain from URL
-        store_domain = url.split('/')[-1]
-        
-        # ==========================================
-        # Method 1: Try API endpoint (fastest)
-        # ==========================================
-        try:
-            print(f'{Y}Trying API endpoint...{E}')
-            api_url = f'https://www.coupert.com/api/v3/store/{store_domain}'
-            headers = {
-                'User-Agent': ua.random,
-                'Referer': url,
-                'Accept': 'application/json',
-            }
-            
-            response = requests.get(api_url, headers=headers, timeout=10)
-            if response.status_code == 200:
-                data = response.json()
-                
-                # Try different JSON structures
-                coupon_data = None
-                if 'coupons' in data:
-                    coupon_data = data['coupons']
-                elif 'data' in data and isinstance(data['data'], dict):
-                    if 'coupons' in data['data']:
-                        coupon_data = data['data']['coupons']
-                
-                # Extract coupon codes
-                if coupon_data:
-                    for coupon in coupon_data:
-                        if isinstance(coupon, dict) and 'code' in coupon and coupon['code']:
-                            coupons.append(coupon['code'].upper())
-                    
-                if len(coupons) > 0:
-                    print(f'{G}API method successful! Found {len(coupons)} coupons{E}')
-                    unique_coupons = list(set(coupons))
-                    print(f'{unique_coupons}')
-                    return unique_coupons
-                else:
-                    print(f'{Y}API returned no coupons, trying HTML scraping...{E}')
-        except Exception as e:
-            print(f'{Y}API method failed: {e}{E}')
-        
-        # ==========================================
-        # Method 2: HTML Scraping with ZenRows
-        # ==========================================
-        print(f'{Y}Trying HTML scraping...{E}')
         html = getZenResponse(url)
-        
-        if not html:
-            print(f'{R}Failed to fetch HTML{E}')
-            return []
-            
         soup = BeautifulSoup(html, 'html.parser')
 
-        # Try __NEXT_DATA__ (Next.js structure)
         next_data = soup.select_one('script#__NEXT_DATA__')
-        if next_data and len(coupons) == 0:
-            try:
-                json_data = json.loads(next_data.string)
-                if 'props' in json_data:
-                    props = json_data['props']
-                    if 'pageProps' in props:
-                        pageProps = props['pageProps']
-                        if 'storeInfo' in pageProps:
-                            storeInfo = pageProps['storeInfo']
-                            if 'data' in storeInfo and 'coupons' in storeInfo['data']:
-                                for item in storeInfo['data']['coupons']:
-                                    if 'code' in item and item['code']:
-                                        coupons.append(item['code'].upper())
-                
-                if len(coupons) > 0:
-                    print(f'{G}__NEXT_DATA__ method successful!{E}')
-            except Exception as e:
-                print(f'{Y}__NEXT_DATA__ parsing failed: {e}{E}')
+        if next_data:
+            json_data = json.loads(next_data.string)
+            if('props' in json_data):
+                props = json_data['props']
+                if('pageProps' in props):
+                    pageProps = props['pageProps']
+                    if('storeInfo' in pageProps):
+                        storeInfo = pageProps['storeInfo']
+                        if('data' in storeInfo):
+                            data = storeInfo['data']
+                            if('coupons' in data):
+                                for item in data['coupons']:
+                                    coupon = item['code']
+                                    if coupon:
+                                        coupons.append(coupon.upper())
         
-        # Try __NUXT_DATA__ (Nuxt.js structure)
-        if len(coupons) == 0:
-            nuxt_data = soup.select_one('script#__NUXT_DATA__')
-            if nuxt_data:
-                try:
-                    json_data = json.loads(nuxt_data.string)
-                    if isinstance(json_data, list) and len(json_data) > 0:
-                        for item in json_data:
-                            if isinstance(item, str):
-                                try:
-                                    dataText = base64.b64decode(item).decode('utf-8')
-                                    dataJson = json.loads(dataText)
-                                    
-                                    if "merchant_coupons" in dataJson:
-                                        couponsItem = dataJson['merchant_coupons']
-                                        for itm in couponsItem:
-                                            if "code" in itm and itm['code']:
-                                                coupons.append(itm['code'].upper())
-                                except:
-                                    continue
-                    
-                    if len(coupons) > 0:
-                        print(f'{G}__NUXT_DATA__ method successful!{E}')
-                except Exception as e:
-                    print(f'{Y}__NUXT_DATA__ parsing failed: {e}{E}')
-
-        # ==========================================
-        # Method 3: Script tag regex parsing
-        # ==========================================
-        if len(coupons) == 0:
-            print(f'{Y}Trying script tag parsing...{E}')
-            script_tags = soup.find_all('script')
-            for script in script_tags:
-                if script.string:
-                    try:
-                        # Look for JSON containing coupon codes
-                        if 'code' in script.string.lower() or 'coupon' in script.string.lower():
-                            # Try to find JSON objects with code field
-                            matches = re.findall(r'"code"\s*:\s*"([A-Z0-9]{4,30})"', script.string, re.IGNORECASE)
-                            for code in matches:
-                                if len(code) >= 4 and len(code) <= 30:
-                                    coupons.append(code.upper())
-                    except:
-                        continue
-            
-            if len(coupons) > 0:
-                print(f'{G}Script tag parsing successful!{E}')
-
-        # ==========================================
-        # Method 4: Direct HTML element scraping
-        # ==========================================
-        if len(coupons) == 0:
-            print(f'{Y}Trying direct HTML element parsing...{E}')
-            # Look for elements that might contain coupon codes
-            code_elements = soup.find_all(['span', 'div', 'button', 'input'], 
-                                         class_=re.compile(r'code|coupon', re.IGNORECASE))
-            for element in code_elements:
-                text = element.get_text(strip=True)
-                # Filter for valid coupon code patterns
-                if text and re.match(r'^[A-Z0-9]{4,30}$', text):
-                    # Exclude common false positives
-                    if text not in ['CODE', 'COPY', 'SAVE', 'DEAL', 'FREE', 'SHOP', 'GETCODE', 'GET', 'NOW']:
-                        coupons.append(text.upper())
-            
-            if len(coupons) > 0:
-                print(f'{G}HTML element parsing successful!{E}')
+        nuxt_data = soup.select_one('script#__NUXT_DATA__')
+        if nuxt_data:
+            json_data = json.loads(nuxt_data.string)
+            if len(json_data) > 0:
+                for item in json_data:
+                    if type(item) is str:
+                        dataJson = {}
+                        try:
+                            dataText = base64.b64decode(item).decode('utf-8')
+                            dataJson = json.loads(dataText)
+                        except Exception as e:
+                            continue
+                        
+                        if "merchant_coupons" in dataJson:
+                            couponsItem = dataJson['merchant_coupons']
+                            for itm in couponsItem:
+                                if "code" in itm:
+                                    if itm['code']:
+                                        coupons.append(itm['code'].upper())
 
     except Exception as e:
         print(f'{R}Error scraping coupert: {e}{E}')
 
-    # Remove duplicates and return
-    unique_coupons = list(set(coupons))
-    if len(unique_coupons) > 0:
-        print(f'{G}Found {len(unique_coupons)} unique coupons: {unique_coupons}{E}')
-    else:
-        print(f'{Y}No coupons found for {url}{E}')
-    
-    return unique_coupons
+    print(f'{list(set(coupons))}')
+    return list(set(coupons))
 
 def discountime(url):
     coupons = []
@@ -438,247 +320,6 @@ def capitalone(url):
     return list(set(coupons))
 
 def retailmenot(url):
-    """
-    Scrape coupons from RetailMeNot.com using multiple methods
-    Returns: List of unique coupon codes
-    """
-    coupons = []
-
-    try:
-        print(f'{B}Scraping WEB: {url} {E}')
-        
-        # ==========================================
-        # Method 1: Try API endpoint (if exists)
-        # ==========================================
-        try:
-            print(f'{Y}Trying API endpoint...{E}')
-            store_slug = url.split('/')[-1]
-            api_url = f'https://www.retailmenot.com/api/offers?merchant={store_slug}'
-            
-            headers = {
-                'User-Agent': ua.random,
-                'Accept': 'application/json',
-                'Referer': url
-            }
-            
-            response = requests.get(api_url, headers=headers, timeout=10)
-            if response.status_code == 200:
-                data = response.json()
-                
-                # Try to find coupons in API response
-                if 'offers' in data:
-                    for offer in data['offers']:
-                        if offer.get('type') == 'coupon' and 'code' in offer:
-                            coupons.append(offer['code'].upper())
-                
-                if len(coupons) > 0:
-                    print(f'{G}API method successful! Found {len(coupons)} coupons{E}')
-                    unique_coupons = list(set(coupons))
-                    print(f'{unique_coupons}')
-                    return unique_coupons
-        except Exception as e:
-            print(f'{Y}API method failed: {e}{E}')
-        
-        # ==========================================
-        # Method 2: HTML Scraping with ZenRows
-        # ==========================================
-        print(f'{Y}Trying HTML scraping...{E}')
-        html = getZenResponse(url)
-        
-        if not html:
-            print(f'{R}Failed to fetch HTML{E}')
-            return []
-            
-        soup = BeautifulSoup(html, 'html.parser')
-
-        # Try __NEXT_DATA__ (Next.js structure)
-        next_data = soup.select_one('script#__NEXT_DATA__')
-        if next_data:
-            try:
-                json_data = json.loads(next_data.string)
-                
-                # Navigate through Next.js data structure
-                if 'props' in json_data:
-                    props = json_data['props']
-                    if 'pageProps' in props:
-                        page_props = props['pageProps']
-                        
-                        # Look for offers/coupons in various possible locations
-                        offers = None
-                        if 'offers' in page_props:
-                            offers = page_props['offers']
-                        elif 'initialState' in page_props and 'offers' in page_props['initialState']:
-                            offers = page_props['initialState']['offers']
-                        elif 'merchant' in page_props and 'offers' in page_props['merchant']:
-                            offers = page_props['merchant']['offers']
-                        
-                        if offers:
-                            for offer in offers:
-                                if isinstance(offer, dict):
-                                    # Check if it's a coupon type
-                                    if offer.get('type') == 'coupon' or offer.get('offerType') == 'COUPON':
-                                        if 'code' in offer and offer['code']:
-                                            coupons.append(offer['code'].upper())
-                                        elif 'couponCode' in offer and offer['couponCode']:
-                                            coupons.append(offer['couponCode'].upper())
-                
-                if len(coupons) > 0:
-                    print(f'{G}__NEXT_DATA__ method successful!{E}')
-            except Exception as e:
-                print(f'{Y}__NEXT_DATA__ parsing failed: {e}{E}')
-        
-        # ==========================================
-        # Method 3: Look for embedded JSON in scripts
-        # ==========================================
-        if len(coupons) == 0:
-            print(f'{Y}Trying script tag JSON parsing...{E}')
-            script_tags = soup.find_all('script')
-            
-            for script in script_tags:
-                if script.string:
-                    try:
-                        # Look for window.__INITIAL_STATE__ or similar
-                        if 'window.__INITIAL_STATE__' in script.string or 'initialState' in script.string:
-                            # Try to extract JSON
-                            matches = re.findall(r'window\.__INITIAL_STATE__\s*=\s*({.*?});', script.string, re.DOTALL)
-                            if not matches:
-                                matches = re.findall(r'initialState\s*[:=]\s*({.*?})[,;]', script.string, re.DOTALL)
-                            
-                            for match in matches:
-                                try:
-                                    json_data = json.loads(match)
-                                    
-                                    # Recursively search for coupon codes in JSON
-                                    def find_coupons_in_json(obj, codes_list):
-                                        if isinstance(obj, dict):
-                                            # Check if this object has a coupon code
-                                            if obj.get('type') == 'coupon' or obj.get('offerType') == 'COUPON':
-                                                if 'code' in obj and obj['code']:
-                                                    codes_list.append(obj['code'].upper())
-                                                elif 'couponCode' in obj and obj['couponCode']:
-                                                    codes_list.append(obj['couponCode'].upper())
-                                            
-                                            # Recursively check nested objects
-                                            for value in obj.values():
-                                                find_coupons_in_json(value, codes_list)
-                                        elif isinstance(obj, list):
-                                            for item in obj:
-                                                find_coupons_in_json(item, codes_list)
-                                    
-                                    find_coupons_in_json(json_data, coupons)
-                                except:
-                                    continue
-                        
-                        # Also look for direct coupon code patterns in JSON
-                        if '"code"' in script.string or '"couponCode"' in script.string:
-                            code_matches = re.findall(r'"(?:code|couponCode)"\s*:\s*"([A-Z0-9]{4,30})"', script.string, re.IGNORECASE)
-                            for code in code_matches:
-                                if len(code) >= 4 and len(code) <= 30:
-                                    coupons.append(code.upper())
-                    except:
-                        continue
-            
-            if len(coupons) > 0:
-                print(f'{G}Script JSON parsing successful!{E}')
-
-        # ==========================================
-        # Method 4: Original HTML element scraping
-        # ==========================================
-        if len(coupons) == 0:
-            print(f'{Y}Trying original HTML element scraping...{E}')
-            
-            # Try original selectors
-            coupon_elements = soup.select('a[data-content-datastore="offer"]')
-            
-            for element in coupon_elements:
-                try:
-                    xdata = element.get('x-data') or element.get_attribute_list('x-data')[0]
-                    href = element.get('href')
-
-                    if xdata and href:
-                        # Clean and parse x-data
-                        clean_xdata = xdata.replace("outclickHandler({", '{').replace("})", '}').replace("'", '"')
-                        jsonData = json.loads(clean_xdata)
-                        
-                        if jsonData.get('offerType') == 'COUPON':
-                            parsedUrl = urlparse(href)
-                            queryParams = parse_qs(parsedUrl.query)
-                            
-                            try:
-                                template = queryParams.get('template', [''])[0]
-                                offerId = queryParams.get('offer_uuid', [''])[0]
-                                merchantId = queryParams.get('merchant_uuid', [''])[0]
-
-                                if offerId:
-                                    itemUrl = f'https://www.retailmenot.com/modals/outclick/{offerId}/?template={template}&trigger=entrance_modal&merchant={merchantId}'
-                                    
-                                    html2 = getZenResponse(itemUrl)
-                                    if html2:
-                                        try:
-                                            modal_data = json.loads(html2)
-                                            if 'modalHtml' in modal_data:
-                                                soup2 = BeautifulSoup(modal_data['modalHtml'], 'html.parser')
-                                                
-                                                # Try multiple selectors
-                                                code_elements = soup2.select('[x-show="outclicked"] div[x-data]')
-                                                if not code_elements:
-                                                    code_elements = soup2.select('.coupon-code, [data-code], .code')
-                                                
-                                                for elem in code_elements:
-                                                    code = elem.text.strip()
-                                                    code = code.replace('COPY', '').strip()
-                                                    if code and len(code) >= 4 and len(code) <= 30:
-                                                        coupons.append(code.upper())
-                                        except:
-                                            # If not JSON, try direct HTML parsing
-                                            soup2 = BeautifulSoup(html2, 'html.parser')
-                                            code_elements = soup2.select('.coupon-code, [data-code], .code, [class*="code"]')
-                                            for elem in code_elements:
-                                                code = elem.text.strip()
-                                                if code and len(code) >= 4 and len(code) <= 30:
-                                                    coupons.append(code.upper())
-                            except Exception as e:
-                                print(f'{Y}Modal fetch error: {e}{E}')
-                                continue
-                except Exception as e:
-                    continue
-            
-            if len(coupons) > 0:
-                print(f'{G}HTML element scraping successful!{E}')
-
-        # ==========================================
-        # Method 5: Look for any visible coupon codes
-        # ==========================================
-        if len(coupons) == 0:
-            print(f'{Y}Trying direct coupon code search...{E}')
-            
-            # Look for elements that might contain codes
-            code_elements = soup.find_all(['div', 'span', 'button', 'input', 'code'], 
-                                         class_=re.compile(r'coupon|code|promo', re.IGNORECASE))
-            
-            for element in code_elements:
-                text = element.get_text(strip=True)
-                # Check if it matches coupon code pattern
-                if text and re.match(r'^[A-Z0-9]{4,30}$', text):
-                    if text not in ['CODE', 'COUPON', 'COPY', 'SAVE', 'GET', 'SHOP']:
-                        coupons.append(text.upper())
-                
-                # Also check data attributes
-                for attr in ['data-code', 'data-coupon', 'data-coupon-code']:
-                    if element.get(attr):
-                        coupons.append(element[attr].upper())
-
-    except Exception as e:
-        print(f'{R}Error scraping retailmenot: {e}{E}')
-
-    # Remove duplicates and return
-    unique_coupons = list(set(coupons))
-    if len(unique_coupons) > 0:
-        print(f'{G}Found {len(unique_coupons)} unique coupons: {unique_coupons}{E}')
-    else:
-        print(f'{Y}No coupons found for {url}{E}')
-    
-    return unique_coupons
     coupons = []
 
     try:
@@ -1623,62 +1264,6 @@ def dealDrop(url):
     print(f'{list(set(coupons))}')
     return list(set(coupons))
 
-def dealDrop_automated(url):
-    coupons = []
-    try:
-        print(f'Starting Automation for: {url}')
-        
- 
-        js_instructions = [
-            
-            {"click": "div:contains('Show Coupon Code')"}, 
-            
-            
-            {"wait": 2000},
-            
-            
-            {"click": "a:contains('No thanks')"},
-            
-            
-            {"wait": 2000}
-        ]
-
-        
-        params = {
-            "js_render": "true",
-            "js_instructions": json.dumps(js_instructions),
-            "wait": "5000", 
-            "premium_proxy": "true" 
-        }
-
-       
-        html = getZenResponse(url, params=params)
-        
-        if not html:
-            print("No HTML received from ZenRows")
-            return []
-
-        soup = BeautifulSoup(html, 'html.parser')
-        
-        
-        code_elements = soup.find_all('span', class_=lambda x: x and 'font-bold' in x)
-        
-        for el in code_elements:
-            code = el.text.strip()
-            
-            if code.isupper() and 4 <= len(code) <= 15:
-                
-                if not any(x in code for x in ['SHOW', 'CLICK', 'OFFER']):
-                    coupons.append(code)
-
-    except Exception as e:
-        print(f"Error scraping DealDrop: {e}")
-    
-    
-    final_list = list(set(coupons))
-    print(f'Found Coupons: {final_list}')
-    return final_list
-
 def revounts(url):
     coupons = []
 
@@ -1708,44 +1293,28 @@ def dazzdeals(url):
         print(f'{B}Scraping WEB: {url} {E}')
         html = getZenResponse(url)
         soup = BeautifulSoup(html, 'html.parser')
-        print('Finding coupon elements...')
-
-        # Create folder to save HTML if it doesn't exist
-        if not os.path.exists('html'):
-            os.makedirs('html')
-
         writeToFile('html/dazzdeals.html', html)
-
-        # Select all coupon buttons
+        
         coupon_elements = soup.select('.couponBtn.showCouponCode.showcode')
-        print('coupon elements found:', len(coupon_elements))
 
         for element in coupon_elements:
-            # Safely get data-cp attribute
-            couponId = element.get('data-cp')
-            if not couponId:
-                continue  # skip if no coupon ID
-
-            coupon_page_url = f'{url}?cp={couponId}'
-            print(f'Fetching coupon page: {coupon_page_url}')
-            html2 = getZenResponse(coupon_page_url)
+            couponId = element.get_attribute_list('data-cp')[0]
+            print(f'{url}?cp={couponId}')
+            html2 = getZenResponse(f'{url}?cp={couponId}')
             soup2 = BeautifulSoup(html2, 'html.parser')
 
-            # Extract actual coupon code
             coupon_elements2 = soup2.select('#ccode.copy_code')
             for element2 in coupon_elements2:
-                code = element2.get_text(strip=True)
-                if code:
+                code = element2.text.strip()
+                if code is not None:
                     coupons.append(code)
 
+                    
     except Exception as e:
         print(f'{R}Error scraping HotDeals: {e}{E}')
 
-    # Remove duplicates and print final list
-    unique_coupons = list(set(coupons))
-    print(f'Coupons found: {unique_coupons}')
-    return unique_coupons
-
+    print(f'{list(set(coupons))}')
+    return list(set(coupons))
 
 def heyDiscounts(url):
     coupons = []
@@ -2021,144 +1590,10 @@ def askmeoffers(url):
     print(f'{list(set(coupons))}')
     return list(set(coupons))
 
-def simplyCodes(url):
-    """
-    Scrape coupons from SimplyCodes using multiple fallback methods
-    Returns: List of unique coupon codes
-    """
-    coupons = []
-
-    try:
-        print(f'{B}Scraping SimplyCodes: {url} {E}')
-
-        # ==============================
-        # Method 1: Try API (if exists)
-        # ==============================
-        try:
-            print(f'{Y}Trying API endpoint...{E}')
-            # SimplyCodes does not officially expose API
-            # But keeping structure for future-proofing
-            api_url = url.replace('/store/', '/api/store/')
-            headers = {
-                'User-Agent': ua.random,
-                'Accept': 'application/json',
-                'Referer': url
-            }
-
-            res = requests.get(api_url, headers=headers, timeout=10)
-            if res.status_code == 200:
-                data = res.json()
-                if 'coupons' in data:
-                    for c in data['coupons']:
-                        if 'code' in c and c['code']:
-                            coupons.append(c['code'].upper())
-
-                if coupons:
-                    print(f'{G}API method successful!{E}')
-                    return list(set(coupons))
-        except:
-            pass
-
-        # ==============================
-        # Method 2: HTML via ZenRows
-        # ==============================
-        print(f'{Y}Fetching HTML...{E}')
-        html = getZenResponse(url)
-        if not html:
-            print(f'{R}Failed to fetch HTML{E}')
-            return []
-
-        soup = BeautifulSoup(html, 'html.parser')
-
-        # ==============================
-        # Method 2.1: __NEXT_DATA__
-        # ==============================
-        next_data = soup.select_one('script#__NEXT_DATA__')
-        if next_data:
-            try:
-                data = json.loads(next_data.string)
-                coupons_data = (
-                    data.get('props', {})
-                        .get('pageProps', {})
-                        .get('coupons', [])
-                )
-
-                for item in coupons_data:
-                    if isinstance(item, dict) and item.get('code'):
-                        coupons.append(item['code'].upper())
-
-                if coupons:
-                    print(f'{G}__NEXT_DATA__ method successful!{E}')
-                    return list(set(coupons))
-            except:
-                pass
-
-        # ==============================
-        # Method 2.2: __NUXT_DATA__
-        # ==============================
-        nuxt_data = soup.select_one('script#__NUXT_DATA__')
-        if nuxt_data:
-            try:
-                nuxt_json = json.loads(nuxt_data.string)
-                for item in nuxt_json:
-                    if isinstance(item, dict):
-                        for v in item.values():
-                            if isinstance(v, dict) and 'code' in v:
-                                coupons.append(v['code'].upper())
-
-                if coupons:
-                    print(f'{G}__NUXT_DATA__ method successful!{E}')
-                    return list(set(coupons))
-            except:
-                pass
-
-        # ==============================
-        # Method 3: Script tag regex
-        # ==============================
-        print(f'{Y}Trying script regex parsing...{E}')
-        script_codes = re.findall(
-            r'"code"\s*:\s*"([A-Z0-9]{3,20})"',
-            html,
-            re.IGNORECASE
-        )
-
-        for code in script_codes:
-            coupons.append(code.upper())
-
-        if coupons:
-            print(f'{G}Script regex method successful!{E}')
-            return list(set(coupons))
-
-        # ==============================
-        # Method 4: Direct HTML parsing
-        # ==============================
-        print(f'{Y}Trying direct HTML parsing...{E}')
-        elements = soup.find_all(
-            ['span', 'div', 'button'],
-            class_=re.compile(r'code|coupon', re.IGNORECASE)
-        )
-
-        for el in elements:
-            text = el.get_text(strip=True)
-            if re.match(r'^[A-Z0-9]{3,20}$', text):
-                coupons.append(text.upper())
-
-    except Exception as e:
-        print(f'{R}Error scraping SimplyCodes: {e}{E}')
-
-    unique_coupons = list(set(coupons))
-    if unique_coupons:
-        print(f'{G}Found {len(unique_coupons)} coupons: {unique_coupons}{E}')
-    else:
-        print(f'{Y}No coupons found{E}')
-
-    return unique_coupons
-
-
 
 if __name__ == "__main__":
     urls = [
-        # f'https://www.coupert.com/store/cozyearth.com', # Working
+         f'https://www.coupert.com/store/cozyearth.com', # Working
         # f'https://top.coupert.com/coupons/cozy-earth-promo-code' # Working
         # f'https://www.discountime.com/store/cozyearth', # Working
         # f'https://www.karmanow.com/api/v3/mixed_coupons?page=1&per_page=200&coupons_filter[retailers]=13903', # Working
@@ -2167,14 +1602,14 @@ if __name__ == "__main__":
         # f'https://coupons.slickdeals.net/cozy-earth/', # Not Working
         # f'https://capitaloneshopping.com/s/cozyearth.com/coupon', # Working
         # f'https://capitaloneshopping.com/s/cabelas.ca/coupon', # Working
-        # f'https://www.retailmenot.com/view/tommyjohn.com', # Working
+        # f'https://www.retailmenot.com/view/originalgrain.com', # Working
         # f'https://www.joinhoney.com/shop/cozy-earth/', # Working
         # f"https://rebates.com/coupons/cozyearth.com", # Working
         # f'https://www.coupons.com/coupon-codes/cozyearth', # Working
         # f'https://www.dealcatcher.com/coupons/cozy-earth', # Working
         # f'https://www.dontpayfull.com/at/cozyearth.com', # Working
         # f'https://www.couponbirds.com/codes/twosvge.com', # Working
-        # f'https://www.coupert.com/store/cozyearth.com', # Working
+        # f'https://www.coupert.com.com/store/soil3.com', # Working
         #f'https://www.offers.com/stores/twosvge.com', # Working
         # f'https://www.savings.com/coupons/ashleystewart.com', # Working
         # f'https://dealspotr.com/promo-codes/cozyearth.com', # Working
@@ -2195,7 +1630,7 @@ if __name__ == "__main__":
         # f'https://joincheckmate.com/merchants/cozyearth.com', # Working
         # f'https://www.discountreactor.com/coupons/cozyearth.com', # Working,
         # f'https://www.couponbox.com/coupons/cozy-earth', # Working
-         f'https://www.dealdrop.com/soil3' # Working
+        # f'https://www.dealdrop.com/cozyearth.com' # Working
         # f'https://www.dealdrop.com/vaticpro.com', # Working
         # f'https://www.revounts.com.au/cozy-earth-discount-code', # Working
         # f'https://www.dazzdeals.com/store/cozy-earth/',  # Working
@@ -2205,14 +1640,12 @@ if __name__ == "__main__":
         # f'https://lovedeals.ai/store/cozy-earth',
         # f'https://deala.com/cozy-earth',
         # f'https://cozyearth.promopro.co.uk/', # Working
-        #f'https://simplycodes.com/store/soil3.com',
+
         # f"https://www.wethrift.com/cozy-earth",
         # f"https://lovedeals.ai/store/cozy-earth",
         # f"https://askmeoffers.com/cozyearth-coupons/"
     ]
     print(f"{G}Crawler started{E}")
-
-    
 
     domains = [
         "rakuten.com",
@@ -2272,9 +1705,9 @@ if __name__ == "__main__":
         # elif('capitaloneshopping.com' in url):
         #     key = 'capitaloneshopping.com'
         #     codes[key] = codes[key] + capitalone(url) if key in codes else capitalone(url)
-        elif('retailmenot.com' in url):
-            key = 'retailmenot.com'
-            codes[key] = codes[key] + retailmenot(url) if key in codes else retailmenot(url)
+        # elif('retailmenot.com' in url):
+        #     key = 'retailmenot.com'
+        #     codes[key] = codes[key] + retailmenot(url) if key in codes else retailmenot(url)
         # elif('joinhoney.com' in url):
         #     key = 'joinhoney.com'
         #     codes[key] = codes[key] + honey(url) if key in codes else honey(url)
@@ -2357,39 +1790,15 @@ if __name__ == "__main__":
         # elif('couponbox.com' in url):
         #     key = 'couponbox.com'
         #     codes[key] = codes[key] + couponBox(url) if key in codes else couponBox(url)
-        elif('dealdrop.com' in url):
-            key = 'dealdrop.com'
-            
-            scraped_data = dealDrop(url)
-
-            if scraped_data is None:
-                scraped_data = []
-
-            codes[key] = codes.get(key, []) + scraped_data
-
-            
-
-        elif 'simplycodes.com' in url:
-            key = 'simplycodes.com'
-            scraped_data = simplyCodes(url) 
-            
-            if scraped_data is None:
-                scraped_data = []
-            
-            codes[key] = codes.get(key, []) + scraped_data
-    
+        # elif('dealdrop.com' in url):
+        #     key = 'dealdrop.com'
+        #     codes[key] = codes[key] + dealDrop(url) if key in codes else dealDrop(url)
         # elif('revounts.com.au' in url):
         #     key = 'revounts.com.au'
         #     codes[key] = codes[key] + revounts(url) if key in codes else revounts(url)
-        elif 'dazzdeals.com' in url:
-            key = 'dazzdeals.com'
-            scraped_data = dazzdeals(url)
-
-            if scraped_data is None:
-                scraped_data = []
-
-            codes[key] = codes.get(key, []) + scraped_data
-
+        # elif('dazzdeals.com' in url):
+        #     key = 'dazzdeals.com'
+        #     codes[key] = codes[key] + dazzdeals(url) if key in codes else dazzdeals(url)
         # elif('heydiscount.co.uk' in url):
         #     key = 'heydiscount.co.uk'
         #     codes[key] = codes[key] + heyDiscounts(url) if key in codes else heyDiscounts(url)
@@ -2427,9 +1836,9 @@ if __name__ == "__main__":
     
         print(f"{G}Crawler finished{E}")
 
-    with open('coupons.json', 'w', encoding='utf-8') as f:
-        json.dump(codes, f, indent=4)
+        with open('coupons.json', 'w', encoding='utf-8') as f:
+            json.dump(codes, f, indent=4)
         print(f"{B}Processed: {url} | Data saved to file.{E}")
 
-    print(f"{Y}Crawler finished! All data saved to coupons.json{E}")
+print(f"{Y}Crawler finished! All data saved to coupons.json{E}")
 
