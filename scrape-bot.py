@@ -1600,10 +1600,12 @@ def dealDrop(url):
     try:
         print(f'{B}Scraping WEB: {url} {E}')
         domain = url.split('/')[-1]
+        print("Domain:", domain)
         apiUrl = 'https://www.dealdrop.com/api/deals'
         data = {'domain': domain }
 
         response = postZenResponse(apiUrl, data=json.dumps(data))
+        print("Response:", response)
 
         if response:
             jsondata = json.loads(response)
@@ -2021,139 +2023,35 @@ def askmeoffers(url):
     print(f'{list(set(coupons))}')
     return list(set(coupons))
 
+
 def simplyCodes(url):
-    """
-    Scrape coupons from SimplyCodes using multiple fallback methods
-    Returns: List of unique coupon codes
-    """
     coupons = []
-
     try:
-        print(f'{B}Scraping SimplyCodes: {url} {E}')
+        
+        slug = url.split('/')[-1]
+        print(f'Scraping SimplyCodes for: {slug}')
+        api_url = f"https://simplycodes.com/api/promotion/mdp/codes?slug={slug}&filter=all&showFallback=true&extras=detailsCombined" 
+        response = getZenResponse(api_url) 
 
-        # ==============================
-        # Method 1: Try API (if exists)
-        # ==============================
-        try:
-            print(f'{Y}Trying API endpoint...{E}')
-            # SimplyCodes does not officially expose API
-            # But keeping structure for future-proofing
-            api_url = url.replace('/store/', '/api/store/')
-            headers = {
-                'User-Agent': ua.random,
-                'Accept': 'application/json',
-                'Referer': url
-            }
-
-            res = requests.get(api_url, headers=headers, timeout=10)
-            if res.status_code == 200:
-                data = res.json()
-                if 'coupons' in data:
-                    for c in data['coupons']:
-                        if 'code' in c and c['code']:
-                            coupons.append(c['code'].upper())
-
-                if coupons:
-                    print(f'{G}API method successful!{E}')
-                    return list(set(coupons))
-        except:
-            pass
-
-        # ==============================
-        # Method 2: HTML via ZenRows
-        # ==============================
-        print(f'{Y}Fetching HTML...{E}')
-        html = getZenResponse(url)
-        if not html:
-            print(f'{R}Failed to fetch HTML{E}')
-            return []
-
-        soup = BeautifulSoup(html, 'html.parser')
-
-        # ==============================
-        # Method 2.1: __NEXT_DATA__
-        # ==============================
-        next_data = soup.select_one('script#__NEXT_DATA__')
-        if next_data:
-            try:
-                data = json.loads(next_data.string)
-                coupons_data = (
-                    data.get('props', {})
-                        .get('pageProps', {})
-                        .get('coupons', [])
-                )
-
-                for item in coupons_data:
-                    if isinstance(item, dict) and item.get('code'):
-                        coupons.append(item['code'].upper())
-
-                if coupons:
-                    print(f'{G}__NEXT_DATA__ method successful!{E}')
-                    return list(set(coupons))
-            except:
-                pass
-
-        # ==============================
-        # Method 2.2: __NUXT_DATA__
-        # ==============================
-        nuxt_data = soup.select_one('script#__NUXT_DATA__')
-        if nuxt_data:
-            try:
-                nuxt_json = json.loads(nuxt_data.string)
-                for item in nuxt_json:
-                    if isinstance(item, dict):
-                        for v in item.values():
-                            if isinstance(v, dict) and 'code' in v:
-                                coupons.append(v['code'].upper())
-
-                if coupons:
-                    print(f'{G}__NUXT_DATA__ method successful!{E}')
-                    return list(set(coupons))
-            except:
-                pass
-
-        # ==============================
-        # Method 3: Script tag regex
-        # ==============================
-        print(f'{Y}Trying script regex parsing...{E}')
-        script_codes = re.findall(
-            r'"code"\s*:\s*"([A-Z0-9]{3,20})"',
-            html,
-            re.IGNORECASE
-        )
-
-        for code in script_codes:
-            coupons.append(code.upper())
-
-        if coupons:
-            print(f'{G}Script regex method successful!{E}')
-            return list(set(coupons))
-
-        # ==============================
-        # Method 4: Direct HTML parsing
-        # ==============================
-        print(f'{Y}Trying direct HTML parsing...{E}')
-        elements = soup.find_all(
-            ['span', 'div', 'button'],
-            class_=re.compile(r'code|coupon', re.IGNORECASE)
-        )
-
-        for el in elements:
-            text = el.get_text(strip=True)
-            if re.match(r'^[A-Z0-9]{3,20}$', text):
-                coupons.append(text.upper())
-
+        if response:
+            jsondata = json.loads(response)
+                   
+            if 'promotions' in jsondata:
+                promotions = jsondata['promotions']
+                for promo in promotions:
+                    
+                    if promo.get('isCode') == True and 'code' in promo:
+                        code = promo['code'].upper().strip()
+                        if code:
+                            coupons.append(code)
+            
+            print(f"Found {len(coupons)} coupons from SimplyCodes")
+        
     except Exception as e:
-        print(f'{R}Error scraping SimplyCodes: {e}{E}')
+        print(f'Error scraping SimplyCodes: {e}')
 
-    unique_coupons = list(set(coupons))
-    if unique_coupons:
-        print(f'{G}Found {len(unique_coupons)} coupons: {unique_coupons}{E}')
-    else:
-        print(f'{Y}No coupons found{E}')
-
-    return unique_coupons
-
+ 
+    return list(set(coupons))
 
 
 if __name__ == "__main__":
@@ -2195,7 +2093,7 @@ if __name__ == "__main__":
         # f'https://joincheckmate.com/merchants/cozyearth.com', # Working
         # f'https://www.discountreactor.com/coupons/cozyearth.com', # Working,
         # f'https://www.couponbox.com/coupons/cozy-earth', # Working
-         f'https://www.dealdrop.com/soil3' # Working
+        # f'https://www.dealdrop.com/soil3' # Working
         # f'https://www.dealdrop.com/vaticpro.com', # Working
         # f'https://www.revounts.com.au/cozy-earth-discount-code', # Working
         # f'https://www.dazzdeals.com/store/cozy-earth/',  # Working
@@ -2205,7 +2103,7 @@ if __name__ == "__main__":
         # f'https://lovedeals.ai/store/cozy-earth',
         # f'https://deala.com/cozy-earth',
         # f'https://cozyearth.promopro.co.uk/', # Working
-        #f'https://simplycodes.com/store/soil3.com',
+         f'https://simplycodes.com/store/soil3.com',
         # f"https://www.wethrift.com/cozy-earth",
         # f"https://lovedeals.ai/store/cozy-earth",
         # f"https://askmeoffers.com/cozyearth-coupons/"
