@@ -1241,6 +1241,7 @@ def dealDrop(url):
     try:
         print(f'{B}Scraping WEB: {url} {E}')
         domain = url.split('/')[-1]
+        print("Domain:", domain)
         apiUrl = 'https://www.dealdrop.com/api/deals'
         data = {'domain': domain }
 

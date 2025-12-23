@@ -1626,60 +1626,58 @@ def dealDrop(url):
     return list(set(coupons))
 
 def dealDrop_automated(url):
+    print(f"Scraping page: {url}")
     coupons = []
+    
     try:
-        print(f'Starting Automation for: {url}')
+        print("Starting automated scraping...")
+        html = getZenResponse(url)
         
- 
-        js_instructions = [
-            
-            {"click": "div:contains('Show Coupon Code')"}, 
-            
-            
-            {"wait": 2000},
-            
-            
-            {"click": "a:contains('No thanks')"},
-            
-            
-            {"wait": 2000}
+        # Method 1: Regex for both formats (original method)
+        patterns = [
+            r'"coupon_code":"([^"]+)"',  # snake_case format
+            r'"couponCode":"([^"]+)"'     # camelCase format
         ]
-
         
-        params = {
-            "js_render": "true",
-            "js_instructions": json.dumps(js_instructions),
-            "wait": "5000", 
-            "premium_proxy": "true" 
-        }
-
-       
-        html = getZenResponse(url, params=params)
+        for pattern in patterns:
+            found_codes = re.findall(pattern, html)
+            coupons.extend(found_codes)
         
-        if not html:
-            print("No HTML received from ZenRows")
-            return []
-
-        soup = BeautifulSoup(html, 'html.parser')
+        # Method 2: Extract JSON data from script tag (better approach)
+        # SvelteKit data usually in this format
+        script_pattern = r'const data = (\[.*?\]);'
+        script_match = re.search(script_pattern, html, re.DOTALL)
         
+        if script_match:
+            try:
+                # JSON data extract করা
+                json_str = script_match.group(1)
+                # Simple cleanup (may need more robust parsing)
+                # Note: SvelteKit serializes data in a special way
+                print("Found embedded JSON data")
+            except:
+                pass
         
-        code_elements = soup.find_all('span', class_=lambda x: x and 'font-bold' in x)
+        # Filter and clean codes
+        cleaned_coupons = []
+        for code in coupons:
+            code = code.strip()
+            if code and code.lower() not in ['null', 'none', '', 'undefined']:
+                # Validate: coupon codes usually alphanumeric
+                if re.match(r'^[A-Z0-9]+$', code, re.IGNORECASE):
+                    cleaned_coupons.append(code.upper())
         
-        for el in code_elements:
-            code = el.text.strip()
-            
-            if code.isupper() and 4 <= len(code) <= 15:
-                
-                if not any(x in code for x in ['SHOW', 'CLICK', 'OFFER']):
-                    coupons.append(code)
-
+        # Remove duplicates while preserving order
+        results = list(dict.fromkeys(cleaned_coupons))
+        
+        print(f'✓ Found {len(results)} unique coupons: {results}')
+        return results
+        
     except Exception as e:
-        print(f"Error scraping DealDrop: {e}")
+        print(f'✗ Error scraping: {str(e)}')
+        return []
     
-    
-    final_list = list(set(coupons))
-    print(f'Found Coupons: {final_list}')
-    return final_list
+     
 
 def revounts(url):
     coupons = []
@@ -2061,6 +2059,7 @@ if __name__ == "__main__":
         # f'https://www.discountime.com/store/cozyearth', # Working
         # f'https://www.karmanow.com/api/v3/mixed_coupons?page=1&per_page=200&coupons_filter[retailers]=13903', # Working
         # f'https://www.rakuten.ca/cheapoair-ca', # Working
+        # f'https://www.rakuten.com/shop/tommyjohn?query=tommy+john&position=1&type=suggest&store=11825a'
         # f'https://usa.hotdeals.com/store/cozy-earth-promo-codes', # Working
         # f'https://coupons.slickdeals.net/cozy-earth/', # Not Working
         # f'https://capitaloneshopping.com/s/cozyearth.com/coupon', # Working
@@ -2075,8 +2074,8 @@ if __name__ == "__main__":
         # f'https://www.coupert.com/store/cozyearth.com', # Working
         #f'https://www.offers.com/stores/twosvge.com', # Working
         # f'https://www.savings.com/coupons/ashleystewart.com', # Working
-        # f'https://dealspotr.com/promo-codes/cozyearth.com', # Working
-        # f'https://www.promocodes.com/cozy-earth-coupons', # Working
+        # f'https://dealspotr.com/promo-codes/tommyjohn', # Working
+         f'https://www.promocodes.com/cozy-earth-coupons'
         # f'https://www.couponchief.com/cozyearth', # Working
         # f'https://www.goodshop.com/coupons/cozyearth.com', # Working
         # f'https://cozy-earth.tenereteam.com/coupons',
@@ -2103,7 +2102,7 @@ if __name__ == "__main__":
         # f'https://lovedeals.ai/store/cozy-earth',
         # f'https://deala.com/cozy-earth',
         # f'https://cozyearth.promopro.co.uk/', # Working
-         f'https://simplycodes.com/store/soil3.com',
+        #f'https://simplycodes.com/store/soil3.com',
         # f"https://www.wethrift.com/cozy-earth",
         # f"https://lovedeals.ai/store/cozy-earth",
         # f"https://askmeoffers.com/cozyearth-coupons/"
@@ -2158,9 +2157,9 @@ if __name__ == "__main__":
         # elif('karmanow.com' in url):
         #     key = 'karmanow.com'
         #     codes[key] = codes[key] + karmanow(url) if key in codes else karmanow(url)
-        # elif ('rakuten.' in url):
-        #     key = 'rakuten.'
-        #     codes[key] = codes[key] + rakuten(url) if key in codes else rakuten(url)
+        elif ('rakuten.' in url):
+            key = 'rakuten.'
+            codes[key] = codes[key] + rakuten(url) if key in codes else rakuten(url)
         # elif('hotdeals.com' in url):
         #     key = 'hotdeals.com'
         #     codes[key] = codes[key] + hotDeals(url) if key in codes else hotDeals(url)  
@@ -2170,7 +2169,7 @@ if __name__ == "__main__":
         # elif('capitaloneshopping.com' in url):
         #     key = 'capitaloneshopping.com'
         #     codes[key] = codes[key] + capitalone(url) if key in codes else capitalone(url)
-        elif('retailmenot.com' in url):
+        #elif('retailmenot.com' in url):
             key = 'retailmenot.com'
             codes[key] = codes[key] + retailmenot(url) if key in codes else retailmenot(url)
         # elif('joinhoney.com' in url):
@@ -2204,12 +2203,12 @@ if __name__ == "__main__":
         # elif('savings.com' in url):
         #     key = 'savings.com'
         #     codes[key] = codes[key] + savingsCom(url) if key in codes else savingsCom(url)
-        # elif('dealspotr.com' in url):
-        #     key = 'dealspotr.com'
-        #     codes[key] = codes[key] + dealSpotsR(url) if key in codes else dealSpotsR(url)
-        # elif('promocodes.com' in url):
-        #     key = 'promocodes.com'
-        #     codes[key] = codes[key] + promoCodes(url) if key in codes else promoCodes(url)
+        elif('dealspotr.com' in url):
+            key = 'dealspotr.com'
+            codes[key] = codes[key] + dealSpotsR(url) if key in codes else dealSpotsR(url)
+        elif('promocodes.com' in url):
+            key = 'promocodes.com'
+            codes[key] = codes[key] + promoCodes(url) if key in codes else promoCodes(url)
         # elif('couponchief.com' in url):
         #     key = 'couponchief.com'
         #     codes[key] = codes[key] + couponChief(url) if key in codes else couponChief(url)
@@ -2258,7 +2257,7 @@ if __name__ == "__main__":
         elif('dealdrop.com' in url):
             key = 'dealdrop.com'
             
-            scraped_data = dealDrop(url)
+            scraped_data = dealDrop_automated(url)
 
             if scraped_data is None:
                 scraped_data = []
