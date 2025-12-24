@@ -1239,35 +1239,46 @@ def getNextData(html):
 
 def tenereTeam(url):
     coupons = []
-
     try:
-        print(f'{B}Scraping WEB: {url} {E}')
-        # response = getResponse(url, 'https://cozy-earth.tenereteam.com')
-        html = getZenResponse(url, True)
-        data = getNextData(html)
-        
-        
+        html = getZenResponse(url) 
+        if not html: return []
+
+        soup = BeautifulSoup(html, 'html.parser')
 
         
+        for strong_tag in soup.find_all('strong'):
+            code = strong_tag.get_text(strip=True)
+            
+            if code.isupper() and 3 <= len(code) <= 15 and ' ' not in code:
+                coupons.append(code)
+
         
-        # print(response)
-        # if response:
-        #     data = json.loads(response)
-        #     if 'data' in data:
-        #         if 'coupons' in data['data']:
-        #             items = data['data']['coupons']
-        #             for item in items:
-        #                 if 'coupon_code' in item:
-        #                     code = item['coupon_code']
-        #                     if code:
-        #                         coupons.append(code)
-                    
-           
+        for box in soup.find_all('input', value=True):
+            val = box['value'].strip()
+            if val.isupper() and 3 <= len(val) <= 15 and ' ' not in val:
+                coupons.append(val)
+
+        
+        for btn in soup.find_all(['button', 'div'], class_=re.compile(r'code|coupon', re.I)):
+            btn_text = btn.get_text(strip=True)
+            if btn_text.isupper() and 3 <= len(btn_text) <= 15 and ' ' not in btn_text:
+                coupons.append(btn_text)
+
     except Exception as e:
-        print(f'{R}Error scraping HotDeals: {e}{E}')
+        print(f"Error scraping Tenere: {e}")
 
-    print(f'{list(set(coupons))}')
-    return list(set(coupons))
+    
+    final_coupons = list(set(coupons))
+    
+    
+    blacklist = ['OFF', 'FREE', 'GET', 'DEAL', 'USA', 'UK', 'SAVE']
+    final_coupons = [c for c in final_coupons if c not in blacklist]
+
+    print(f"Success! Found: {final_coupons}")
+    return final_coupons
+
+        
+      
 
 def couponCause(url):
     coupons = []
@@ -1419,27 +1430,40 @@ def swagBucks(url):
     print(f'{list(set(coupons))}')
     return list(set(coupons))
 
+import json
+
 def joinSmarty(url):
     coupons = []
-
+    
     try:
-        print(f'{B}Scraping WEB: {url} {E}')
-        text = postZenResponse(url)
-        # print(text)
-        if text:
-            data = json.loads(text)
+        
+        slug = url.split('/')[-1].replace('-coupons', '')
+        
+        print(f'Scraping JoinSmarty API for: {slug}')
+        
+        
+        api_url = f"https://www.joinsmarty.com/api/merchant/{slug}/coupons?page=1"
+        
+        
+        response = getZenResponse(api_url) 
+
+        if response:
+            data = json.loads(response)
+            
             if 'data' in data:
                 items = data['data']
                 for item in items:
-                    if 'offer_code' in item:
-                        code = item['offer_code']
-                        if code:
-                            coupons.append(code)
-
+                    
+                    if item.get('offer_type') == 'coupon' and item.get('offer_code'):
+                        code = item['offer_code'].upper().strip()
+                        coupons.append(code)
+            
+            print(f"Found {len(coupons)} coupons from JoinSmarty API")
+            
     except Exception as e:
-        print(f'{R}Error scraping HotDeals: {e}{E}')
+        print(f'Error scraping JoinSmarty: {e}')
 
-    print(f'{list(set(coupons))}')
+    
     return list(set(coupons))
 
 def rebatesMe(url):
@@ -2081,13 +2105,13 @@ if __name__ == "__main__":
         # f'https://www.dontpayfull.com/at/cozyearth.com', # Working
         # f'https://www.couponbirds.com/codes/twosvge.com', # Working
         # f'https://www.coupert.com/store/cozyearth.com', # Working
-         f'https://www.offers.com/stores/tommy-john', # Working
+        # f'https://www.offers.com/stores/tommy-john', # Working
         # f'https://www.savings.com/coupons/ashleystewart.com', # Working
         # f'https://dealspotr.com/promo-codes/tommyjohn', # Working
         # f'https://www.promocodes.com/cozy-earth-coupons'
         # f'https://www.couponchief.com/cozyearth', # Working
         # f'https://www.goodshop.com/coupons/cozyearth.com', # Working
-        # f'https://cozy-earth.tenereteam.com/coupons',
+        # f'https://tommy-john.tenereteam.com/coupons',
         # f'https://client-call-api.tenereteam.com/api/get-other-coupons/529adfe0-265a-11eb-b5d3-0d16883ac54e?type=all&page=1&limit=500'
         # f'https://couponcause.com/stores/cozy-earth/', # Working
         # f'https://www.goodsearch.com/coupons/cozyearth.com', # Working
@@ -2114,7 +2138,9 @@ if __name__ == "__main__":
          # f'https://simplycodes.com/store/soil3.com',
         # f"https://www.wethrift.com/cozy-earth",
         # f"https://lovedeals.ai/store/cozy-earth",
-        # f"https://askmeoffers.com/cozyearth-coupons/"
+        # f"https://askmeoffers.com/cozyearth-coupons/",
+         f"https://www.joinsmarty.com/cozyearth-coupons",
+        
     ]
     print(f"{G}Crawler started{E}")
 
@@ -2224,9 +2250,9 @@ if __name__ == "__main__":
         # elif('goodshop.com' in url):
         #     key = 'goodshop.com'
         #     codes[key] = codes[key] + goodShop(url) if key in codes else goodShop(url)
-        # elif('tenereteam.com' in url):
-        #     key = 'tenereteam.com'
-        #     codes[key] = codes[key] + tenereTeam(url) if key in codes else tenereTeam(url)
+        elif('tenereteam.com' in url):
+            key = 'tenereteam.com'
+            codes[key] = codes[key] + tenereTeam(url) if key in codes else tenereTeam(url)
         # elif('couponcause.com' in url):
         #     key = 'couponcause.com'
         #     codes[key] = codes[key] + couponCause(url) if key in codes else couponCause(url)
@@ -2245,9 +2271,9 @@ if __name__ == "__main__":
         # elif('swagbucks.com' in url):
         #     key = 'swagbucks.com'
         #     codes[key] = codes[key] + swagBucks(url) if key in codes else swagBucks(url)
-        # elif('joinsmarty.com' in url):
-        #     key = 'joinsmarty.com'
-        #     codes[key] = codes[key] + joinSmarty(url) if key in codes else joinSmarty(url)
+        elif('joinsmarty.com' in url):
+            key = 'joinsmarty.com'
+            codes[key] = codes[key] + joinSmarty(url) if key in codes else joinSmarty(url)
         # elif('rebatesme.com' in url):
         #     key = 'rebatesme.com'
         #     codes[key] = codes[key] + rebatesMe(url) if key in codes else rebatesMe(url)
