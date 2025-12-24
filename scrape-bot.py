@@ -1838,37 +1838,43 @@ def heyDiscounts(url):
 
 def greenPromoCode(url):
     coupons = []
-
+    
     try:
-        print(f'{B}Scraping WEB: {url} {E}')
+        print(f'Scraping GreenPromoCode: {url}')
         html = getZenResponse(url)
-        soup = BeautifulSoup(html, 'html.parser')
         
-        coupon_elements = soup.select('.go_link[view-href][data-href]')
+        if html:
+            soup = BeautifulSoup(html, 'html.parser')
+            
+            
+            coupon_elements = soup.select('.code[data-clipboard-text]')
 
-        for element in coupon_elements:
-            try:
-                suburl = element.get_attribute_list('view-href')[0]
-                print(f'https://www.greenpromocode.com{suburl}')
-                html2 = getZenResponse(f'https://www.greenpromocode.com{suburl}')
-                soup2 = BeautifulSoup(html2, 'html.parser')
-
-                coupon_elements2 = soup2.select('.code.copy.text_center')
-                for element2 in coupon_elements2:
-                    code = element2.get_attribute_list('data-clipboard-text')[0]
-                    if code is not None:
-                        coupons.append(code.upper())
-                break
-            except Exception as e:
-                print(f'{R}Error scraping HotDeals: {e}{E}')
-                break
-
+            for element in coupon_elements:
+                
+                code = element.get('data-clipboard-text')
+                
+                if code:
+                    clean_code = code.strip().upper()
+                    coupons.append(clean_code)
+            
+            
+            if not coupons:
+                
+                desc_elements = soup.select('.description')
+                for desc in desc_elements:
+                    import re
                     
-    except Exception as e:
-        print(f'{R}Error scraping HotDeals: {e}{E}')
+                    match = re.search(r'[“"\'\'](.*?)[”"\'\']', desc.get_text())
+                    if match:
+                        coupons.append(match.group(1).strip().upper())
 
-    print(f'{list(set(coupons))}')
-    return list(set(coupons))
+    except Exception as e:
+        print(f'Error scraping GreenPromoCode: {e}')
+
+    
+    final_list = list(set(coupons))
+    print(f"Final Coupons found: {final_list}")
+    return final_list
 
 def couponBind(url):
     coupons = []
@@ -2130,7 +2136,7 @@ if __name__ == "__main__":
         # f'https://www.revounts.com.au/cozy-earth-discount-code', # Working
         # f'https://www.dazzdeals.com/store/cozy-earth/',  # Working
         # f'https://airestech.heydiscount.co.uk/airestech-discount-code', # Working
-        # f'https://www.greenpromocode.com/coupons/cozy-earth/',
+         f'https://www.greenpromocode.com/coupons/tommy-john/',
         # f'https://www.couponbind.com/coupons/cozyearth.com', # Working
         # f'https://lovedeals.ai/store/cozy-earth',
         # f'https://deala.com/cozy-earth',
@@ -2139,7 +2145,7 @@ if __name__ == "__main__":
         # f"https://www.wethrift.com/cozy-earth",
         # f"https://lovedeals.ai/store/cozy-earth",
         # f"https://askmeoffers.com/cozyearth-coupons/",
-         f"https://www.joinsmarty.com/cozyearth-coupons",
+        # f"https://www.joinsmarty.com/cozyearth-coupons",
         
     ]
     print(f"{G}Crawler started{E}")
@@ -2325,9 +2331,9 @@ if __name__ == "__main__":
         # elif('heydiscount.co.uk' in url):
         #     key = 'heydiscount.co.uk'
         #     codes[key] = codes[key] + heyDiscounts(url) if key in codes else heyDiscounts(url)
-        # elif('greenpromocode.com' in url):
-        #     key = 'greenpromocode.com'
-        #     codes[key] = codes[key] + greenPromoCode(url) if key in codes else greenPromoCode(url)
+        elif('greenpromocode.com' in url):
+            key = 'greenpromocode.com'
+            codes[key] = codes[key] + greenPromoCode(url) if key in codes else greenPromoCode(url)
         # elif('couponbind.com' in url):
         #     key = 'couponbind.com'
         #     codes[key] = codes[key] + couponBind(url) if key in codes else couponBind(url)
