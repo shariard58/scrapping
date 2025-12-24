@@ -106,10 +106,7 @@ def writeToFile(filename, data):
 
 
 def coupert(url):
-    """
-    Scrape coupons from Coupert.com using multiple methods
-    Returns: List of unique coupon codes
-    """
+    
     coupons = []
 
     try:
@@ -679,58 +676,58 @@ def retailmenot(url):
         print(f'{Y}No coupons found for {url}{E}')
     
     return unique_coupons
-    coupons = []
+    # coupons = []
 
-    try:
-        print(f'{B}Scraping WEB: {url} {E}')
-        html = getZenResponse(url)
-        soup = BeautifulSoup(html, 'html.parser')
+    # try:
+    #     print(f'{B}Scraping WEB: {url} {E}')
+    #     html = getZenResponse(url)
+    #     soup = BeautifulSoup(html, 'html.parser')
 
-        coupon_elements = soup.select('a[data-content-datastore="offer"]')
+    #     coupon_elements = soup.select('a[data-content-datastore="offer"]')
 
-        for element in coupon_elements:
-            xdata = element.get_attribute_list('x-data')[0]
-            href = element.get('href')
+    #     for element in coupon_elements:
+    #         xdata = element.get_attribute_list('x-data')[0]
+    #         href = element.get('href')
 
-            if xdata and href:
-                jsonData = json.loads(xdata.replace("outclickHandler({", '{').replace("})", '}').replace("'", '"'))
-                parsedUrl = urlparse(href)
-                queryParams = parse_qs(parsedUrl.query)
+    #         if xdata and href:
+    #             jsonData = json.loads(xdata.replace("outclickHandler({", '{').replace("})", '}').replace("'", '"'))
+    #             parsedUrl = urlparse(href)
+    #             queryParams = parse_qs(parsedUrl.query)
 
-                if 'offerType' in jsonData:
-                    offerType = jsonData['offerType']
-                    if offerType == 'COUPON':
-                        try:
-                            template = queryParams.get('template')[0]
-                            offerId = queryParams.get('offer_uuid')[0]
-                            merchantId = queryParams.get('merchant_uuid')[0]
+    #             if 'offerType' in jsonData:
+    #                 offerType = jsonData['offerType']
+    #                 if offerType == 'COUPON':
+    #                     try:
+    #                         template = queryParams.get('template')[0]
+    #                         offerId = queryParams.get('offer_uuid')[0]
+    #                         merchantId = queryParams.get('merchant_uuid')[0]
 
-                            itemUrl = f'https://www.retailmenot.com/modals/outclick/{offerId}/?template={template}&trigger=entrance_modal&merchant={merchantId}'
+    #                         itemUrl = f'https://www.retailmenot.com/modals/outclick/{offerId}/?template={template}&trigger=entrance_modal&merchant={merchantId}'
 
-                            html2 = getZenResponse(itemUrl)
-                            jsonData = json.loads(html2)
+    #                         html2 = getZenResponse(itemUrl)
+    #                         jsonData = json.loads(html2)
 
-                            if 'modalHtml' in jsonData:
-                                modalHtml = jsonData['modalHtml']
-                                soup2 = BeautifulSoup(modalHtml, 'html.parser')
+    #                         if 'modalHtml' in jsonData:
+    #                             modalHtml = jsonData['modalHtml']
+    #                             soup2 = BeautifulSoup(modalHtml, 'html.parser')
                                 
-                                coupon_elements2 = soup2.select('[x-show="outclicked"] div[x-data]')
+    #                             coupon_elements2 = soup2.select('[x-show="outclicked"] div[x-data]')
                                 
-                                for element2 in coupon_elements2:
-                                    code = element2.text.strip()
-                                    code = code.replace('COPY', '').strip()
-                                    if code is not None:
-                                        coupons.append(code)
+    #                             for element2 in coupon_elements2:
+    #                                 code = element2.text.strip()
+    #                                 code = code.replace('COPY', '').strip()
+    #                                 if code is not None:
+    #                                     coupons.append(code)
 
-                        except Exception as e:
-                            print(f'{R}Error scraping retailmenot: {e}{E}')
-                            continue
+    #                     except Exception as e:
+    #                         print(f'{R}Error scraping retailmenot: {e}{E}')
+    #                         continue
 
-    except Exception as e:
-        print(f'{R}Error scraping retailmenot: {e}{E}')
+    # except Exception as e:
+    #     print(f'{R}Error scraping retailmenot: {e}{E}')
 
-    print(f'{list(set(coupons))}')
-    return list(set(coupons))
+    # print(f'{list(set(coupons))}')
+    # return list(set(coupons))
 
 def honey(url):
     coupons = []
@@ -919,6 +916,8 @@ def offersCom(url):
         html = getZenResponse(url)
         # print(html)
         soup = BeautifulSoup(html, 'html.parser')
+
+        print("What is the soup value", soup)
 
         elements1 = soup.select('[data-offer-id] > [data-content-datastore="offer"]')
         for element in elements1:
@@ -1625,59 +1624,69 @@ def dealDrop(url):
     print(f'{list(set(coupons))}')
     return list(set(coupons))
 
+
+
+import re
+import json
+from bs4 import BeautifulSoup
+
 def dealDrop_automated(url):
-    print(f"Scraping page: {url}")
-    coupons = []
-    
+    print(f'Scraping WEB: {url}')
+    coupons_list = []
+    domain_key = "dealdrop.com" 
+
     try:
-        print("Starting automated scraping...")
-        html = getZenResponse(url)
         
-        # Method 1: Regex for both formats (original method)
-        patterns = [
-            r'"coupon_code":"([^"]+)"',  # snake_case format
-            r'"couponCode":"([^"]+)"'     # camelCase format
-        ]
+        html_content = getZenResponse(url)
+        if not html_content: 
+            print("No HTML content found!")
+            return []
+
         
-        for pattern in patterns:
-            found_codes = re.findall(pattern, html)
-            coupons.extend(found_codes)
+        soup = BeautifulSoup(html_content, 'html.parser')
+
         
-        # Method 2: Extract JSON data from script tag (better approach)
-        # SvelteKit data usually in this format
-        script_pattern = r'const data = (\[.*?\]);'
-        script_match = re.search(script_pattern, html, re.DOTALL)
+        target_script_text = ""
+        for script in soup.find_all("script"):
+            content = script.text if script.text else ""
+            
+            if 'coupon_code' in content or 'couponCode' in content:
+                target_script_text = content
+                break
         
-        if script_match:
-            try:
-                # JSON data extract করা
-                json_str = script_match.group(1)
-                # Simple cleanup (may need more robust parsing)
-                # Note: SvelteKit serializes data in a special way
-                print("Found embedded JSON data")
-            except:
-                pass
+        if target_script_text:
+            print("Target script tag found! Analyzing...")
+            
+            pattern = r'coupon_?code["\s]*:[\s]*"([^"]+)"'
+            matches = re.findall(pattern, target_script_text, re.IGNORECASE)
+            
+            for code in matches:
+                clean_code = code.strip().upper()
+                
+                if clean_code and clean_code not in coupons_list and len(clean_code) > 2:
+                    if clean_code not in ['NULL', 'UNDEFINED', 'FALSE', 'TRUE']:
+                        coupons_list.append(clean_code)
         
-        # Filter and clean codes
-        cleaned_coupons = []
-        for code in coupons:
-            code = code.strip()
-            if code and code.lower() not in ['null', 'none', '', 'undefined']:
-                # Validate: coupon codes usually alphanumeric
-                if re.match(r'^[A-Z0-9]+$', code, re.IGNORECASE):
-                    cleaned_coupons.append(code.upper())
         
-        # Remove duplicates while preserving order
-        results = list(dict.fromkeys(cleaned_coupons))
-        
-        print(f'✓ Found {len(results)} unique coupons: {results}')
-        return results
-        
+        if coupons_list:
+            
+            final_json_structure = {
+                domain_key: coupons_list
+            }
+
+            with open('coupons.json', 'w') as f:
+                json.dump(final_json_structure, f, indent=4)
+            
+            print(f'✓ Successfully saved {len(coupons_list)} codes to coupons.json')
+            print(f'Found Codes: {coupons_list}')
+        else:
+            print("✗ No coupon codes matched the pattern in the script tag.")
+
+        return coupons_list
+
     except Exception as e:
-        print(f'✗ Error scraping: {str(e)}')
+        print(f'Error in dealDrop_automated: {e}')
         return []
-    
-     
 
 def revounts(url):
     coupons = []
@@ -2054,7 +2063,7 @@ def simplyCodes(url):
 
 if __name__ == "__main__":
     urls = [
-        # f'https://www.coupert.com/store/cozyearth.com', # Working
+        # f'https://www.coupert.com/store/soil3.com', # Working
         # f'https://top.coupert.com/coupons/cozy-earth-promo-code' # Working
         # f'https://www.discountime.com/store/cozyearth', # Working
         # f'https://www.karmanow.com/api/v3/mixed_coupons?page=1&per_page=200&coupons_filter[retailers]=13903', # Working
@@ -2064,7 +2073,7 @@ if __name__ == "__main__":
         # f'https://coupons.slickdeals.net/cozy-earth/', # Not Working
         # f'https://capitaloneshopping.com/s/cozyearth.com/coupon', # Working
         # f'https://capitaloneshopping.com/s/cabelas.ca/coupon', # Working
-        # f'https://www.retailmenot.com/view/tommyjohn.com', # Working
+        # f'https://www.retailmenot.com/view/soil3.com', # Working
         # f'https://www.joinhoney.com/shop/cozy-earth/', # Working
         # f"https://rebates.com/coupons/cozyearth.com", # Working
         # f'https://www.coupons.com/coupon-codes/cozyearth', # Working
@@ -2072,10 +2081,10 @@ if __name__ == "__main__":
         # f'https://www.dontpayfull.com/at/cozyearth.com', # Working
         # f'https://www.couponbirds.com/codes/twosvge.com', # Working
         # f'https://www.coupert.com/store/cozyearth.com', # Working
-        #f'https://www.offers.com/stores/twosvge.com', # Working
+         f'https://www.offers.com/stores/tommy-john', # Working
         # f'https://www.savings.com/coupons/ashleystewart.com', # Working
         # f'https://dealspotr.com/promo-codes/tommyjohn', # Working
-         f'https://www.promocodes.com/cozy-earth-coupons'
+        # f'https://www.promocodes.com/cozy-earth-coupons'
         # f'https://www.couponchief.com/cozyearth', # Working
         # f'https://www.goodshop.com/coupons/cozyearth.com', # Working
         # f'https://cozy-earth.tenereteam.com/coupons',
@@ -2092,7 +2101,7 @@ if __name__ == "__main__":
         # f'https://joincheckmate.com/merchants/cozyearth.com', # Working
         # f'https://www.discountreactor.com/coupons/cozyearth.com', # Working,
         # f'https://www.couponbox.com/coupons/cozy-earth', # Working
-        # f'https://www.dealdrop.com/soil3' # Working
+        # f'https://www.dealdrop.com/nobull' # Working
         # f'https://www.dealdrop.com/vaticpro.com', # Working
         # f'https://www.revounts.com.au/cozy-earth-discount-code', # Working
         # f'https://www.dazzdeals.com/store/cozy-earth/',  # Working
@@ -2102,7 +2111,7 @@ if __name__ == "__main__":
         # f'https://lovedeals.ai/store/cozy-earth',
         # f'https://deala.com/cozy-earth',
         # f'https://cozyearth.promopro.co.uk/', # Working
-        #f'https://simplycodes.com/store/soil3.com',
+         # f'https://simplycodes.com/store/soil3.com',
         # f"https://www.wethrift.com/cozy-earth",
         # f"https://lovedeals.ai/store/cozy-earth",
         # f"https://askmeoffers.com/cozyearth-coupons/"
@@ -2169,7 +2178,7 @@ if __name__ == "__main__":
         # elif('capitaloneshopping.com' in url):
         #     key = 'capitaloneshopping.com'
         #     codes[key] = codes[key] + capitalone(url) if key in codes else capitalone(url)
-        #elif('retailmenot.com' in url):
+        elif('retailmenot.com' in url):
             key = 'retailmenot.com'
             codes[key] = codes[key] + retailmenot(url) if key in codes else retailmenot(url)
         # elif('joinhoney.com' in url):
@@ -2197,9 +2206,9 @@ if __name__ == "__main__":
             if scraped_data is None:
                 scraped_data = []
             codes[key] = codes.get(key, []) + scraped_data
-        # elif('offers.com' in url):
-        #     key = 'offers.com'
-        #     codes[key] = codes[key] + offersCom(url) if key in codes else offersCom(url)
+        elif('offers.com' in url):
+            key = 'offers.com'
+            codes[key] = codes[key] + offersCom(url) if key in codes else offersCom(url)
         # elif('savings.com' in url):
         #     key = 'savings.com'
         #     codes[key] = codes[key] + savingsCom(url) if key in codes else savingsCom(url)
