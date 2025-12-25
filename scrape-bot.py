@@ -1038,39 +1038,45 @@ def dealSpotsR(url):
     print(f'{list(set(coupons))}')
     return list(set(coupons))
 
+
+
 def promoCodes(url):
     coupons = []
-
     try:
-        print(f'{B}Scraping WEB: {url} {E}')
-        # html = getRequest(url)
         html = getZenResponse(url)
-        # print(html)
         soup = BeautifulSoup(html, 'html.parser')
         
-        next_data = soup.select_one('script#__NEXT_DATA__')
-        if next_data:
-            json_data = json.loads(next_data.string)
-            if('props' in json_data):
-                props = json_data['props']
-                if('pageProps' in props):
-                    data = props['pageProps']
-                    if('expiredOffers' in data):
-                        for item in data['expiredOffers']:
-                            coupon = item['couponCode']
-                            if coupon:
-                                coupons.append(coupon.upper())
-                    if('featuredOffers' in data):
-                        for item in data['expiredOffers']:
-                            coupon = item['couponCode']
-                            if coupon:
-                                coupons.append(coupon.upper())        
-                    
-    except Exception as e:
-        print(f'{R}Error scraping HotDeals: {e}{E}')
+        next_data_script = soup.select_one('script#__NEXT_DATA__')
+        
+        if next_data_script:
+            json_data = json.loads(next_data_script.string)
+                      
+            def find_coupons(obj):
+                if isinstance(obj, dict):
+                    for k, v in obj.items():
+                        if k == 'couponCode' and v:
+                            coupons.append(v.upper())
+                        else:
+                            find_coupons(v)
+                elif isinstance(obj, list):
+                    for item in obj:
+                        find_coupons(item)
 
-    print(f'{list(set(coupons))}')
-    return list(set(coupons))
+            find_coupons(json_data)
+
+        regex_codes = re.findall(r'"couponCode"\s*:\s*"([^"]+)"', html)
+        coupons.extend([c.upper() for c in regex_codes if c])
+
+    except Exception as e:
+        print(f'Error: {e}')
+
+    final_coupons = list(set(coupons))
+    
+    garbage = ['NULL', 'NONE', 'VERIFIED', 'TRUE', 'FALSE']
+    final_coupons = [c for c in final_coupons if c not in garbage and len(c) > 2]
+
+    print(f'Found Coupons: {final_coupons}')
+    return final_coupons
 
 def couponChief(url):
     coupons = []
@@ -2090,13 +2096,13 @@ if __name__ == "__main__":
         # f"https://rebates.com/coupons/cozyearth.com", # Working
         # f'https://www.coupons.com/coupon-codes/cozyearth', # Working
         # f'https://www.dealcatcher.com/coupons/cozy-earth', # Working
-        # f'https://www.dontpayfull.com/at/cozyearth.com', # Working
+        # f'https://www.dontpayfull.com/at/tommyjohn.com', # Working
         # f'https://www.couponbirds.com/codes/twosvge.com', # Working
         # f'https://www.coupert.com/store/cozyearth.com', # Working
         # f'https://www.offers.com/stores/tommy-john', # Working
-        # f'https://www.savings.com/coupons/ashleystewart.com', # Working
-        # f'https://dealspotr.com/promo-codes/tommyjohn', # Working
-        # f'https://www.promocodes.com/cozy-earth-coupons'
+        # f'https://www.savings.com/coupons/tommyjohn.com', # Working
+        # f'https://dealspotr.com/promo-codes/cozyearth.com', # Working
+         f'https://www.promocodes.com/tommy-john-coupons'
         # f'https://www.couponchief.com/cozyearth', # Working
         # f'https://www.goodshop.com/coupons/cozyearth.com', # Working
         # f'https://tommy-john.tenereteam.com/coupons',
@@ -2113,7 +2119,7 @@ if __name__ == "__main__":
         # f'https://joincheckmate.com/merchants/cozyearth.com', # Working
         # f'https://www.discountreactor.com/coupons/cozyearth.com', # Working,
         # f'https://www.couponbox.com/coupons/cozy-earth', # Working
-         f'https://www.dealdrop.com/tommy-john' # Working
+        # f'https://www.dealdrop.com/tommy-john' # Working
         # f'https://www.dealdrop.com/vaticpro.com', # Working
         # f'https://www.revounts.com.au/cozy-earth-discount-code', # Working
         # f'https://www.dazzdeals.com/store/cozy-earth/',  # Working
@@ -2166,8 +2172,7 @@ if __name__ == "__main__":
 
     for url in urls:
         if 'coupert.com' in url:
-            key = 'coupert.com'
-            
+            key = 'coupert.com'           
             scraped_data = coupert(url)
          
             if scraped_data is None:
@@ -2210,9 +2215,9 @@ if __name__ == "__main__":
         # elif('dealcatcher.com' in url):
         #     key = 'dealcatcher.com'
         #     codes[key] = codes[key] + dealCatcher(url) if key in codes else dealCatcher(url)
-        # elif('dontpayfull.com' in url):
-        #     key = 'dontpayfull.com'
-        #     codes[key] = codes[key] + dontPayFull(url) if key in codes else dontPayFull(url)
+        elif('dontpayfull.com' in url):
+            key = 'dontpayfull.com'
+            codes[key] = codes[key] + dontPayFull(url) if key in codes else dontPayFull(url)
         elif 'couponbirds.com' in url:
             key = 'couponbirds.com'
             scraped_data = couponBirds(url)
@@ -2223,9 +2228,9 @@ if __name__ == "__main__":
         elif('offers.com' in url):
             key = 'offers.com'
             codes[key] = codes[key] + offersCom(url) if key in codes else offersCom(url)
-        # elif('savings.com' in url):
-        #     key = 'savings.com'
-        #     codes[key] = codes[key] + savingsCom(url) if key in codes else savingsCom(url)
+        elif('savings.com' in url):
+            key = 'savings.com'
+            codes[key] = codes[key] + savingsCom(url) if key in codes else savingsCom(url)
         elif('dealspotr.com' in url):
             key = 'dealspotr.com'
             codes[key] = codes[key] + dealSpotsR(url) if key in codes else dealSpotsR(url)
