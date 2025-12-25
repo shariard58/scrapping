@@ -1373,7 +1373,7 @@ def valueCom(url):
     try:
         print(f'{B}Scraping WEB: {url} {E}')
         # html = getResponse(url)
-        html = getZenResponse(url)
+        html = getZenResponse(url , isProxy=True)
         # print(html)
         soup = BeautifulSoup(html, 'html.parser')
         
@@ -1420,27 +1420,52 @@ def loveCoupons(url):
     print(f'{list(set(coupons))}')
     return list(set(coupons))
 
+
 def knoji(url):
     coupons = []
+    print(f"{B}Scraping JSON-LD from: {url}{E}")
+
+    def find_codes_recursive(obj):
+        if isinstance(obj, dict):
+            for k, v in obj.items():
+                if k == 'couponCode' and v:
+                    coupons.append(str(v).strip())
+                else:
+                    find_codes_recursive(v)
+        elif isinstance(obj, list):
+            for item in obj:
+                find_codes_recursive(item)
 
     try:
-        print(f'{B}Scraping WEB: {url} {E}')
-        # html = getRequest(url)
-        html = getZenResponse(url)
+        html = getZenResponse(url, isProxy=True)
+        if not html:
+            return []
+
         soup = BeautifulSoup(html, 'html.parser')
+        scripts = soup.find_all('script', type='application/ld+json')
         
-        coupon_elements = soup.select('.codeboxmed.blue')
-        for element in coupon_elements:
-            code = element.get('value')
-            if code is not None:
-                coupons.append(code)
-
+        for script in scripts:
+            if script.string:
+                try:
                     
-    except Exception as e:
-        print(f'{R}Error scraping HotDeals: {e}{E}')
+                    data = json.loads(script.string.strip())
+                    
+                    find_codes_recursive(data)
+                except (json.JSONDecodeError, Exception):
+                    continue
 
-    print(f'{list(set(coupons))}')
-    return list(set(coupons))
+        if not coupons:
+            raw_matches = re.findall(r'"couponCode"\s*:\s*"([^"]+)"', html)
+            coupons.extend(raw_matches)
+
+    except Exception as e:
+        print(f"{R}Error in knoji: {e}{E}")
+
+    unique_coupons = list(set(coupons))
+    print(f"{G}Found Coupons: {unique_coupons}{E}")
+    
+    return unique_coupons
+
 
 def swagBucks(url):
     coupons = []
@@ -2102,16 +2127,16 @@ if __name__ == "__main__":
         # f'https://www.offers.com/stores/tommy-john', # Working
         # f'https://www.savings.com/coupons/tommyjohn.com', # Working
         # f'https://dealspotr.com/promo-codes/cozyearth.com', # Working
-         f'https://www.promocodes.com/tommy-john-coupons'
+        # f'https://www.promocodes.com/tommy-john-coupons'
         # f'https://www.couponchief.com/cozyearth', # Working
         # f'https://www.goodshop.com/coupons/cozyearth.com', # Working
         # f'https://tommy-john.tenereteam.com/coupons',
         # f'https://client-call-api.tenereteam.com/api/get-other-coupons/529adfe0-265a-11eb-b5d3-0d16883ac54e?type=all&page=1&limit=500'
         # f'https://couponcause.com/stores/cozy-earth/', # Working
-        # f'https://www.goodsearch.com/coupons/cozyearth.com', # Working
-        # f'https://cozyearth.valuecom.com/', # Working
-        # f'https://www.lovecoupons.com/cozy-earth' # Working
-        # f'https://cozyearth.knoji.com/promo-codes/try--all-codes/', # Working
+        # f'https://www.goodsearch.com/coupons/tommyjohn.com', # Working
+        # f'https://tommyjohn.valuecom.com/?search=tommy%20john', # Working
+        # f'https://www.lovecoupons.com/tommy-john' # Working
+         f'https://tommyjohn.knoji.com/promo-codes/', # Working
         # f'https://www.swagbucks.com/shop/cozyearth.com-coupons', # Working
         # f'https://www.joinsmarty.com/api/merchant/1800flowers/coupons?page=1&limit=1000&sort=latest', # Working
         # f'https://www.rebatesme.com/guest-api/rest/get-filtered-coupon-list-for-merchant?merchantId=5564' # Working
@@ -2249,18 +2274,18 @@ if __name__ == "__main__":
         # elif('couponcause.com' in url):
         #     key = 'couponcause.com'
         #     codes[key] = codes[key] + couponCause(url) if key in codes else couponCause(url)
-        # elif('goodsearch.com' in url):
-        #     key = 'goodsearch.com'
-        #     codes[key] = codes[key] + goodSearch(url) if key in codes else goodSearch(url)
-        # elif('valuecom.com' in url):
-        #     key = 'valuecom.com'
-        #     codes[key] = codes[key] + valueCom(url) if key in codes else valueCom(url)
-        # elif('lovecoupons.com' in url):
-        #     key = 'lovecoupons.com'
-        #     codes[key] = codes[key] + loveCoupons(url) if key in codes else loveCoupons(url)
-        # elif('knoji.com' in url):
-        #     key = 'knoji.com'
-        #     codes[key] = codes[key] + knoji(url) if key in codes else knoji(url)
+        elif('goodsearch.com' in url):
+            key = 'goodsearch.com'
+            codes[key] = codes[key] + goodSearch(url) if key in codes else goodSearch(url)
+        elif('valuecom.com' in url):
+            key = 'valuecom.com'
+            codes[key] = codes[key] + valueCom(url) if key in codes else valueCom(url)
+        elif('lovecoupons.com' in url):
+            key = 'lovecoupons.com'
+            codes[key] = codes[key] + loveCoupons(url) if key in codes else loveCoupons(url)
+        elif('knoji.com' in url):
+            key = 'knoji.com'
+            codes[key] = codes[key] + knoji(url) if key in codes else knoji(url)
         # elif('swagbucks.com' in url):
         #     key = 'swagbucks.com'
         #     codes[key] = codes[key] + swagBucks(url) if key in codes else swagBucks(url)
