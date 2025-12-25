@@ -2119,7 +2119,7 @@ if __name__ == "__main__":
         # f'https://www.retailmenot.com/view/soil3.com', # Working
         # f'https://www.joinhoney.com/shop/cozy-earth/', # Working
         # f"https://rebates.com/coupons/cozyearth.com", # Working
-        # f'https://www.coupons.com/coupon-codes/cozyearth', # Working
+         f'https://www.coupons.com/coupon-codes/cozyearth', # Working
         # f'https://www.dealcatcher.com/coupons/cozy-earth', # Working
         # f'https://www.dontpayfull.com/at/tommyjohn.com', # Working
         # f'https://www.couponbirds.com/codes/twosvge.com', # Working
@@ -2136,7 +2136,7 @@ if __name__ == "__main__":
         # f'https://www.goodsearch.com/coupons/tommyjohn.com', # Working
         # f'https://tommyjohn.valuecom.com/?search=tommy%20john', # Working
         # f'https://www.lovecoupons.com/tommy-john' # Working
-         f'https://tommyjohn.knoji.com/promo-codes/', # Working
+        # f'https://tommyjohn.knoji.com/promo-codes/', # Working
         # f'https://www.swagbucks.com/shop/cozyearth.com-coupons', # Working
         # f'https://www.joinsmarty.com/api/merchant/1800flowers/coupons?page=1&limit=1000&sort=latest', # Working
         # f'https://www.rebatesme.com/guest-api/rest/get-filtered-coupon-list-for-merchant?merchantId=5564' # Working
@@ -2219,9 +2219,9 @@ if __name__ == "__main__":
         # elif('slickdeals.net' in url):
         #     key = 'slickdeals.net'
         #     codes[key] = codes[key] + slickDeals(url) if key in codes else slickDeals(url)        
-        # elif('capitaloneshopping.com' in url):
-        #     key = 'capitaloneshopping.com'
-        #     codes[key] = codes[key] + capitalone(url) if key in codes else capitalone(url)
+        elif('capitaloneshopping.com' in url):
+            key = 'capitaloneshopping.com'
+            codes[key] = codes[key] + capitalone(url) if key in codes else capitalone(url)
         elif('retailmenot.com' in url):
             key = 'retailmenot.com'
             codes[key] = codes[key] + retailmenot(url) if key in codes else retailmenot(url)
@@ -2234,9 +2234,9 @@ if __name__ == "__main__":
         # elif('couponcabin.com' in url):
         #     key = 'couponcabin.com'
         #     codes[key] = codes[key] + couponCabin(url) if key in codes else couponCabin(url)
-        # elif('coupons.com' in url):
-        #     key = 'coupons.com'
-        #     codes[key] = codes[key] + couponsCom(url) if key in codes else couponsCom(url)
+        elif('coupons.com' in url):
+            key = 'coupons.com'
+            codes[key] = codes[key] + couponsCom(url) if key in codes else couponsCom(url)
         # elif('dealcatcher.com' in url):
         #     key = 'dealcatcher.com'
         #     codes[key] = codes[key] + dealCatcher(url) if key in codes else dealCatcher(url)
