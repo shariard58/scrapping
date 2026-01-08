@@ -2103,6 +2103,151 @@ def simplyCodes(url):
  
     return list(set(coupons))
 
+def troupon(url):
+    global cookies
+    coupons = []
+
+    try:
+        print(f'{B}Scraping WEB: {url} {E}')   
+        html = getZenResponse(url, isCookies=True, isProxy=True)
+        soup = BeautifulSoup(html, 'html.parser')
+        target_elements = soup.find_all(attrs={"itemprop": "couponCode"})
+        
+        for el in target_elements:
+            code = el.get_text(strip=True)
+            if code and len(code) < 20: 
+                coupons.append(code.upper())
+   
+        if not coupons:
+            elements = soup.select('span.coupon-code')
+            for el in elements:
+                code = el.get_text(strip=True)
+                if code:
+                    coupons.append(code.upper())
+
+    except Exception as e:
+        print(f'{R}Error scraping Troupon: {e}{E}')
+    
+    cookies = None
+    final_coupons = list(set(coupons))
+    print(f'{G}Found {len(final_coupons)} coupons: {final_coupons}{E}')
+    return final_coupons
+
+def worthepenny(url):
+    global cookies
+    coupons = []
+
+    try:
+        print(f'{B}Scraping WorthePenny: {url} {E}')
+        html = getZenResponse(url, isCookies=True, isProxy=True)
+        soup = BeautifulSoup(html, 'html.parser')
+        elements = soup.find_all(attrs={"data-code": True})       
+        for el in elements:
+            code = el.get("data-code").strip()          
+            if code and code.lower() != 'none':
+                coupons.append(code.upper())
+
+    except Exception as e:
+        print(f'{R}Error scraping WorthePenny: {e}{E}')
+    
+    cookies = None   
+    return list(set(coupons))
+
+def savingheist(url):
+    global cookies
+    coupons = []
+
+    try:
+        print(f'{B}Scraping SavingHeist: {url} {E}')
+        html = getZenResponse(url, isCookies=True, isProxy=True)
+        soup = BeautifulSoup(html, 'html.parser')
+        json_scripts = soup.find_all('script', type='application/ld+json')
+        
+        for script in json_scripts:
+            try:
+                data = json.loads(script.string)
+                if data.get('@type') == 'ItemList':
+                    items = data.get('itemListElement', [])
+                    for item_wrapper in items:
+                        inner_item = item_wrapper.get('item', {})
+                        code = inner_item.get('identifier')
+                        if code and len(code.strip()) > 0:
+                            coupons.append(code.strip().upper())
+            except:
+                continue
+
+    except Exception as e:
+        print(f'{R}Error scraping SavingHeist: {e}{E}')
+    
+    cookies = None
+    final_results = list(set(coupons))
+    print(f'{G}Found {len(final_results)} coupons: {final_results}{E}')
+    return final_results
+
+def coupongrouphy(url):
+    global cookies
+    coupons = []
+
+    try:
+        print(f'{B}Scraping Coupongrouphy (Clipboard Logic): {url} {E}')
+        html = getZenResponse(url, isCookies=True, isProxy=True)
+        soup = BeautifulSoup(html, 'html.parser')
+        elements = soup.find_all(attrs={"data-clipboard-text": True})
+        
+        for el in elements:
+            code = el['data-clipboard-text'].strip()
+            if code:
+                coupons.append(code.upper())
+        if not coupons:
+            for item in soup.select('.masked_code, .coupon_code'):
+                coupons.append(item.get_text(strip=True).upper())
+
+    except Exception as e:
+        print(f'{R}Error scraping Coupongrouphy: {e}{E}')
+    
+    cookies = None
+    final_results = list(set(coupons))
+    print(f'{G}Found {len(final_results)} unique coupons: {final_results}{E}')
+    return final_results
+
+
+def joincheckmate(url):
+    all_codes = []
+    try:
+        print(f'{B}Extracting IDs from Merchant Page: {url}{E}')
+        html = getZenResponse(url, isCookies=True, isProxy=True)
+        raw_ids = re.findall(r'"id":"(01[a-zA-Z0-9]{20,})"', html)
+        
+        unique_ids = []
+        for i in raw_ids:
+            if i not in unique_ids:
+                unique_ids.append(i)
+        
+        print(f'{G}Found {len(unique_ids)} potential IDs. Now fetching values...{E}')
+
+        for cid in unique_ids:
+            try:
+                modal_url = f"{url}/modal?code={cid}"
+                modal_html = getZenResponse(modal_url, isCookies=True, isProxy=True)
+                code_match = re.search(r'"selectedCode":\{.*?"value":"([^"]+)"', modal_html)
+                
+                if code_match:
+                    found_code = code_match.group(1)
+                    if "#" not in found_code:
+                        print(f"   [+] Found Code: {found_code}")
+                        all_codes.append(found_code)
+                    else:
+                        print(f"   [-] Code is hidden/locked for ID: {cid}")
+                        
+            except Exception as e:
+                print(f"{R}Error fetching modal for {cid}: {e}{E}")
+                continue
+
+    except Exception as e:
+        print(f'{R}Error in main extraction: {e}{E}')
+    
+    return list(set(all_codes))
+
 
 if __name__ == "__main__":
     urls = [
@@ -2119,7 +2264,7 @@ if __name__ == "__main__":
         # f'https://www.retailmenot.com/view/soil3.com', # Working
         # f'https://www.joinhoney.com/shop/cozy-earth/', # Working
         # f"https://rebates.com/coupons/cozyearth.com", # Working
-         f'https://www.coupons.com/coupon-codes/cozyearth', # Working
+        # f'https://www.coupons.com/coupon-codes/cozyearth', # Working
         # f'https://www.dealcatcher.com/coupons/cozy-earth', # Working
         # f'https://www.dontpayfull.com/at/tommyjohn.com', # Working
         # f'https://www.couponbirds.com/codes/twosvge.com', # Working
@@ -2154,11 +2299,25 @@ if __name__ == "__main__":
         # f'https://lovedeals.ai/store/cozy-earth',
         # f'https://deala.com/cozy-earth',
         # f'https://cozyearth.promopro.co.uk/', # Working
-         # f'https://simplycodes.com/store/soil3.com',
+        # f'https://simplycodes.com/store/soil3.com',
         # f"https://www.wethrift.com/cozy-earth",
         # f"https://lovedeals.ai/store/cozy-earth",
         # f"https://askmeoffers.com/cozyearth-coupons/",
         # f"https://www.joinsmarty.com/cozyearth-coupons",
+        # f"https://www.goodsearch.com/coupons/tommyjohn.com",
+        # f"https://www.couponbirds.com/codes/twosvge.com",
+         f"https://create-wellness.troupon.com/promo-codes",
+        # f"https://cozy-earth.troupon.com/promo-codes",
+        # f"https://trycreate.worthepenny.com/coupon/",
+        # f"https://cozyearth.worthepenny.com/coupon/",
+        # f"https://savingheist.com/store/create-wellness/"
+        # f"https://savingheist.com/store/atomi-scooters-coupons/"
+        # f"https://coupongrouphy.com/dealstore/create_vicents/"
+        # f"https://coupongrouphy.com/dealstore/ancestralcosmetics"
+        # f"https://joincheckmate.com/merchants/trycreate.co"
+
+        
+
         
     ]
     print(f"{G}Crawler started{E}")
@@ -2190,7 +2349,8 @@ if __name__ == "__main__":
         "wethrift.com",              # Working
         "lovedeals.ai",              # Working
         "askmeoffers.com"            # Working
-  
+        "create-wellness.troupon.com"
+        "trycreate.worthepenny.com"
     ]
 
     codes = {}
@@ -2372,6 +2532,49 @@ if __name__ == "__main__":
         # if 'askmeoffers.com' in url:
         #     key = 'askmeoffers.com'
         #     codes[key] = codes[key] + askmeoffers(url) if key in codes else askmeoffers(url)
+
+
+        # new one 
+        elif 'troupon.com' in url:
+            key = 'troupon.com'
+            scraped_data = troupon(url)      
+            if scraped_data is None:
+                scraped_data = []
+            codes[key] = codes.get(key, []) + scraped_data
+
+        elif 'worthepenny.com' in url:
+            key = 'worthepenny.com'
+            scraped_data = worthepenny(url)
+            if scraped_data is None:
+                scraped_data = []
+            codes[key] = codes.get(key, []) + scraped_data
+
+        
+        elif 'savingheist.com' in url:
+               key = 'savingheist.com'
+               scraped_data = savingheist(url)
+               if scraped_data is None:   
+                   scraped_data = []
+               codes[key] = codes.get(key, []) + scraped_data  
+
+        elif 'coupongrouphy.com' in url:
+             key = 'coupongrouphy.com'
+             scraped_data = coupongrouphy(url)
+             if scraped_data is None:
+              scraped_data = []
+             codes[key] = list(set(codes.get(key, []) + scraped_data))    
+
+
+        elif 'joincheckmate.com' in url:
+            key = 'joincheckmate.com'
+            found_codes = joincheckmate(url)
+            if found_codes:
+                print(f"{G}Found Codes for {url}: {found_codes}{E}")
+            else:
+                print(f"{R}No Codes found for this store!{E}")
+             
+            scraped_data = found_codes 
+            codes[key] = list(set(codes.get(key, []) + scraped_data))  
     
         print(f"{G}Crawler finished{E}")
 
