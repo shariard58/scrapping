@@ -16,7 +16,6 @@ from urllib.request import Request, urlopen
 from urllib.parse import urlparse, parse_qs
 
 
-
 from bs4 import BeautifulSoup, MarkupResemblesLocatorWarning
 
 warnings.filterwarnings("ignore", category=MarkupResemblesLocatorWarning)
@@ -2030,6 +2029,8 @@ def savvy(url):
 
     print(f'{list(set(coupons))}')
     return list(set(coupons))
+
+
 def lovedeals(url):
     coupons = []
 
@@ -2117,6 +2118,7 @@ def troupon(url):
             code = el.get_text(strip=True)
             if code and len(code) < 20: 
                 coupons.append(code.upper())
+             
    
         if not coupons:
             elements = soup.select('span.coupon-code')
@@ -2249,6 +2251,47 @@ def joincheckmate(url):
     return list(set(all_codes))
 
 
+def faircoupons(url):
+    coupons = [] 
+
+    try:
+        print(f'Scraping FairCoupons: {url}')
+        html = getZenResponse(url, isCookies=True, isProxy=True)
+        if not html: return []
+        
+        soup = BeautifulSoup(html, 'html.parser')
+
+       
+        raw_scripts = re.findall(r'self\.__next_f\.push\(\[1,"(.+?)"\]\)', html)
+        for item in raw_scripts:  
+            json_str = item.replace('\\"', '"').replace('\\\\', '\\')
+            found_in_json = re.findall(r'"couponCode"\s*:\s*"([^"]*)"', json_str)
+            
+            for c in found_in_json:
+                code = c.strip()
+                if code:
+                    coupons.append(code.upper()) 
+                
+
+        div_elements = soup.find_all('div', id='coupon_code')
+        if not div_elements:
+            div_elements = soup.find_all('div', class_='modal_couponCode__1w92H')
+
+        for el in div_elements:
+            text = el.get_text(strip=True)
+            if text:
+                coupons.append(text.upper())
+
+        
+        final_results = list(set([c for c in coupons if c]))
+
+        print(f"Found total {len(final_results)} items: {final_results}")
+        return final_results
+        
+    except Exception as e:
+        print(f'Error: {e}')
+        return []
+
 if __name__ == "__main__":
     urls = [
         # f'https://www.coupert.com/store/soil3.com', # Working
@@ -2306,7 +2349,7 @@ if __name__ == "__main__":
         # f"https://www.joinsmarty.com/cozyearth-coupons",
         # f"https://www.goodsearch.com/coupons/tommyjohn.com",
         # f"https://www.couponbirds.com/codes/twosvge.com",
-         f"https://create-wellness.troupon.com/promo-codes",
+        # f"https://create-wellness.troupon.com/promo-codes",
         # f"https://cozy-earth.troupon.com/promo-codes",
         # f"https://trycreate.worthepenny.com/coupon/",
         # f"https://cozyearth.worthepenny.com/coupon/",
@@ -2315,10 +2358,10 @@ if __name__ == "__main__":
         # f"https://coupongrouphy.com/dealstore/create_vicents/"
         # f"https://coupongrouphy.com/dealstore/ancestralcosmetics"
         # f"https://joincheckmate.com/merchants/trycreate.co"
-
-        
-
-        
+        # f"https://www.wethrift.com/daughters-of-india"
+        f"https://www.faircoupons.com/stores/caribcreed-t-shirt-dispensary"
+        # f"https://daughtersofindia.valuecom.com/"
+      
     ]
     print(f"{G}Crawler started{E}")
 
@@ -2373,6 +2416,23 @@ if __name__ == "__main__":
         elif ('rakuten.' in url):
             key = 'rakuten.'
             codes[key] = codes[key] + rakuten(url) if key in codes else rakuten(url)
+
+
+        elif 'faircoupons.com' in url:
+              key = 'faircoupons.com'
+              found_codes = faircoupons(url)
+              if found_codes:        
+                print(f"{G}Found Codes for {url}: {found_codes}{E}")
+        
+                if isinstance(found_codes, str):
+                  scraped_data = [found_codes]
+                else:
+                  scraped_data = found_codes
+
+                codes[key] = list(set(codes.get(key, []) + scraped_data))
+              else:
+                 print(f"{R}No Codes found for this store!{E}") 
+
         elif('hotdeals.com' in url):
             key = 'hotdeals.com'
             codes[key] = codes[key] + hotDeals(url) if key in codes else hotDeals(url)  
@@ -2520,12 +2580,12 @@ if __name__ == "__main__":
 
         elif 'wethrift.com' in url:
             key = 'wethrift.com'
-            scraped_data = savvy(url)
-              
+            scraped_data = savvy(url)              
             if scraped_data is None:
-                scraped_data = []
-              
+                scraped_data = []          
             codes[key] = codes.get(key, []) + scraped_data
+
+
         # if 'lovedeals.ai' in url:
         #     key = 'lovedeals.ai'
         #     codes[key] = codes[key] + lovedeals(url) if key in codes else lovedeals(url)
@@ -2574,7 +2634,10 @@ if __name__ == "__main__":
                 print(f"{R}No Codes found for this store!{E}")
              
             scraped_data = found_codes 
-            codes[key] = list(set(codes.get(key, []) + scraped_data))  
+            codes[key] = list(set(codes.get(key, []) + scraped_data)) 
+
+
+       
     
         print(f"{G}Crawler finished{E}")
 
