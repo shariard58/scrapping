@@ -2359,8 +2359,10 @@ if __name__ == "__main__":
         # f"https://coupongrouphy.com/dealstore/ancestralcosmetics"
         # f"https://joincheckmate.com/merchants/trycreate.co"
         # f"https://www.wethrift.com/daughters-of-india"
-        f"https://www.faircoupons.com/stores/caribcreed-t-shirt-dispensary"
+        # f"https://www.faircoupons.com/stores/filedaria-inc"
         # f"https://daughtersofindia.valuecom.com/"
+        "https://cozyearth.worthepenny.com/coupon/"
+
       
     ]
     print(f"{G}Crawler started{E}")
