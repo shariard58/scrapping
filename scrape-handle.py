@@ -1740,6 +1740,261 @@ def askmeoffers(handles, storeDomain, query):
     writeJson(extHandles)
     return extHandles
 
+def troupon(handles, storeDomain, query):
+    extDomain = 'troupon.com'
+    extHandles = handles.copy()
+    
+    if storeDomain not in extHandles: extHandles[storeDomain] = {}
+    if extDomain not in extHandles[storeDomain]: extHandles[storeDomain][extDomain] = []
+
+    all_names = [query['handle']] + query['query']
+    
+    unique_names = list(dict.fromkeys(all_names))
+
+    for name in unique_names:
+        clean_name = name.replace(" ", "-").lower()
+        url = f'https://{clean_name}.troupon.com/'
+        
+        if url in extHandles[storeDomain][extDomain]:
+            print(f"Already found: {url}")
+            break
+
+        try:
+            print(f"Checking Troupon: {url}")
+            response, status = getZenResponse(url)
+            
+            if status == 200:
+                extHandles[storeDomain][extDomain].append(url)
+                print(f"{G}Success! Found on Troupon: {url}{E}")
+                
+                break 
+            else:
+                print(f"{R}Not Found: {url}{E}")
+                
+        except Exception as e:
+            print(f"{R}Error: {e}{E}")
+    
+    writeJson(extHandles)
+    return extHandles
+
+
+def worthepenny(handles, storeDomain, query):
+    extDomain = 'worthepenny.com'
+    extHandles = handles.copy()
+    
+    if storeDomain not in extHandles: 
+        extHandles[storeDomain] = {}
+    if extDomain not in extHandles[storeDomain]:
+        extHandles[storeDomain][extDomain] = []
+
+    all_names = [query['handle']] + query['query']
+    
+    unique_names = list(dict.fromkeys(all_names))
+
+    for name in unique_names:
+        
+        clean_name = name.replace(" ", "-").lower()
+        url = f'https://{clean_name}.worthepenny.com/coupon/'
+        
+        if url in extHandles[storeDomain][extDomain]:
+            print(f"Already exists, skipping search: {url}")
+            break
+
+        try:
+            print(f"Checking Worthepenny: {url}")
+            response, status = getZenResponse(url)
+            
+            if status == 200:
+                verify_name = clean_name.replace('-', '')
+                if verify_name in response.lower().replace('-', ''):
+                    extHandles[storeDomain][extDomain].append(url)
+                    print(f"{G}Success! Found on Worthepenny: {url}{E}")
+                    break 
+                else:
+                    print(f"{R}Worthepenny: Name mismatch on page.{E}")
+            else:
+                print(f"{R}Not found: {url} (Status: {status}){E}")
+
+        except Exception as e:
+            print(f"{R}Error fetching Worthepenny ({url}): {e}{E}")
+    
+    writeJson(extHandles)
+    return extHandles
+
+
+def savingheist(handles, storeDomain, query):
+    extDomain = 'savingheist.com'
+    extHandles = handles.copy()
+    
+    if storeDomain not in extHandles: 
+        extHandles[storeDomain] = {}
+    if extDomain not in extHandles[storeDomain]:
+        extHandles[storeDomain][extDomain] = []
+
+    all_names = [query['handle']] + query['query']
+    unique_names = list(dict.fromkeys(all_names))
+
+    for name in unique_names:
+        
+        clean_name = name.replace(" ", "-").lower()
+        url = f'https://www.savingheist.com/store/{clean_name}/'
+        if url in extHandles[storeDomain][extDomain]:
+            print(f"Already exists, skipping: {url}")
+            break
+
+        try:
+            print(f"Checking Savingheist: {url}")
+            response, status = getZenResponse(url)
+            
+            if status == 200:
+                if clean_name.replace('-', '') in response.lower().replace('-', ''):
+                    extHandles[storeDomain][extDomain].append(url)
+                    print(f"{G}Success! Found on Savingheist: {url}{E}")
+                    break 
+                else:
+                    print(f"{R}Savingheist: Content mismatch for {clean_name}{E}")
+            else:
+                print(f"{R}Not found: {url} (Status: {status}){E}")
+
+        except Exception as e:
+            print(f"{R}Error fetching Savingheist ({url}): {e}{E}")
+    
+    writeJson(extHandles)
+    return extHandles
+
+def coupongrouphy(handles, storeDomain, query):
+    extDomain = 'coupongrouphy.com'
+    extHandles = handles.copy()
+    if storeDomain not in extHandles: 
+        extHandles[storeDomain] = {}
+    if extDomain not in extHandles[storeDomain]:
+        extHandles[storeDomain][extDomain] = []
+
+    all_names = [query['handle']] + query['query']
+    unique_names = list(dict.fromkeys(all_names))
+
+    for name in unique_names:
+        clean_name = name.replace(" ", "-").lower()
+        url = f'https://coupongrouphy.com/dealstore/{clean_name}/'
+        if url in extHandles[storeDomain][extDomain]:
+            print(f"Already exists, skipping search: {url}")
+            break
+
+        try:
+            print(f"Checking Coupongrouphy: {url}")
+            response, status = getZenResponse(url)
+            
+            if status == 200:
+                match_name = clean_name.split('-')[0].split('_')[0] 
+                
+                if match_name in response.lower():
+                    extHandles[storeDomain][extDomain].append(url)
+                    print(f"{G}Success! Found on Coupongrouphy: {url}{E}")
+                    break 
+                else:
+                    print(f"{R}Coupongrouphy: Content mismatch for {clean_name}{E}")
+            else:
+                print(f"{R}Not found: {url} (Status: {status}){E}")
+
+        except Exception as e:
+            print(f"{R}Error fetching Coupongrouphy ({url}): {e}{E}")
+    
+    writeJson(extHandles)
+    return extHandles
+
+def joincheckmate(handles, storeDomain, query):
+    extDomain = 'joincheckmate.com'
+    extHandles = handles.copy()
+    
+    if storeDomain not in extHandles: 
+        extHandles[storeDomain] = {}
+    if extDomain not in extHandles[storeDomain]:
+        extHandles[storeDomain][extDomain] = []
+
+    all_names = [query['handle']] + query['query']
+    unique_names = list(dict.fromkeys(all_names))
+
+    for name in unique_names:
+        clean_name = name.replace(" ", "-").lower()
+        if not clean_name.endswith('.com'):
+            final_slug = f"{clean_name}.com"
+        else:
+            final_slug = clean_name
+
+        url = f'https://joincheckmate.com/merchants/{final_slug}'
+        
+        if url in extHandles[storeDomain][extDomain]:
+            print(f"Already exists, skipping search: {url}")
+            break
+
+        try:
+            print(f"Checking JoinCheckmate: {url}")
+            response, status = getZenResponse(url)
+            
+            if status == 200:
+                match_name = final_slug.split('.')[0].split('-')[0]
+                
+                if match_name in response.lower():
+                    extHandles[storeDomain][extDomain].append(url)
+                    print(f"{G}Success! Found on JoinCheckmate: {url}{E}")
+                    break 
+                else:
+                    print(f"{R}JoinCheckmate: Content mismatch for {final_slug}{E}")
+            else:
+                print(f"{R}Not found: {url} (Status: {status}){E}")
+
+        except Exception as e:
+            print(f"{R}Error fetching JoinCheckmate ({url}): {e}{E}")
+    
+    writeJson(extHandles)
+    return extHandles
+
+
+def faircoupons(handles, storeDomain, query):
+    extDomain = 'faircoupons.com'
+    extHandles = handles.copy()
+
+    if storeDomain not in extHandles: 
+        extHandles[storeDomain] = {}
+    if extDomain not in extHandles[storeDomain]:
+        extHandles[storeDomain][extDomain] = []
+
+    all_names = [query['handle']] + query['query']
+    unique_names = list(dict.fromkeys(all_names))
+
+    for name in unique_names:
+
+        clean_name = name.replace(" ", "-").lower()
+        url = f'https://www.faircoupons.com/stores/{clean_name}'
+    
+        if url in extHandles[storeDomain][extDomain]:
+            print(f"Already exists, skipping: {url}")
+            break
+
+        try:
+            print(f"Checking Faircoupons: {url}")
+            response, status = getZenResponse(url)
+            
+            if status == 200:
+                match_name = clean_name.split('-')[0].split('.')[0]
+                
+                if match_name in response.lower():
+                    extHandles[storeDomain][extDomain].append(url)
+                    print(f"{G}Success! Found on Faircoupons: {url}{E}")
+                    break 
+                else:
+                    print(f"{R}Faircoupons: Content mismatch for {clean_name}{E}")
+            else:
+                print(f"{R}Not found: {url} (Status: {status}){E}")
+
+        except Exception as e:
+            print(f"{R}Error fetching Faircoupons ({url}): {e}{E}")
+    
+    writeJson(extHandles)
+    return extHandles
+
+
+
 if __name__ == "__main__":
     algolia ={
         'offers.com': {
@@ -1754,15 +2009,41 @@ if __name__ == "__main__":
     }
 
     queries = {
+
+        # 'tommyjohn.com': {
+        # 'handle': 'tommy-john', 
+        # 'query': ['tommy john', 'tommyjohn']
+        #  
+        #   }
+
+    # for coupongraphy test
+        # 'trycreate.com': {
+        #   'handle': 'trycreate', 
+        #   'query': ['trycreate', 'create']
+        # } 
+
+    # for joincheckmate , faircoupons , worthpenny and trupon  test
         'cozyearth.com': {
             'handle': 'cozyearth',
-            'query': ['cozy earth','cozyearth']
+            'query': ['cozy earth','cozy-earth']
         },
-        # 'airestech.com': {
-        #     'handle': 'airestech',
-        #     'query': ['aires', 'airestech', 'aires tech']
+
+
+    #  for savingheist test
+    #  'create-wellness.com': {
+    #        'handle': 'createwellness',
+    #        'query': ['create wellness', 'create-wellness']
+    #     }
+
+    # For daughter of India
+        # 'daughtersofindia.net': {
+        #     'handle': 'daughtersofindia',
+        #     'query': ['daughtersofindia',]
         # },
+
+
     }
+    
 
     handles = readJson()
     if not handles: handles = {}
@@ -1801,7 +2082,7 @@ if __name__ == "__main__":
         # handles = joinsmarty(handles, storeDomain, storeQuery)
         # handles = rebatesme(handles, storeDomain, storeQuery)
         # handles = refermate(handles, storeDomain, storeQuery)
-        # handles = discountreactor(handles, storeDomain, storeQuery)
+        # andles = discountreactor(handles, storeDomain, storeQuery)
         # handles = couponbox(handles, storeDomain, storeQuery)
         # handles = dealdrop(handles, storeDomain, storeQuery)
         # handles = revounts(handles, storeDomain, storeQuery)
@@ -1810,9 +2091,16 @@ if __name__ == "__main__":
         # handles = couponbind(handles, storeDomain, storeQuery)
         # handles = deala(handles, storeDomain, storeQuery)
         # handles = promopro(handles, storeDomain, storeQuery)
-        handles = savvy(handles, storeDomain, storeQuery, algolia)
-        # x handles = coupertpure(handles, storeDomain, storeQuery) // AI prompot
-        handles = lovedeals(handles, storeDomain, storeQuery)
-        # x handles = couponuts(handles, storeDomain, storeQuery) // Server Down
-        handles = askmeoffers(handles, storeDomain, storeQuery)
-        # x handles = dealdazzle(handles, storeDomain, storeQuery) // Server Down
+        # handles = savvy(handles, storeDomain, storeQuery, algolia)
+        # handles = coupertpure(handles, storeDomain, storeQuery) // AI prompot
+        #handles = lovedeals(handles, storeDomain, storeQuery)
+        # handles = couponuts(handles, storeDomain, storeQuery) // Server Down
+        # handles = askmeoffers(handles, storeDomain, storeQuery)
+        # handles = dealdazzle(handles, storeDomain, storeQuery) // Server Down
+        # --- new --- 
+        # handles = troupon(handles, storeDomain, storeQuery)
+        # handles = worthepenny(handles, storeDomain, storeQuery)
+        # handles = savingheist(handles, storeDomain, storeQuery)
+        # handles = coupongrouphy(handles, storeDomain, storeQuery)
+        # handles = joincheckmate(handles, storeDomain, storeQuery)
+        handles = faircoupons(handles, storeDomain, storeQuery)
