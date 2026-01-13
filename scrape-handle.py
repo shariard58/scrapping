@@ -1532,6 +1532,7 @@ def deala(handles, storeDomain, query):
         for i, search in enumerate(storeQueries):
         
             try:
+                print('Inside the deala function')
                 response, status = postZenResponse(url,
                     data=json.dumps({
                         "query": search,
@@ -1963,10 +1964,9 @@ def faircoupons(handles, storeDomain, query):
     unique_names = list(dict.fromkeys(all_names))
 
     for name in unique_names:
-
         clean_name = name.replace(" ", "-").lower()
         url = f'https://www.faircoupons.com/stores/{clean_name}'
-    
+        
         if url in extHandles[storeDomain][extDomain]:
             print(f"Already exists, skipping: {url}")
             break
@@ -1976,14 +1976,12 @@ def faircoupons(handles, storeDomain, query):
             response, status = getZenResponse(url)
             
             if status == 200:
-                match_name = clean_name.split('-')[0].split('.')[0]
-                
-                if match_name in response.lower():
+                if 'id="__next_error__"' not in response:
                     extHandles[storeDomain][extDomain].append(url)
-                    print(f"{G}Success! Found on Faircoupons: {url}{E}")
+                    print(f"{G}Success! Valid Store Page: {url}{E}")
                     break 
                 else:
-                    print(f"{R}Faircoupons: Content mismatch for {clean_name}{E}")
+                    print(f"{R}Faircoupons: 404/Error Page detected for {clean_name}{E}")
             else:
                 print(f"{R}Not found: {url} (Status: {status}){E}")
 
@@ -2020,13 +2018,19 @@ if __name__ == "__main__":
         # 'trycreate.com': {
         #   'handle': 'trycreate', 
         #   'query': ['trycreate', 'create']
-        # } 
+        # } ,
+
+      # for coupongraphy test
+        # 'aeraforhomevicent.com': {
+        #   'handle': 'aeraforhomevicent', 
+        #   'query': ['aeraforhomevicent', 'aeraforhome-vicent']
+        # } ,
 
     # for joincheckmate , faircoupons , worthpenny and trupon  test
-        'cozyearth.com': {
-            'handle': 'cozyearth',
-            'query': ['cozy earth','cozy-earth']
-        },
+        # 'cozyearth.com': {
+        #     'handle': 'cozyearth',
+        #     'query': ['cozy earth','cozy-earth']
+        # },
 
 
     #  for savingheist test
@@ -2035,11 +2039,17 @@ if __name__ == "__main__":
     #        'query': ['create wellness', 'create-wellness']
     #     }
 
-    # For daughter of India
+    # For faircoupon test
         # 'daughtersofindia.net': {
         #     'handle': 'daughtersofindia',
-        #     'query': ['daughtersofindia',]
+        #     'query': ['daughtersofindia',"daughters-of-india"]
         # },
+
+     # For Coupon Bind
+        'tommyjohn.com': {
+            'handle': 'tommyjohn',
+            'query': ['tommyjohn',"tommy-john"]
+        },
 
 
     }
@@ -2089,7 +2099,7 @@ if __name__ == "__main__":
         # handles = dazzdeals(handles, storeDomain, storeQuery)
         # handles = greenpromocodes(handles, storeDomain, storeQuery)
         # handles = couponbind(handles, storeDomain, storeQuery)
-        # handles = deala(handles, storeDomain, storeQuery)
+        handles = deala(handles, storeDomain, storeQuery)
         # handles = promopro(handles, storeDomain, storeQuery)
         # handles = savvy(handles, storeDomain, storeQuery, algolia)
         # handles = coupertpure(handles, storeDomain, storeQuery) // AI prompot
@@ -2103,4 +2113,4 @@ if __name__ == "__main__":
         # handles = savingheist(handles, storeDomain, storeQuery)
         # handles = coupongrouphy(handles, storeDomain, storeQuery)
         # handles = joincheckmate(handles, storeDomain, storeQuery)
-        handles = faircoupons(handles, storeDomain, storeQuery)
+        # handles = faircoupons(handles, storeDomain, storeQuery)

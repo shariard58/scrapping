@@ -2359,9 +2359,19 @@ if __name__ == "__main__":
         # f"https://coupongrouphy.com/dealstore/ancestralcosmetics"
         # f"https://joincheckmate.com/merchants/trycreate.co"
         # f"https://www.wethrift.com/daughters-of-india"
-        # f"https://www.faircoupons.com/stores/filedaria-inc"
+        # f"https://www.faircoupons.com/stores/filedaria-inc",
+        # f"https://www.faircoupons.com/stores/cozy-buy-online"
         # f"https://daughtersofindia.valuecom.com/"
-        "https://cozyearth.worthepenny.com/coupon/"
+        # "https://cozyearth.worthepenny.com/coupon/"
+
+        # Link From Scrapper 
+        # f"https://cozy-earth.troupon.com/"
+        # f"https://cozyearth.worthepenny.com/coupon/"
+        # f"https://joincheckmate.com/merchants/cozyearth.com"
+        # f"https://www.faircoupons.com/stores/cozy-earth"
+        #  f"https://www.savingheist.com/store/create-wellness/"
+         f"https://coupongrouphy.com/dealstore/create/"
+          
 
       
     ]
