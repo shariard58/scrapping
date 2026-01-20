@@ -1,0 +1,4734 @@
+{
+  "basename": "/",
+  "future": {
+    "v3_fetcherPersist": true,
+    "v3_relativeSplatPath": true,
+    "v3_throwAbortReason": true,
+    "v3_routeConfig": true,
+    "v3_singleFetch": false,
+    "v3_lazyRouteDiscovery": true,
+    "unstable_optimizeDeps": true
+  },
+  "isSpaMode": false,
+  "state": {
+    "loaderData": {
+      "root": {
+        "enableMSClarity": false,
+        "enableNewRelicBrowserAgent": false,
+        "initialState": {
+          "CONSTANTS": {
+            "APP_URL": "https://capitaloneshopping.com",
+            "BANK_LINKING_MANAGE_C1_ACCOUNT_URL": "https://smart.link/otr6sfitf5j75",
+            "BASE": "/api/v1",
+            "BASE_DOMAIN": "capitaloneshopping.com",
+            "BASE_V2": "/api/v2",
+            "BUILD_ENV": "prod",
+            "CAROUSEL_CONFIG": {
+              "speed": 7000,
+              "autostart": true
+            },
+            "COMPANY_NAME": "Capital One Shopping",
+            "CONTENT_SCRIPT_SOURCE": "__wikibuy_content",
+            "CREDIT_NAME": "Shopping",
+            "DATADOG_RUM_APP_ID": "c353004e-1d6b-4d03-ab5e-f12fecc6e250",
+            "DATADOG_RUM_CLIENT_TOKEN": "pub76a6057fbb7fd6d1d6510a97c8a25cbe",
+            "DATADOG_RUM_SAMPLE_RATE": "1",
+            "DATADOG_RUM_REPLAY_SAMPLE_RATE": "0",
+            "DISABLE_RECAPTCHA": "false",
+            "DXGW_BASE_URL": "https://api.capitalone.com",
+            "DXGW_REDIRECT_URI": "https://capitaloneshopping.com/api/v1/esic/oauth",
+            "DXGW_WB_CLIENT_ID": "0cf2b2f9914a420ab84c780dfb058e5f",
+            "EMAIL_BASE": "/api/v1",
+            "EXTENSION_STORE_URL": "https://chromewebstore.google.com/detail/capital-one-shopping-save/nenlahapcbofgnanklpelkaejcehkggg",
+            "FACEBOOK_APP_ID": "799692630139375",
+            "FEEDBACK_API_BASE": "https://feedback.ivaws.com/api",
+            "GOOGLE_CLIENT_ID": "918024853742-5up1rrbr0ihdkca883n8selhrmq1khdg.apps.googleusercontent.com",
+            "GOOGLE_MAPS_KEY": "AIzaSyBi62Vv1-cW4IljJchPJZYJIMY9wg_5fTE",
+            "IMAGES_API_BASE": "https://images.capitaloneshopping.com",
+            "LARGE_DESKTOP_SIZE": 1400,
+            "MAGIC_LINK_SOURCE": "web:c1",
+            "PAGE_SCRIPT_SOURCE": "wikibuy-webapp",
+            "SEGMENT_ID": "hoJ2AjJaErOjhma79jutVyqhc4P25Rxc",
+            "SERVICEWORKER_NAME": "serviceWorker.js",
+            "SHOPPER_NAME": "Capital One Shopper",
+            "SHORT_URL": "capitaloneshopping.com/r",
+            "TRACK_HOST": "track.capitaloneshopping.com",
+            "VAPID_PUBLIC_KEY": "BJzyhLvXKc1JoYfCSLBb6zjsTgAUBQH1_qqeIaSC0G3cBnYweKsJRyLLYxX3GHsxsKZC5wDNuTNN3qH-mCf9oeU",
+            "WIKIBUY_STATIC_BASE_URL": "https://capitaloneshopping.com",
+            "PLACEMENT_MANAGER_STATIC_BASE_URL": "https://placement-manager.capitaloneshopping.com",
+            "ASSETS_IMAGE_URL": "https://cdn.ivaws.com/wikibuy-assets/images/upload_content",
+            "NEW_RELIC_ACCOUNT_ID": "4642806",
+            "NEW_RELIC_TRUST_KEY": "1356230",
+            "NEW_RELIC_AGENT_ID": "1431850663",
+            "NEW_RELIC_APP_ID": "1431850663",
+            "NEW_RELIC_LICENSE_KEY": "NRJS-b34c2d651e9e3fd7484",
+            "USE_MS_CLARITY": "true",
+            "AHREFS_KEY": "yJ5pDi1Fu6wNa2F2ot/VUQ"
+          },
+          "BUILD_ENV": "prod",
+          "BUILD_VERSION": "main.2221",
+          "isStaticRequest": false,
+          "user": {
+            "id": "e6b6e5e6-7726-5959-a955-b473ed9a467d",
+            "roles": ["shadow", "user"],
+            "session_token": "WB inmW29bxBbpr31z/k/KQ+kjcp0xcudVRxNSak707krN4qzl9brerLYBWdoOAjTT4F4jH3Q23/SU1b7BYmMH/n51JclP9kzRv7lZWKRP9om5ve6SktFm2NHrCsIzIBkTFnaa8GLXGORSjoWtJcGWZuqSiKMiTTBQsvCxiUhElvMoy4+0H+Bdsq1FLiR0KkRpUvhEL2n/t/u9fCmzM+PYPq1CoNiqAFpMAt+DwbGDWtB7bevinBy+z+9NB9LfnsRtxonQj",
+            "created_at": "2026-01-20T12:17:31.079Z",
+            "location": {
+              "country": "US"
+            },
+            "country": "US",
+            "currency": "USD",
+            "features": [
+              "1800_contacts_audience",
+              "ab_g_t_t_3",
+              "ab_join_wikibuy_landing_original_content",
+              "ab_search_landing",
+              "ab_yt_t_t_2",
+              "account_delete",
+              "a_clip_on",
+              "a_coup_cta_1",
+              "a_coup_on_202301",
+              "a_coup_on_v8",
+              "a_coup_site_test",
+              "a_coup_tooltip_ctrl",
+              "activation_bonus_central_isolated_offer_1",
+              "adblock_desktop_sh_cta_emph",
+              "advertiser_elasticity_cache_v_2",
+              "aff_interstitial",
+              "aff_interstitial_ease",
+              "aff_interstitial_set_location",
+              "aff_interstitial_set_location_ease",
+              "agree_tos_action",
+              "airbnb_conquesting",
+              "algorithmic_control",
+              "allow_account",
+              "allow_no_savings",
+              "altrarunning_audience",
+              "amazon_async_tigger",
+              "ameren_il_community_solar_nexamp",
+              "amz_class_on",
+              "ancestry_audience",
+              "ancientnutrition_audience",
+              "announcement_tile_ref_share_test_05152025_variant_0",
+              "announcement_tile_ref_switch_2",
+              "announcement_tile_ref_variant_6",
+              "apple_audience",
+              "apple_test",
+              "apply_page_coupons",
+              "apply_page_coupons_amazon",
+              "apply_savings_no_dismissal_ctrl",
+              "ar_bau_notif_cta_v_2",
+              "async_platform_detection_ctrl",
+              "auth_gate_cashback",
+              "auth_gate_coupons",
+              "autodesk_notif_enabled",
+              "az_mk_res",
+              "b2b_activation_bonus",
+              "b2b_conquesting_legalzoom_show",
+              "b2b_conquesting_taxes_control",
+              "b2b_conquest_notification_control",
+              "b2b_rewards_engine",
+              "b2b_todays_sponsored_offers_control",
+              "b_a_grey_only",
+              "bazaar_search_data_disabled_for_target",
+              "bb_homepage_registration_on",
+              "bb_test",
+              "bge_md_conquest_arcadia",
+              "big_async_tigger",
+              "big_commerce_delay_test",
+              "big_coup_on",
+              "blog_takeover_control",
+              "booking_test",
+              "c1_account_linking",
+              "can_use_v_2_segments",
+              "can_use_v2_tab",
+              "capital_one_no_consent_linking",
+              "capitalone_tv_iteration_3",
+              "captcha_on_payment",
+              "carousel_personalized",
+              "castlery_audience",
+              "cb_cta_ui_control",
+              "cb_dewey_overrides",
+              "cb_on_atc_control",
+              "cb_show_amount_above_five",
+              "cc_post_2",
+              "cc_pre_2",
+              "celebrate_link_control",
+              "celebritycruises_audience",
+              "central_ab_s",
+              "cesars_test_feature_plz_ignore_control",
+              "checkout_livechat_olark",
+              "chewy_audience",
+              "chrome_ext_srest_sample_100",
+              "chubbiesshorts_audience",
+              "ci_youtube_variant_control",
+              "cj_4209848_c",
+              "cledepeaubeaute_audience",
+              "click_state_onboarding",
+              "cm_test_new_coupon_inclusion",
+              "cm_test_use_site_cache_data",
+              "cm_use_program_client_rules",
+              "colehaan_audience",
+              "conquest_az_deals_modal_dtm_xd_variant_1_12192025",
+              "conquest_az_newitems_modal_dtm_xd_variant_1_12182025",
+              "conquest_evergreen_modal_dtm_xd_variant_1_10072025",
+              "conquest_modal_dtm_xd_control_06032025",
+              "content_data",
+              "copy_to_clipboard_switch",
+              "coup_arg_test",
+              "coup_checkpoint_202401_test",
+              "coup_copy_jan_22_test",
+              "coup_hub_desc",
+              "coupon_ab_ranker_2",
+              "coupon_bau_notif_activate",
+              "coupon_bau_notif_dismiss",
+              "coupon_bau_notif_red",
+              "coupon_lg_control",
+              "coupon_max_run_v_2_202404_ctrl",
+              "coupon_notif_bau_button",
+              "coupon_notif_bau_safari_ctrl",
+              "coupon_notif_control",
+              "coupon_run_max_ctrl",
+              "coupon_savings_likelihood",
+              "coup_perf_analytics_async_tigger_control",
+              "coup_pre_obs_test",
+              "coup_shift_left",
+              "coup_snip_off",
+              "coup_throttle_apr_23_b",
+              "coup_up_funnel_ctrl",
+              "c_ranker_trash_day",
+              "c_r_bagel_ctrl",
+              "credits_dismiss_reminder_control",
+              "credits_redemption_prompt_control",
+              "c_t_pin_off",
+              "cws_variant_1",
+              "datadog_web_on",
+              "db_backed_sessions",
+              "deal_card_avg_savings",
+              "deals_feed_red_cashback",
+              "deals_launch",
+              "debug_priceline_ctrl",
+              "delete_single_run",
+              "dell_audience",
+              "dermstore_audience",
+              "desktop_ab_lp_cta_4",
+              "desktop_ab_lp_yt_h_c",
+              "desktop_adblock_ad_rev_ms_c",
+              "desktop_adblock_cta_bf_t",
+              "desktop_adblock_onb_not_awb_t",
+              "desktop_adblock_onb_rel_mer_v1_c",
+              "desktop_adblock_onb_rel_mer_v2_c",
+              "desktop_adblock_onb_sk_to_ac_ctl",
+              "desktop_adblock_onb_sk_to_ac_v2_c",
+              "desktop_auto_immediate_ctrl",
+              "desktop_banner_ref_switch",
+              "desktop_ext_async_platform_detection",
+              "desktop_ext_blocks_pcm_multi_offer_variant_b",
+              "desktop_ext_offers_v2",
+              "desktop_ext_pcm_referrals_throttle_days_1",
+              "desktop_ext_send_smp_data",
+              "desktop_giftcardpage_banner_ref_variant_6",
+              "desktop_homepage_banner_ref_variant_1",
+              "desktop_onboarding_congrats_rem_v_1",
+              "desktop_onboarding_mobile_qr_beginning",
+              "desktop_onboarding_oauth_control_03_xx_2025",
+              "desktop_onboarding_oauth_ggoneclick",
+              "desktop_onboarding_step_ref_variant_0",
+              "desktop_onboarding_variant_3_04212025",
+              "desktop_onboarding_xd_dtm_variant_2_01132026",
+              "desktop_rewards_banner_ref_variant_4",
+              "dewey_price_comparison",
+              "dewey_price_comparison_silent",
+              "dickies_audience",
+              "direct_activation",
+              "disable_auto_coup_v2_control",
+              "disable_hotels_airbnb",
+              "disable_mark_control",
+              "disable_pusher",
+              "disable_tc_notifs",
+              "disable_tc_notifs_p_ctrl",
+              "drmartypets_audience",
+              "dsg_incrementality_test_july_2023_control",
+              "dtm_eligib_check",
+              "dyson_audience",
+              "ease_offers_personalized",
+              "ebay_audience",
+              "ebay_audience_all",
+              "ebay_coupon_target",
+              "eb_o_ck",
+              "eg_destination_rewards_q4_2025",
+              "eho_enable_feed_mobile",
+              "eho_enable_feed_webapp",
+              "eileenfisher_audience",
+              "eitt_2024",
+              "ek_dell_1125_aa_treatment",
+              "ek_kohls_0825_aa_test",
+              "ek_oldnavy_0825_aa_holdout",
+              "enable_amazon_marketplace",
+              "enable_homepage_recommended_products",
+              "enable_lightning_deal_pricing",
+              "energy_conquest_annual_savings_q2_2025_control",
+              "energy_conquest_free_signup_q3_2025_control",
+              "energy_free_nights_weekends_on",
+              "energy_sscopy_q1_2025_v1",
+              "enforce_whitelist_seller",
+              "error_page_view_log",
+              "et_alt_comp_conq_pc_notif_052025_test",
+              "et_conq_design_variant_012325_ctrl",
+              "et_conq_design_variant_042025_excl",
+              "et_homepage_placement_test",
+              "et_match_v_2",
+              "et_mlb_tickets_conq_pc_notif_052025_test",
+              "et_new_user_cross_channel_bonus_feed_ctrl",
+              "et_new_user_cross_channel_bonus_onboarding",
+              "et_notif_11_2025_test",
+              "et_notif_202406_test",
+              "et_oos_notif_test",
+              "et_pc_event_images_desktop_test",
+              "et_pc_event_images_mob_test",
+              "et_pc_lp_show_sponsored_placement_tile",
+              "et_pc_mobile_design_v1_092025_test",
+              "et_performer_conq_202506_test",
+              "et_performer_events_module_202508_test",
+              "et_price_comparison",
+              "et_rdr_v_3_test",
+              "et_red_vm_202412_test",
+              "et_rewards_engine",
+              "et_search_pc_conq_202503_v_1_test",
+              "et_search_pc_conq_mob_202504_v_1_test",
+              "et_search_sh_conq_202502_v_2_1_test",
+              "et_search_sh_conq_202502_v_2_test",
+              "et_show_category_page",
+              "et_show_home_and_product_bar",
+              "et_show_price_comparison_page",
+              "etsy_generic_codes_test",
+              "ettitude_audience",
+              "exc_coupon_site_notif_flag",
+              "exclude_non_verified",
+              "expanded_table",
+              "expedia_extension_testing_q2_2025_ctrl",
+              "expedia_extension_testing_q2_2025_switch_ctrl",
+              "ext_ae_api_v_2",
+              "ext_alternative_logo_2",
+              "ext_amz_cart",
+              "ext_amz_checkout",
+              "ext_cashback_notif_preferences",
+              "ext_cc_no_cred2_control",
+              "ext_cc_no_credit",
+              "ext_check_pcm_available_offers_control",
+              "ext_clo_control",
+              "ext_cnc_img_logo",
+              "ext_comm_solar_copy_test",
+              "ext_comm_solar_new_merchant_on",
+              "ext_comm_solar_rwrds_amt_test",
+              "ext_conquest_disable_blocks_native_throttling",
+              "ext_coupon_cta",
+              "ext_coupons_content_scripts_ctrl",
+              "ext_coupons_streamlined_click_ctrl",
+              "ext_cp_nr",
+              "ext_c_request_match",
+              "ext_cws",
+              "ext_deferred_coupon_rewards",
+              "ext_dewey_ensure_url_trigger",
+              "ext_disable_feedback",
+              "ext_eeyore_modernization",
+              "ext_email_create_account_incentives_control",
+              "ext_email_create_account_notification_control",
+              "ext_enable_blocks_notifs",
+              "ext_enable_cgpt_scraper",
+              "ext_enable_gaim_scraper_control",
+              "ext_enable_gemini_link_scraper",
+              "ext_energy_202512_cn_a",
+              "ext_energy_arbor_copy_test_2",
+              "ext_energy_arbor_on",
+              "ext_energy_arbor_rewards_amt_on",
+              "ext_energy_cashback_configured",
+              "ext_energy_commsolar_lp_header_control",
+              "ext_energy_commsolar_lp_price_comparison_control",
+              "ext_energy_competitive_subpage_on",
+              "ext_energy_duke_ohio_new_merchant_on",
+              "ext_energy_indra_on",
+              "ext_energy_jcpl_new_merchant_on",
+              "ext_energy_ne_google_conquesting_control",
+              "ext_energy_new_utility_conquest_trigger_on",
+              "ext_energy_notif_rewards_in_cta_on",
+              "ext_energy_nyseg_new_merchant_on",
+              "ext_energy_oru_new_merchant_on",
+              "ext_energy_pe_test_on",
+              "ext_energy_powersetter_copy_test_on",
+              "ext_energy_powervine_on",
+              "ext_energy_ppl_new_merchant_on",
+              "ext_energy_psegnj_new_merchant_on",
+              "ext_energy_ptc_gc_on",
+              "ext_energy_tx_billcredit_new_merchant_on",
+              "ext_energy_txu_copy_test_2_on",
+              "ext_energy_txu_copy_test_on",
+              "ext_energy_use_conquest_service",
+              "ext_energy_vpp_conquesting_control",
+              "ext_energy_vpp_copy_test_on_var_2",
+              "ext_evarsplit",
+              "ext_exclusion_warning",
+              "ext_expedia_ctrl",
+              "ext_fallback_low_success_2",
+              "ext_fast_roo_totals_no_reload",
+              "ext_found_rewards",
+              "ext_ga_sd",
+              "ext_ga_sd_mobile",
+              "ext_hide_rewards_rate_ctl",
+              "ext_homepage_feed_service_migration",
+              "ext_hotel_show_savings_only",
+              "ext_hotel_trusted_price",
+              "ext_instacart_promo_ctrl",
+              "ext_instant_init_notifs_ctrl",
+              "ext_logo_ctrl",
+              "ext_mirage_to_conquest_ext_notif",
+              "ext_modal_savings_emphasis",
+              "ext_ndewey",
+              "ext_ne_energy_plans_merchant_test_on",
+              "ext_notif_animation_ctrl",
+              "ext_notif_brand_size_ctrl",
+              "ext_notif_center_ctrl",
+              "ext_notif_drag",
+              "ext_notif_drag_ctrl",
+              "ext_notif_snooze",
+              "ext_number_codes_ctrl",
+              "ext_onpoint_rewards_test_on",
+              "ext_other_origins",
+              "ext_other_origins_alphapaw",
+              "ext_other_origins_bettymills",
+              "ext_other_origins_embarkvet",
+              "ext_other_origins_factorysupplyoutlet",
+              "ext_other_origins_grizzly",
+              "ext_other_origins_microcenter",
+              "ext_other_origins_mrostop",
+              "ext_other_origins_petco",
+              "ext_other_origins_petsmart",
+              "ext_other_origins_tractorsupply",
+              "ext_other_origins_zestypaws",
+              "ext_other_show",
+              "ext_pcas_notif_control",
+              "ext_pcm_activation_bonus_test_2",
+              "ext_pcm_amazon_ec_control",
+              "ext_pcm_amz_check",
+              "ext_pcm_dismiss_throttle_same_day_control",
+              "ext_pcm_offer_ps",
+              "ext_pcm_offer_ps_fs_control",
+              "ext_pc_no_better_price",
+              "ext_pc_origin_site_stats",
+              "ext_post_checkout_deals_feed_control",
+              "ext_post_checkout_deals_feed_v_control",
+              "ext_post_checkout_recommended_offers_single_cta_v_2",
+              "ext_post_flight",
+              "ext_prcs_card_inject_control",
+              "ext_prcs_multi_prompt_pd_button",
+              "ext_prcs_send_results",
+              "ext_prcs_send_results_throttle",
+              "ext_prcs_send_results_throttle_0",
+              "ext_prcs_su_modal_dismiss_timeout_5000",
+              "ext_prcs_su_modal_sp",
+              "ext_prcs_su_modal_v2",
+              "ext_prcs_use_service_for_image_url",
+              "ext_red_cta_202305",
+              "ext_referrals_conf_modal_ctrl",
+              "ext_reliant_conquest_notif_1",
+              "ext_rewards_cart",
+              "ext_rewards_content_scripts_ctrl",
+              "ext_rewards_remove_delay_ctrl",
+              "ext_runV3",
+              "ext_sd_all_tabs_v_2_ctrl",
+              "ext_sd_tld",
+              "ext_sh_on_control",
+              "ext_shorten_notif_text",
+              "ext_solar_conquest_notif_off",
+              "ext_stand_down_timer_reset",
+              "ext_throttle_before_conquest_notification",
+              "ext_tx_energy_ohm_connect_test_rwd_amt_on",
+              "ext_tx_energy_plans_notif_off",
+              "ext_vpp_notif_rwrds",
+              "ext_vpp_rewards_testing",
+              "ext_warn_sd",
+              "ext_wl_test",
+              "fallback_drop_off",
+              "farfetch_tiered_rate_test",
+              "feagc_v3_1",
+              "feature_campaign_control",
+              "feed_full_width_carousel_enabled",
+              "feed_in_channel_activation_bonus_and_container",
+              "feed_mobile_design_new_no_dots",
+              "filson_audience",
+              "financial_product_cof_link",
+              "financial_products_control",
+              "find_customer_segment_email",
+              "find_customer_segment_extension",
+              "find_customer_segment_feed",
+              "find_customer_segment_reject_reasons",
+              "fmtc_cache_exclude_by_merchant",
+              "force_store_install",
+              "freepeople_audience",
+              "gallerycollection_audience",
+              "gate_modal_iteration_4",
+              "gate_modal_products",
+              "gc_e_50000_homepage",
+              "gc_e_c_homepagecopy",
+              "gc_f102",
+              "gc_f_package",
+              "gc_fx101",
+              "gc_sort_93",
+              "gc_t100",
+              "gc_t100hv_1",
+              "gc_w_101",
+              "gc_wallet_redesign",
+              "gexa_conquest_saveon",
+              "godiva_audience",
+              "great_deals_pill_test",
+              "grocery_af_cart_conquesting_wmt_cta_test",
+              "grocery_af_cart_conquesting_wmt_mvp_inactive",
+              "grocery_af_cart_conquesting_wmt_product_level_savings_test",
+              "grocery_af_cart_conquesting_wmt_savings_threshold_test",
+              "grocery_af_cart_conquesting_wmt_text_test",
+              "grocery_cart_conquesting_threshold_a",
+              "grocery_cpg_offer_email_multi_merchant",
+              "grocery_cpg_offers_14_days",
+              "grocery_cpg_offers_always_show_banner_inactive",
+              "grocery_cpg_offers_check_order_date_when_redeeming_enabled",
+              "grocery_cpg_offers_email_target_grocery_visitors_control",
+              "grocery_cpg_offers_error_to_fallback_inactive",
+              "grocery_cpg_offers_header_verify_button",
+              "grocery_cpg_offers_how_it_works_activation",
+              "grocery_cpg_offers_how_it_works_verification_disabled",
+              "grocery_cpg_offers_login_instructions_inactive",
+              "grocery_cpg_offers_non_partner_notification_inactive",
+              "grocery_cpg_offers_no_results_survey_enabled",
+              "grocery_cpg_offers_online_only_tag_disabled",
+              "grocery_cpg_offers_reminder_delivery_date_inactive",
+              "grocery_cpg_offers_shop_button_disabled",
+              "grocery_cpg_offers_soft_users_allowed",
+              "grocery_cpg_offers_wording_verify",
+              "grocery_cpg_reward_offer_email_click_model_enabled",
+              "grocery_cpg_reward_offer_multimerchant_email_click_model_enabled",
+              "grocery_heb_cart_conquesting_wmt_mvp_inactive",
+              "growth_bank_linking_redemption",
+              "growth_bank_linking_redemption_mobile",
+              "growth_nav_bar_removal_true",
+              "hdp_redesign_q1_2025_test",
+              "hdp_single_image_ctrl",
+              "headline_auto_code_app",
+              "help_file_upload",
+              "help_ui_non_user",
+              "help_ui_test",
+              "hfde_model_xgborder_1_2",
+              "hhl_control",
+              "hide_amazon_mp_when_os",
+              "hide_amazon_pla",
+              "hide_other_offers_on_pla",
+              "history_sync_control",
+              "hold_utm_params",
+              "home_depot_great_and_trending_deals_not_allowed",
+              "home_feed_content_data",
+              "homepage_feed_bonus_offers_mobile",
+              "homepage_feed_drop_secondary_image",
+              "homepage_feed_elevated_brand_rewards_batch",
+              "homepage_feed_enhanced_filters_no_search",
+              "homepage_feed_generic_merchants_by_country",
+              "homepage_feed_generic_tile_all_merchants",
+              "homepage_feed_hfde_click_order_scores_v1",
+              "homepage_feed_hide_filters",
+              "homepage_feed_image_proxy",
+              "homepage_feed_incrementality_not_in_test",
+              "homepage_feed_pagination_mobile",
+              "homepage_feed_pagination_v2",
+              "homepage_feed_popularity_scores_v2",
+              "homepage_feed_recommended_merchants",
+              "homepage_feed_recommended_products",
+              "homepage_feed_recommended_products_mobile",
+              "homepage_feed_rewards_engine",
+              "homepage_feed_rewards_engine_mobile",
+              "homepage_feed_send_analytics",
+              "homepage_feed_show_rating",
+              "homepage_feed_sort_with_gbm_no_lstm",
+              "homepage_feed_use_gb_model",
+              "homepage_feed_vertical_layout_mobile_ctrl",
+              "homepage_feed_web_vertical_layout_base",
+              "homepage_freshness_n_equals_2",
+              "homepage_side_bar",
+              "home_personalization_mirage",
+              "hotel_conquest_hdp_landing",
+              "hotel_details_update_test",
+              "hotel_expedia_mobile_room_rate",
+              "hotel_flight_conquest_control",
+              "hotel_image_proxy",
+              "hotel_inline_conquesting_ctrl",
+              "hotel_partner_promo",
+              "hotel_redirect_v3",
+              "hotels_comparions_v2",
+              "hotels_disable_instant_data_cache",
+              "hotel_search_offers_ctrl",
+              "hotels_hide_total_pricing",
+              "hotels_inventory_v3_2",
+              "hotels_junk_fee_updates",
+              "hotels_metasearch_ihg_destination_rewards_mvp_ctrl",
+              "hotels_metasearch_new_user_activation_bonus_v1_ctrl",
+              "hotels_metasearch_new_user_email_offer_webapp",
+              "hotels_metasearch_new_user_feed_offer",
+              "hotels_metasearch_new_user_onboarding_offer_ctrl",
+              "hotels_metasearch_nightly_pricing",
+              "hotels_metasearch_property_id_rewards_ctrl",
+              "hotels_metasearch_show_property_ratings",
+              "hotels_nightly_price_with_fees",
+              "hotels_phone_number_exact_match",
+              "hotels_price_post_rewards_notif",
+              "hotels_rewards_engine",
+              "hotels_sponsored_in_line_serp_mvp_hidden",
+              "hotel_transparent_pricing_2",
+              "hp_deals_section_show",
+              "hp_growth_test_variant_2",
+              "hw_control",
+              "hybrid_match_survey",
+              "iherb_audience",
+              "immediate_notif_v_2_control",
+              "ims_over_walmart",
+              "incentive_eligibility_jwt_gate",
+              "incentive_eligibility_jwt_validation",
+              "incentive_eligibility_webapp",
+              "incentive_eligibility_webapp_control",
+              "install_bail_feedback",
+              "instant_airfare_variant",
+              "instant_amazon_variant",
+              "instant_apple_variant",
+              "instant_gaming_variant",
+              "instant_tv_iteration_4",
+              "instock_preheader_changes",
+              "international_placements_filtering",
+              "internet_best_deals_active",
+              "intuit_audience",
+              "ip_full_adding_is_only_way",
+              "ip_full_checks",
+              "is_academy_qualified",
+              "is_adidas_qualified",
+              "is_allbirds_qualified",
+              "is_ariat_qualified",
+              "is_art_qualified",
+              "is_atmcollection_qualified",
+              "is_audienhearing_qualified",
+              "is_betseyjohnson_qualified",
+              "is_bioptimizers_qualified",
+              "is_boohooman_qualified",
+              "is_c_1_microsoft_ca_qualified",
+              "is_chewy_qualified",
+              "is_cleanup",
+              "is_colehaan_qualified",
+              "is_crocs_qualified",
+              "is_dyson_qualified",
+              "is_geappliances_ca_qualified",
+              "is_gourmetgiftbaskets_qualified",
+              "is_hannaandersson_qualified",
+              "is_hp_qualified",
+              "is_iherb_qualified",
+              "is_joesnewbalanceoutlet_qualified",
+              "is_klook_qualified",
+              "is_lego_qualified",
+              "is_lenscrafters_qualified",
+              "is_microsoft_qualified",
+              "is_oakley_qualified",
+              "is_paulaschoice_qualified",
+              "is_perriconemd_qualified",
+              "is_personalizationmall_qualified",
+              "is_qvc_qualified",
+              "is_ramybrook_qualified",
+              "is_ray_ban_qualified",
+              "is_roka_qualified",
+              "is_scott_sports_qualified",
+              "is_shutterfly_qualified",
+              "is_skechers_qualified",
+              "is_stevemadden_qualified",
+              "is_sunglasshut_qualified",
+              "is_talbots_qualified",
+              "is_tatcha_qualified",
+              "is_therabody_qualified",
+              "is_udemy_qualified",
+              "is_vineyardvines_qualified",
+              "is_vitacost_qualified",
+              "is_walmart_ca_qualified",
+              "is_workspace_google_qualified",
+              "is_zoro_qualified",
+              "jdsports_audience",
+              "jennikayne_audience",
+              "july_linked_cards_control_ui",
+              "kipling_audience",
+              "klook_audience",
+              "landing_fm_2",
+              "landing_mobile_email_passive",
+              "landing_parallax",
+              "launch_control_banner",
+              "launch_control_deployment_notes_admin",
+              "launch_control_secrets_new",
+              "launch_control_service_tiers",
+              "launch_control_show_approval_flow_tab",
+              "lenovo_audience",
+              "lexi_v_2_config_enabled_v_2",
+              "liquid_iv_audience",
+              "lpaca_gdn_mp_control",
+              "lpaca_join_control",
+              "lpaca_mobile_piggybank_control",
+              "lpaca_mobile_wallet_cta_test_c",
+              "lpaca_sdc_modal_control",
+              "lpaca_sem_all_core_control",
+              "lpaca_sem_all_pcd_control",
+              "lpaca_sem_apparel_shoes_control",
+              "lpaca_sem_apparel_womens_control",
+              "lpaca_sem_beauty_control",
+              "lpaca_sem_mobile_apparel_shoes_all_test_a",
+              "lpaca_sem_mobile_apparel_shoes_hoka_control",
+              "lpaca_sem_mobile_home_all_control",
+              "lpaca_sem_mobile_home_hexclad_control",
+              "lpaca_sem_pizza_test_b",
+              "lpaca_sem_placeholder_true",
+              "lpaca_sem_travel_flights_branded_control",
+              "lpaca_sem_travel_flights_general_control",
+              "lpaca_sem_travel_flights_general_location_instant",
+              "lto_referral_date_5_12_1_23",
+              "mag_coup_on",
+              "magento_async_tigger",
+              "magento_delay_test",
+              "managed_sub_rokt_jwt_validation_gate",
+              "marriott_control",
+              "maurices_audience",
+              "max_payout_feed_test_1000",
+              "mg_arcade_enabled",
+              "mg_enable_web_arcade",
+              "mg_show_non_iap_cashback",
+              "microperfumes_audience",
+              "minted_audience",
+              "mirage_personalization_lego",
+              "mit_isnotqualified_best_buy",
+              "m_nb_addtosafari_control",
+              "m_nb_announcement_tile_ref_05152025_variant_4",
+              "m_nb_mobile_onboarding_no_bonus_v_1",
+              "m_nb_postcheckout_modal_mtd_xd_control_10272025",
+              "m_nb_postcheckout_modal_mtd_xd_variant_2_01052026",
+              "mob_clo_ob_ctl",
+              "mob_eb_vs_on",
+              "mobile_all_incentives_onboarding_control",
+              "mobile_all_incentives_onboarding_v_2_control",
+              "mobile_all_incentives_onboarding_v_3_b",
+              "mobile_android_accessibility_onboarding",
+              "mobile_android_accessibility_onboarding_v2",
+              "mobile_android_ext_available",
+              "mobile_android_ext_available_v2",
+              "mobile_android_ext_multi_browser",
+              "mobile_android_ext_variant",
+              "mobile_backend_onboarding_dtma",
+              "mobile_backend_onboarding_referrals",
+              "mobile_bonus_status_ui",
+              "mobile_desktop_incentive_10_dollar",
+              "mobile_desktop_incentive_app_onboarding",
+              "mobile_desktop_incentive_control",
+              "mobile_desktop_incentive_qualified",
+              "mobile_ext_advertiser_elasticity_api_control",
+              "mobile_ext_ae_api_switch",
+              "mobile_ext_affiliate_standdown",
+              "mobile_ext_affiliate_standdown_check_switch",
+              "mobile_ext_affiliate_standdown_control",
+              "mobile_ext_aff_navigate_resolution",
+              "mobile_ext_aff_redirect_resolution",
+              "mobile_ext_all_desktop_coup_sites",
+              "mobile_ext_amazon_async_tigger",
+              "mobile_ext_amazon_coupon_result_auto_dismiss",
+              "mobile_ext_apply_savings_no_reward",
+              "mobile_ext_app_syncing_enabled_v_7",
+              "mobile_ext_async_platform_detection",
+              "mobile_ext_async_tigger_bg",
+              "mobile_ext_auto_dismiss_coupon_result_control",
+              "mobile_ext_auto_dismiss_coupon_result_v_2",
+              "mobile_ext_auto_launch_hotels_experience",
+              "mobile_ext_auto_redirect_post_sign_in_test",
+              "mobile_ext_bg_storage_ctrl",
+              "mobile_ext_big_async_tigger",
+              "mobile_ext_blocks_pcm_vert_feed_variant_a",
+              "mobile_ext_blocks_rewards_dismiss_cta_control",
+              "mobile_ext_blocks_service_enabled",
+              "mobile_ext_blocks_service_enabled_control",
+              "mobile_ext_bloom_filters_v_2_control",
+              "mobile_ext_bonus_main_decline_cta_c",
+              "mobile_ext_bonus_main_header_d",
+              "mobile_ext_bonus_main_positive_cta_b",
+              "mobile_ext_bonus_offer_amount_10",
+              "mobile_ext_bonus_offer_code_v_1_moa_62_fjm",
+              "mobile_ext_bonus_wait_header_a",
+              "mobile_ext_checkout_sitehub_enabled",
+              "mobile_ext_check_pcm_available_offers_control",
+              "mobile_ext_closed_tab_evt_control",
+              "mobile_ext_conquest_disable_blocks_native_throttling",
+              "mobile_ext_coup_result_auto_dismiss",
+              "mobile_ext_coup_result_copy",
+              "mobile_ext_cta_align_color_red",
+              "mobile_ext_cta_button_color_blue_control",
+              "mobile_ext_cta_button_color_red_v_2",
+              "mobile_ext_desktop_conversion_page",
+              "mobile_ext_desktop_conversion_popup_and_page",
+              "mobile_ext_desktop_conversion_second_chance",
+              "mobile_ext_desktop_limited_perm_control",
+              "mobile_ext_desktop_magic_link_fix",
+              "mobile_ext_dewey_ensure_url_trigger",
+              "mobile_ext_dewey_price_comparison_holdout_v_2",
+              "mobile_ext_dewey_price_comparison_v_2",
+              "mobile_ext_disable_auto_coup_v2",
+              "mobile_ext_dismiss_control",
+              "mobile_ext_energy_use_conquest_service",
+              "mobile_extension_onboarding_flow_test_sc",
+              "mobile_ext_esm_control",
+              "mobile_ext_express_checkout_notif_control",
+              "mobile_ext_google_signed_in",
+              "mobile_ext_homepage_feed_service_migration",
+              "mobile_ext_immediate_notif_control",
+              "mobile_ext_immediate_notif_coup_count_1",
+              "mobile_ext_incognito_same_tab",
+              "mobile_ext_large_screen_coupon_modal_control",
+              "mobile_ext_large_screen_notif_position",
+              "mobile_ext_large_screen_skinny_notif",
+              "mobile_ext_lifetime_savings_sitehub",
+              "mobile_ext_magento_async_tigger",
+              "mobile_ext_mirage_notif_ctrl_v_2",
+              "mobile_ext_mirage_notif_v_3",
+              "mobile_ext_mirage_to_conquest_ext_notif",
+              "mobile_ext_mirage_to_conquest_ext_notif_ctrl",
+              "mobile_ext_move_notif_throttle_control",
+              "mobile_ext_non_rewards_qsm_control",
+              "mobile_ext_non_rewards_qsm_v_2_control",
+              "mobile_ext_no_reprompt",
+              "mobile_ext_no_reward_popup_notif_flow_amazon_control",
+              "mobile_ext_no_site_hub_widget",
+              "mobile_ext_notif_animation_removed",
+              "mobile_ext_notif_dismiss_control",
+              "mobile_ext_notif_dismiss_no_thanks_test_b_v_2",
+              "mobile_ext_notification_modals_control",
+              "mobile_ext_notification_sheet_no_overlay_control",
+              "mobile_ext_notification_v_2",
+              "mobile_ext_notif_modal_non_monetized_control",
+              "mobile_ext_notif_timeout_control",
+              "mobile_ext_offers_v2",
+              "mobile_ext_onb_increase_perm_attempts_variant_1",
+              "mobile_ext_onboarding_steps_avoid_apple_menu_test",
+              "mobile_ext_passback_control",
+              "mobile_ext_pcas_notif_control",
+              "mobile_ext_pcm_threshold_control",
+              "mobile_ext_pcm_threshold_switch",
+              "mobile_ext_perm_badge_control",
+              "mobile_ext_permissions_prompt_enabled_v_2",
+              "mobile_ext_permissions_prompt_limit_control",
+              "mobile_ext_perm_prompt_4_a",
+              "mobile_ext_personalized_offers_sitehub",
+              "mobile_ext_pinned_tab_183_fix",
+              "mobile_ext_popup_notif_flow",
+              "mobile_ext_popup_notif_flow_5",
+              "mobile_ext_popup_permissions_desktop",
+              "mobile_ext_popup_permissions_desktop_limit_6",
+              "mobile_ext_popup_permissions_desktop_safari_18",
+              "mobile_ext_popup_permissions_review_control",
+              "mobile_ext_popup_permissions_review_onboarding_3",
+              "mobile_ext_post_checkout_deals_auto_dismiss_10000",
+              "mobile_ext_post_checkout_deals_feed_single_offer_notif_control",
+              "mobile_ext_post_checkout_deals_in_new_tab_control",
+              "mobile_ext_post_checkout_deals_notif_control",
+              "mobile_ext_post_checkout_deals_notif_v_3_control",
+              "mobile_ext_post_checkout_deals_offer_count_4",
+              "mobile_ext_post_checkout_deals_serverside",
+              "mobile_ext_post_checkout_email_confirmation_notif_control",
+              "mobile_ext_post_checkout_fallback_deals_control",
+              "mobile_ext_prcs_send_results_throttle",
+              "mobile_ext_private_mode_detection_control",
+              "mobile_ext_prs_prm_control",
+              "mobile_ext_prs_prm_days_7",
+              "mobile_ext_pv_injection_17_4",
+              "mobile_ext_pv_injection_control",
+              "mobile_ext_reactivation_ext_page_control",
+              "mobile_ext_remove_default_bonus_amount_copy",
+              "mobile_ext_respect_current_tab",
+              "mobile_ext_retail_pc_transparent_pricing",
+              "mobile_ext_reward_rate_app_control",
+              "mobile_ext_reward_rate_desktop_v_2",
+              "mobile_ext_rewards_badge_control",
+              "mobile_ext_reward_script_injector_control",
+              "mobile_ext_rewards_listen_for_coupon_notif",
+              "mobile_ext_rewards_notif_sign_up_control",
+              "mobile_ext_roo_coupon_code_count_5_max",
+              "mobile_ext_sd_tld_v2_control",
+              "mobile_ext_secondary_cta_variant_secondary",
+              "mobile_ext_send_smp_data",
+              "mobile_ext_shadow_sign_in_prompt",
+              "mobile_ext_shopify_async_tigger",
+              "mobile_ext_sitehub_checkouts_fallback",
+              "mobile_ext_site_hub_widget_variant_a",
+              "mobile_ext_smaller_notif_control",
+              "mobile_ext_smaller_notif_test_a_v_2",
+              "mobile_ext_smp_enabled",
+              "mobile_ext_smp_enabled_control",
+              "mobile_ext_square_async_tigger",
+              "mobile_ext_srest_sample_100",
+              "mobile_ext_successful_enablement_no_steps",
+              "mobile_ext_suc_use_multiple_banks",
+              "mobile_ext_swipe_away_notif_control",
+              "mobile_ext_test_feature",
+              "mobile_ext_throttle_before_conquest_notification",
+              "mobile_ext_top_inline_terms",
+              "mobile_ext_track_did_not_sign_in",
+              "mobile_ext_using_blocks_mirage",
+              "mobile_ext_using_blocks_mirage_v_2",
+              "mobile_ext_web_req_sd_at",
+              "mobile_ext_web_req_standdown",
+              "mobile_ext_woo_async_tigger",
+              "mobile_onboarding_force_create_acct_variant",
+              "mobile_onboarding_screen_ref_variant_1",
+              "mobile_onboarding_success_screen_revamp_control",
+              "mobile_onboarding_web_redesign_control",
+              "mobile_redirect_no_userid_control",
+              "mobile_redirect_no_userid_v_2_control",
+              "mobile_roo_cust_sav_ctrl",
+              "mobile_safari_instructions_onboarding_control",
+              "mobile_safari_instructions_review_control",
+              "mobile_short_onboarding",
+              "mobile_sign_up_cta_copy_test_b",
+              "mobile_store_page_ref_variant_1",
+              "mobile_ungated_app_ext_onboarding_b",
+              "mobilewebext_activate_ctrl",
+              "mobilewebext_rewardsonly_test",
+              "mobilewebext_yes_overlay",
+              "mob_l1tile",
+              "mob_ob_1",
+              "mob_signed_in_flow_control",
+              "mob_ss_enabled",
+              "more_screen_ref_variant_0",
+              "mpn_brand_product_match_flag",
+              "mrporter_audience",
+              "multimerchant_preheader_changes",
+              "mweb_redesign_onboarding_review_control",
+              "mx_nb_notification_couponresult_a",
+              "mx_nb_post_checkout_deals_a",
+              "mx_nb_post_checkout_deals_feed_single_offer_a",
+              "mx_nb_post_checkout_deals_non_vm_control",
+              "mx_nb_postcheckout_modal_mtd_xd_control_10272025",
+              "mx_nb_postcheckout_modal_mtd_xd_variant_1_01052026",
+              "my_credits_page",
+              "mytheresa_audience",
+              "name_on_ca_no_name",
+              "necessaire_audience",
+              "negativeunderwear_audience",
+              "neimanm_incrementality_test_july_2023_control",
+              "new_referrals_user_gate",
+              "new_savings_dashboard_personalized_header",
+              "new_user_30_d",
+              "nha_notif_ctrl",
+              "non_referred_is_eligible_feature_gate",
+              "n_or_1",
+              "no_throttle_activate_later_ctl",
+              "notification_settings_on_uninstall",
+              "notif_rounded_border_ctrl",
+              "n_pt_1",
+              "ob_full_personalization",
+              "ob_gate_deals",
+              "offer_tt_auto_show",
+              "offer_tt_control",
+              "offer_url_token_db",
+              "ogio_audience",
+              "onboarding_disable_continue_button_on_add_to_safari_screen_control",
+              "onboarding_dont_see_review_v2_variant",
+              "onboarding_email_ref_variant_2_08152025",
+              "onboarding_no_clo",
+              "onboarding_no_review_banner_control",
+              "onboarding_retry_flow_ui_change_v_2_variant_2",
+              "onboarding_retry_flow_v3_control",
+              "onboarding_value_prop_consolidation_control",
+              "oos_on",
+              "opera_backbook_v2_sub_lp_control",
+              "organic_sift_workflow",
+              "orientaltrading_audience",
+              "original_instant_images_airbnb",
+              "original_instant_images_fitness",
+              "original_instant_images_office_supplies",
+              "original_instant_images_sporting_goods",
+              "original_instant_images_target",
+              "origin_removal_off",
+              "palette_int_blue",
+              "parallax_landing",
+              "parallel_content_excl",
+              "paste_from_clipboard_app_to_safari_cta",
+              "paste_from_clipboard_control_08272024",
+              "payout_force_unverified",
+              "payout_sort",
+              "payout_sort_c",
+              "pb_affiliate",
+              "pb_landing_w1_post",
+              "pb_migration",
+              "pc_activation_eligible_user_feature",
+              "pc_amazon_202108_3_b",
+              "pc_commissionable_check_enabled",
+              "pc_dewey_pricing",
+              "pc_dser_enabled",
+              "pc_elevated_rewards",
+              "pc_feed_pricing_enabled",
+              "pc_first_result_with_savings",
+              "pc_gen_redirect_link",
+              "pc_include_alt_sourced_matches",
+              "pc_pinned_tabs",
+              "pc_pinned_tabs_cart_checkout",
+              "pc_use_server_side_pricing",
+              "pensieve_beta",
+              "personalized_first_email",
+              "personalized_placements",
+              "pinned_tab_test_202409",
+              "pinned_tab_test_shopify",
+              "POS_LINK_ONLY",
+              "post_checkout_deals_filtered_rewards_engine",
+              "postcheckout_modal_desktop_ea_holdout_06132025",
+              "postcheckout_modal_desktop_ref_variant_2_11132025",
+              "postcheckout_modal_dtm_xd_retarget_perm_variant_3_11142025",
+              "postcheckout_modal_dtm_xd_retarget_variant_2_11142025",
+              "postcheckout_modal_dtm_xd_variant_2_12102025",
+              "postcheckout_modal_mobile_ref_control_11142025",
+              "postcoupon_p2_g1",
+              "post_email_sub_info_modal",
+              "prcs_redirect_v3",
+              "prcs_use_datamart",
+              "prcs_use_elevated_rewards",
+              "prcs_use_imageproxy",
+              "precheckout_modal_desktop_ea_holdout_06142025",
+              "precheckout_modal_desktop_ea_switch_06142025",
+              "precheckout_modal_dtm_variant_2_12122025",
+              "prevent_fb_extensionInstalled",
+              "price_comparison_floating_notif",
+              "price_comparison_floating_notif_non_amz_ctrl",
+              "price_comparison_rewards_as_savings",
+              "pricedrop_preheader_control",
+              "product_card_new",
+              "product_page_modal_image_control_none_sub_control_copy_v_0",
+              "product_return_notification",
+              "project_honeymoon_hide_notif",
+              "push_mtd_xd_control_12132024",
+              "push_notif_prompt_app_welcome_control",
+              "quill_audience",
+              "qvc_audience",
+              "rak_rewards_ctrl",
+              "ramybrook_audience",
+              "randomize_auto_coupons_ctl",
+              "randomize_auto_coupons_v_2_other",
+              "reactivation_onboarding_redesign_control",
+              "redemption_email_control",
+              "reef_medium_link",
+              "referral_eligibility_control_06302025",
+              "referral_inc_control",
+              "referral_lp_test_control_11052025",
+              "referral_lp_test_control_12122025",
+              "referrals_ios_portal_lto_header",
+              "referrals_mobile_feed_marketing",
+              "referrals_onboarding_desktop_feature_gate",
+              "referrals_onboarding_mobile_feature_gate",
+              "referrals_portal_design_test_variant_1_04012025",
+              "referrals_save_create_acct_utm_source",
+              "rental_cars_conquesting_notification_show",
+              "rental_cars_price_comparison_show",
+              "retail_pc_activation_bonus_copy_1",
+              "retail_pc_activation_bonus_title",
+              "retail_pc_cart_page_data",
+              "retail_pc_floating_notif_sticky",
+              "retail_pc_non_amazon_best_result",
+              "retail_pc_transparent_pricing_ctrl",
+              "retail_pc_transparent_pricing_v3_variant_1",
+              "retargeting_multi_product_control",
+              "retargeting_preheader_changes",
+              "revamp_app_sign_up_flow_control",
+              "revamp_web_sign_up_flow_control",
+              "rewards_dismissal_2",
+              "rewards_engine_enabled",
+              "rewards_feed_elasticity_holdout",
+              "right_side_filter",
+              "roo_cust_sav_test",
+              "roo_decimal_test",
+              "roo_price_diff",
+              "row_design",
+              "rpc_enabled",
+              "r_test_20240306_b",
+              "same_tab_affiliate",
+              "same_tab_affiliate_filtered_sites",
+              "samsclub_audience",
+              "savings_prominence",
+              "scheels_audience",
+              "send_back_to_app_sheet",
+              "send_timing_metrics",
+              "sf_review",
+              "shein_audience",
+              "shinola_audience",
+              "shiseido_audience",
+              "shop_202306_excl",
+              "shopify_async_tigger",
+              "shop_removal_test_202404",
+              "should_use_blocks_service",
+              "show_antivirus_conquest",
+              "show_best_on_web",
+              "show_blog",
+              "show_browser_notification_button",
+              "show_collections",
+              "show_currency",
+              "show_custom_notification",
+              "show_deals_sidebar",
+              "show_events",
+              "show_events_and_carousel_in_homepage_feed",
+              "show_events_in_carousel_and_feed",
+              "show_exclusive_retarget_ui",
+              "show_faq_search",
+              "show_faq_side_nav",
+              "show_homepage_feed_design_v_2",
+              "show_homepage_storelinks_6",
+              "show_hotel_notif",
+              "show_invite_friends",
+              "show_mobile_referrals",
+              "show_new_advertiser_form_footer_link",
+              "show_password_reqs",
+              "show_personalized_deals_feed_title",
+              "show_price_comparison",
+              "show_proof_ctrl",
+              "show_retargeted_product_coupons_in_feed",
+              "show_retargeting_on_homepage",
+              "show_rewards",
+              "show_rewards_status",
+              "show_social_login",
+              "show_total_after_credits",
+              "simple_blog",
+              "sitehub_p2_g1",
+              "skip_account",
+              "skip_reload_202401_test",
+              "snapfish_audience",
+              "solo_preheader_control",
+              "sort_feagc_be",
+              "spa_prompt",
+              "square_async_tigger",
+              "square_coup_on",
+              "standard_vm",
+              "stio_audience",
+              "storepage_coup_flyout_ctrl",
+              "storepage_coup_modal_test_b_instant",
+              "storepage_integrated_cta_ctrl",
+              "storepage_overhead_cta_test",
+              "store_test_page_variant",
+              "store_test_variant_12",
+              "streaming_activation_bonus_control",
+              "streaming_content_details_use_cache",
+              "streaming_content_retargeting_email_control",
+              "streaming_hide_deep_links",
+              "streaming_hide_disney_upsell",
+              "streaming_hide_merchant_conquesting",
+              "streaming_hide_offers_extra_cols",
+              "streaming_hide_sports_conquesting",
+              "streaming_hide_webapp_content_details",
+              "streaming_mobile_24hr",
+              "streaming_mobile_watch_modal",
+              "streaming_netflix_test",
+              "streaming_new_movies_page",
+              "streaming_offers_notif_logo",
+              "streaming_show_desktop_brand_conquest",
+              "streaming_show_directv",
+              "streaming_show_disney",
+              "streaming_show_espn",
+              "streaming_show_fubo",
+              "streaming_show_hulu",
+              "streaming_show_max",
+              "streaming_show_mobile_brand_conquest",
+              "streaming_show_mobile_conquest",
+              "streaming_show_paramount",
+              "streaming_show_peacock",
+              "streaming_show_philo",
+              "streaming_show_sling",
+              "streaming_show_starz",
+              "streaming_show_webapp_offer",
+              "streaming_show_youtube",
+              "streaming_test_a",
+              "streaming_title_retargeting_test_b",
+              "streaming_v3_redirect",
+              "streaming_webapp_show_content_details",
+              "streaming_webapp_show_sports",
+              "streamline_events_off",
+              "sub_cookie_v_2",
+              "sub_cookie_validate_url",
+              "suc_use_multiple_banks",
+              "supergoop_audience",
+              "target_customers",
+              "telecom_activation_bonus_control",
+              "test_hotel_offers_ctrl",
+              "test_hotel_partner_promo",
+              "test_hotel_search_offers_ctrl",
+              "test_savings_notif",
+              "thenorthface_audience",
+              "tommyjohn_audience",
+              "top_hatter_hp_or",
+              "toryburch_audience",
+              "transitive_product_match_bau_flag",
+              "transitive_product_match_flag",
+              "travel_show_rental_cars",
+              "trendingcoupon_preheader_changes",
+              "try_codes_demo_control",
+              "trymore_coup_off",
+              "ubereats_customer",
+              "ui_copy_control",
+              "uninstall_structured",
+              "universal_pc_canonical",
+              "unsubscribe_popup_twograybuttons",
+              "update_pla",
+              "use_interstitial",
+              "use_mv3_ss_requester_control",
+              "use_new_pc_cart_pricing",
+              "use_platforms",
+              "use_program_rules",
+              "user_contributed_codes",
+              "user_contributed_codes_tigger",
+              "use_redirect_v2",
+              "user_gaming_constraint_ease",
+              "user_less_than_7_d_old",
+              "user_order_history_email",
+              "user_smp_enabled",
+              "use_store_img_tag",
+              "use_walmart_api",
+              "v_2_homepage",
+              "vicicollection_audience",
+              "visit_merchant_install_gate",
+              "wallet_carrental_v1_savings",
+              "wallet_hotels_v2_savings2",
+              "wallet_themepark_v2_parkfun",
+              "wa_nb_homepage_banner_dtm_variant_4_11122025",
+              "wa_nb_rewardspage_banner_dtm_variant_1_11072025",
+              "wb_api_site",
+              "wb_coup_v3",
+              "wb_desktop_ext_lexi_switch",
+              "wb_hotel_dynamic_vendor_metas_ctrl",
+              "wb_hotel_search_ext_on",
+              "wb_hotel_search_off",
+              "wb_hotel_search_on",
+              "wb_hotel_search_safari_on",
+              "wb_hotels_similarity_recommender_on",
+              "wb_mobile_add_features_to_dd",
+              "wb_mobile_alerts_push_notif_test",
+              "wb_mobile_allow_localization",
+              "wb_mobile_all_pdeals_b",
+              "wb_mobile_alternate_signup_ui_off",
+              "wb_mobile_android_13_notif_permission",
+              "wb_mobile_android_announcement_v2",
+              "wb_mobile_android_announcement_v3",
+              "wb_mobile_android_min_version_supported_2_110_0",
+              "wb_mobile_announcement_tile_no_animation_control",
+              "wb_mobile_app_sign_up_paginated_control",
+              "wb_mobile_attributed_install_disabled",
+              "wb_mobile_autocoup_icon_on",
+              "wb_mobile_backend_2_59_0_control",
+              "wb_mobile_backend_notif_feed",
+              "wb_mobile_backend_onboarding",
+              "wb_mobile_backend_onboarding_store_favorites_control",
+              "wb_mobile_biometric_sign_in_v_2",
+              "wb_mobile_bloom_filters_v_2_control",
+              "wb_mobile_bonus_offer_mobile_ext_on_switch",
+              "wb_mobile_c_1_oauth_existing_sign_in",
+              "wb_mobile_capital_one_linking",
+              "wb_mobile_captcha_cancellation_detection",
+              "wb_mobile_captcha_disabled",
+              "wb_mobile_category_browse_on",
+              "wb_mobile_category_feed_card_control",
+              "wb_mobile_control_interstitial",
+              "wb_mobile_dc_green_deal_control",
+              "wb_mobile_delete_shared_workers",
+              "wb_mobile_desktop_annc_no_exp",
+              "wb_mobile_desktop_ext_reminder_more_screen",
+              "wb_mobile_desktop_inc_amt_45",
+              "wb_mobile_dewey_ensure_url_trigger_control",
+              "wb_mobile_enable_stores_favorite_button",
+              "wb_mobile_ext_install_prompt_cta_b",
+              "wb_mobile_ext_install_prompt_sheet",
+              "wb_mobile_ext_lexi_switch",
+              "wb_mobile_ext_nimbus_switch",
+              "wb_mobile_ext_onboarding_use_template",
+              "wb_mobile_ext_reactivation",
+              "wb_mobile_ext_session_sharing",
+              "wb_mobile_favorites_onboarding_v2",
+              "wb_mobile_favorite_stores_redesign_on",
+              "wb_mobile_fav_stores_vertical_scroll_expanded",
+              "wb_mobile_has_new_onboarding",
+              "wb_mobile_home_event_tile",
+              "wb_mobile_home_feed_filters_control",
+              "wb_mobile_home_feed_headers_control",
+              "wb_mobile_home_feed_one_column",
+              "wb_mobile_home_screen_infinite_scroll",
+              "wb_mobile_hotels",
+              "wb_mobile_hotels_bottom_tab",
+              "wb_mobile_hotels_off",
+              "wb_mobile_impact_tracking_enabled",
+              "wb_mobile_ios_min_version_supported_2_110_0",
+              "wb_mobile_lexi_switch",
+              "wb_mobile_lifetime_savings_display",
+              "wb_mobile_limited_time_icon_on",
+              "wb_mobile_lto_badge",
+              "wb_mobile_mag_coup_on",
+              "wb_mobile_merchant_display_name_wildcard",
+              "wb_mobile_mobile_affiliate_channel_on",
+              "wb_mobile_mobile_ext_bonus_incentive",
+              "wb_mobile_mtd_eligibility_check",
+              "wb_mobile_new_app_header_a",
+              "wb_mobile_new_favorite_stores",
+              "wb_mobile_new_ftux",
+              "wb_mobile_new_merchant_query",
+              "wb_mobile_nimbus_switch_v_2",
+              "wb_mobile_no_announcement_tile_control",
+              "wb_mobile_one_home_feed_test",
+              "wb_mobile_open_in_browser",
+              "wb_mobile_passwordless_sign_in",
+              "wb_mobile_pdeals_sort_a",
+              "wb_mobile_personalized_deals_count_b",
+              "wb_mobile_personalized_deals_feed",
+              "wb_mobile_personalized_deals_parity_w_web_test",
+              "wb_mobile_personalized_deals_top_of_feed",
+              "wb_mobile_placeholder_feature_flag",
+              "wb_mobile_prevent_welcome_search_on",
+              "wb_mobile_price_compare_drawer_auto",
+              "wb_mobile_price_protection_onboarding_step_off",
+              "wb_mobile_push_notif_continue_shopping_off",
+              "wb_mobile_push_notification_feed",
+              "wb_mobile_push_notif_remove_secondary_settings",
+              "wb_mobile_referrals_on_off_switch",
+              "wb_mobile_rewards_tab",
+              "wb_mobile_reward_tokens_enabled",
+              "wb_mobile_safari_extension",
+              "wb_mobile_safari_extension_bottom_sheet",
+              "wb_mobile_savings_likelihood_off",
+              "wb_mobile_search_personalized_deals_control",
+              "wb_mobile_shopify_on",
+              "wb_mobile_show_all_favorites",
+              "wb_mobile_signin_linking_on",
+              "wb_mobile_sign_in_screen_flow",
+              "wb_mobile_sign_up_test_a",
+              "wb_mobile_slash_api_endpoints",
+              "wb_mobile_square_coup_on",
+              "wb_mobile_stay_in_app_prompt",
+              "wb_mobile_sub_announcement",
+              "wb_mobile_suggested_stores_order_rank_a",
+              "wb_mobile_sug_stores_mailbox_purchases_on",
+              "wb_mobile_sug_stores_new_personalization_v_1_min_on",
+              "wb_mobile_sug_stores_vertical_scroll_v1_on",
+              "wb_mobile_tigger_enabled",
+              "wb_mobile_tile_homepage_on",
+              "wb_mobile_tile_order_fso",
+              "wb_mobile_use_programs",
+              "wb_mobile_using_blocks_control",
+              "wb_mobile_web_onboarding_control",
+              "wb_mobile_woo_coup_on",
+              "wb_mobile_xdaysleft_badge_off",
+              "wb_new_design",
+              "wbv2_list_est",
+              "wb_webapp_lexi_switch",
+              "wb_webapp_nimbus_switch",
+              "wb_web_show_travel",
+              "wb_web_signin_linking_on",
+              "w_comm_solar_page",
+              "webapp_brand_faq",
+              "webapp_energy_homepage_redesign",
+              "webapp_energy_systems_page",
+              "webapp_homepage_enable_banner_system",
+              "webapp_internal_linking",
+              "webapp_lifetime_savings_enable_banner_system",
+              "webapp_lifetime_savings_header",
+              "web_app_navigation_show_store_subcategories",
+              "webapp_rewards_and_savings_dashboard_show_reward_type",
+              "webapp_seo_about_store",
+              "webapp_seo_avg_savings_fix",
+              "webapp_seo_coupons_and_deals",
+              "webapp_seo_how_shopping_works",
+              "webapp_seo_store_policy",
+              "webapp_seo_title",
+              "webapp_shopping_trips_show_offer_type",
+              "webapp_store_page_rewards_engine",
+              "webapp_top_store_lists",
+              "webapp_use_async_shape_script",
+              "web_branded_home_header_bold",
+              "web_hold_on_modal_generic_nonimage_variant",
+              "web_hold_on_modal_subc_nonimage_variant",
+              "web_hold_on_modal_subu_nonimage_variant",
+              "web_instant_display_app_store_sections",
+              "web_onboarding_getting_started_passwordless_signup",
+              "web_onboarding_opera_wave_3_headline_in_seconds",
+              "web_onboarding_show_introduction_step",
+              "web_onboarding_show_refer_a_friend_step",
+              "web_onboarding_step_skip_before_dialog_count_3",
+              "web_referrals_enable_referee_lp",
+              "web_referrals_lp_show_share_consent_checkbox",
+              "web_referrals_new_responsive_lp",
+              "web_show_featured_dropdown",
+              "web_show_featured_dropdown_mob_test",
+              "web_show_referee_incentive_status",
+              "webview_prevent_js_interface_injection",
+              "welcome_hero",
+              "w_energy_dynamic_experiences",
+              "w_ext_disable_pc_pdp_url",
+              "w_ext_disable_tmo_device_conquesting",
+              "w_ext_disable_wireless_device_search",
+              "w_ext_enable_conquest",
+              "w_ext_enable_wireless_device_result",
+              "w_ext_enable_wireless_pc_cart",
+              "w_ext_hide_boost_mobile_device_conquest",
+              "w_ext_hide_boost_mobile_device_conquest_mobile",
+              "w_ext_hide_boost_mobile_plan_conquest",
+              "w_ext_hide_boost_mobile_plan_conquest_mobile",
+              "w_ext_price_comparison_treatment",
+              "w_ext_show_device_result_conquesting",
+              "w_ext_show_google_internet_plan_conquesting",
+              "w_ext_show_moving_conquesting",
+              "w_ext_show_redpocket_conquesting",
+              "w_ext_show_wireless_plan_google_conquesting",
+              "w_ext_tmo_alt_illustration_text_top",
+              "w_ext_tmobile_conquesting",
+              "w_ext_tmobile_show_notification",
+              "w_ext_use_service_wireless_pc_content",
+              "w_ext_use_wireless_service_pc",
+              "whatnot_audience",
+              "wireless_activation_bonus_control",
+              "wireless_conquesting_google_variant_control",
+              "wireless_ext_hide_plan_comparison_conquesting",
+              "wireless_mirage_use_service_for_pdp",
+              "wireless_rewards_engine",
+              "wireless_use_network_promotions",
+              "wireless_use_service_for_plans",
+              "woo_async_tigger",
+              "woo_coup_on",
+              "woot_audience",
+              "worker_init_fetch",
+              "wr_path_1_control",
+              "w_web_device_page",
+              "w_web_device_use_service",
+              "w_web_energy_savings_page",
+              "w_web_landing_page",
+              "w_web_landing_page_v_2",
+              "w_web_landing_use_service",
+              "w_web_main_use_service",
+              "w_web_plans_use_service",
+              "w_web_show_moving_experience",
+              "w_web_show_prepaid_page",
+              "w_web_show_provider_filter",
+              "w_web_show_telecom_plans",
+              "w_web_show_wireless",
+              "w_web_show_wireless_pdp",
+              "w_web_use_redirect_v3",
+              "xd_dtm_bonus_code_moa_62_fjm",
+              "xd_eligibility_offer_url",
+              "xm_landing_mobile_4",
+              "xm_landing_persado2_2",
+              "xm_landing_persado_variant_6",
+              "zennioptical_audience",
+              "zoro_audience"
+            ]
+          },
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36",
+          "sec-ch-ua": "\"Not;A=Brand\";v=\"99\", \"Google Chrome\";v=\"139\", \"Chromium\";v=\"139\"",
+          "sec-ch-ua-mobile": "?0",
+          "sec-ch-ua-platform": "\"Windows\"",
+          "extension": {
+            "version": -1
+          },
+          "queryParams": {},
+          "isMobileApp": false,
+          "mobileAppFeatures": [],
+          "preferences": {
+            "notificationPreferences": {
+              "notificationStyle": "annotation",
+              "notificationFrequency": "always",
+              "notificationWhere": ["productPage", "checkoutPage"],
+              "showCouponCodes": true,
+              "cashbackPrefs": ["cartPage", "checkoutPage", "reviewPage"]
+            },
+            "emailPreferences": {
+              "coupons": {
+                "domainSubscriptions": [],
+                "subscribed": true
+              }
+            },
+            "storePreferences": {
+              "favorites": []
+            },
+            "memberships": [
+              {
+                "type": "amazonPrime",
+                "active": false
+              }
+            ],
+            "customer": {},
+            "emails": {},
+            "events": {
+              "hasAgreedToTerms": "2016-05-17T20:49:01.852Z"
+            },
+            "redeemEnabledOn": "2026-02-19T12:17:31.079Z",
+            "noAdditionalPersonalization": false,
+            "isNewToWikibuy": false
+          },
+          "chromeStoreStats": {
+            "ratingCount": "17K",
+            "ratingValue": "4.7",
+            "updated": "2026-01-20T00:00:05.920Z",
+            "userCount": "11,000,000",
+            "version": ""
+          },
+          "events": {},
+          "countriesData": [
+            {
+              "name": "United States",
+              "currency": "USD",
+              "countryCode": "US",
+              "flags": {
+                "onboardingSelection": false,
+                "emailConsent": false,
+                "preSelectEmailConsent": false,
+                "showTrackingNoticeInTermsAgreement": false,
+                "showPrivacyCollectionNoticeInTermsAgreement": false,
+                "separateTermsAndPrivacyPolicy": false,
+                "requirePrivacyPolicyAcknowledgement": true
+              },
+              "phone": {
+                "countryCode": "+1",
+                "minLength": 10,
+                "maxLength": 10
+              },
+              "postalCode": {
+                "displayText": "ZIP Code",
+                "signupRequestKey": "zipcode",
+                "pattern": "^[0-9]{5}",
+                "length": 5
+              },
+              "dateFormat": "MM/DD/YY"
+            },
+            {
+              "name": "Australia",
+              "currency": "AUD",
+              "countryCode": "AU",
+              "flags": {
+                "onboardingSelection": true,
+                "emailConsent": true,
+                "preSelectEmailConsent": false,
+                "showTrackingNoticeInTermsAgreement": false,
+                "showPrivacyCollectionNoticeInTermsAgreement": true,
+                "separateTermsAndPrivacyPolicy": false,
+                "requirePrivacyPolicyAcknowledgement": true
+              },
+              "phone": {
+                "countryCode": "+61",
+                "minLength": 10,
+                "maxLength": 10
+              },
+              "postalCode": {
+                "displayText": "Postcode",
+                "signupRequestKey": "postalcode",
+                "pattern": "^[0-9]{4}$",
+                "length": 4
+              },
+              "dateFormat": "YYYY-MM-DD"
+            },
+            {
+              "name": "Canada",
+              "currency": "CAD",
+              "countryCode": "CA",
+              "flags": {
+                "onboardingSelection": true,
+                "emailConsent": true,
+                "preSelectEmailConsent": true,
+                "showTrackingNoticeInTermsAgreement": true,
+                "showPrivacyCollectionNoticeInTermsAgreement": false,
+                "separateTermsAndPrivacyPolicy": false,
+                "requirePrivacyPolicyAcknowledgement": true
+              },
+              "phone": {
+                "countryCode": "+1",
+                "minLength": 10,
+                "maxLength": 10
+              },
+              "postalCode": {
+                "displayText": "Postal Code",
+                "signupRequestKey": "postalcode",
+                "pattern": "^[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJ-NPRSTV-Z][ ]?[0-9][ABCEGHJ-NPRSTV-Z][0-9]$",
+                "length": 7
+              },
+              "dateFormat": "YYYY-MM-DD"
+            },
+            {
+              "name": "United Kingdom",
+              "currency": "GBP",
+              "countryCode": "GB",
+              "flags": {
+                "onboardingSelection": true,
+                "emailConsent": true,
+                "preSelectEmailConsent": false,
+                "showTrackingNoticeInTermsAgreement": false,
+                "showPrivacyCollectionNoticeInTermsAgreement": true,
+                "separateTermsAndPrivacyPolicy": true,
+                "requirePrivacyPolicyAcknowledgement": false
+              },
+              "phone": {
+                "countryCode": "+44",
+                "minLength": 10,
+                "maxLength": 11
+              },
+              "postalCode": {
+                "displayText": "Postal Code",
+                "signupRequestKey": "postalcode",
+                "pattern": "^(([A-Z]{1,2}[0-9][A-Z0-9]?|ASCN|STHL|TDCU|BBND|[BFS]IQQ|PCRN|TKCA) ?[0-9][A-Z]{2}|BFPO ?[0-9]{1,4}|(KY[0-9]|MSR|VG|AI)[ -]?[0-9]{4}|[A-Z]{2} ?[0-9]{2}|GE ?CX|GIR ?0A{2}|SAN ?TA1)$",
+                "length": 8
+              },
+              "dateFormat": "YYYY-MM-DD",
+              "couponNounOverride": "voucher"
+            }
+          ]
+        },
+        "useThirdPartyAttribution": true
+      },
+      "routes/__app": {
+        "fullCategories": [
+          {
+            "id": "QDZE5755",
+            "name": "Appliances",
+            "slug": "appliances",
+            "subCategories": [
+              {
+                "id": "RYPO4J5R",
+                "name": "Appliance Parts & Accessories",
+                "slug": "appliances-applicance-parts-accessories"
+              },
+              {
+                "id": "Q9WK6536",
+                "name": "Beverage Coolers",
+                "slug": "appliances-beverage-coolers"
+              },
+              {
+                "id": "RYPO44VR",
+                "name": "Built In Ovens",
+                "slug": "appliances-built-in-ovens"
+              },
+              {
+                "id": "R4W5LVK8",
+                "name": "Cooktops",
+                "slug": "appliances-cooktops"
+              },
+              {
+                "id": "RKM414P8",
+                "name": "Dishwashers",
+                "slug": "appliances-dishwashers"
+              },
+              {
+                "id": "XGNV1Y98",
+                "name": "Freezers",
+                "slug": "appliances-freezers"
+              },
+              {
+                "id": "Q4D29ZY6",
+                "name": "Ice Makers",
+                "slug": "appliances-ice-makers"
+              },
+              {
+                "id": "Q9WKE7VL",
+                "name": "Kegerators",
+                "slug": "appliances-kegerators"
+              },
+              {
+                "id": "R4W5LQ48",
+                "name": "Refrigerators",
+                "slug": "appliances-refrigerators"
+              },
+              {
+                "id": "82E3M17R",
+                "name": "Stove Hoods",
+                "slug": "appliances-stove-hoods"
+              },
+              {
+                "id": "RQ5104L8",
+                "name": "Stove Ranges",
+                "slug": "appliances-stove-ranges"
+              },
+              {
+                "id": "Q45KQM6L",
+                "name": "Washers & Dryers",
+                "slug": "appliances-washers-and-dryers"
+              }
+            ]
+          },
+          {
+            "id": "QDZYZ455",
+            "name": "Arts, Crafts & Sewing Supplies",
+            "slug": "arts-crafts-sewing-supplies",
+            "subCategories": [
+              {
+                "id": "RYVD7G60",
+                "name": "Beading & Jewelry Making Supplies",
+                "slug": "arts-crafts-sewing-supplies-beading-jewelry-making-supplies"
+              },
+              {
+                "id": "QWED4Y9L",
+                "name": "Crafting Supplies",
+                "slug": "arts-crafts-sewing-supplies-crafting-supplies"
+              },
+              {
+                "id": "81ZMYGP3",
+                "name": "Fabric",
+                "slug": "arts-crafts-sewing-supplies-fabric"
+              },
+              {
+                "id": "8220OWD7",
+                "name": "Fabric Dyes & Paints",
+                "slug": "arts-crafts-sewing-supplies-fabric-dyes-paints"
+              },
+              {
+                "id": "81ZM7LV6",
+                "name": "Knitting & Crochet Supplies",
+                "slug": "arts-crafts-sewing-supplies-knitting-crocheting-supplies"
+              },
+              {
+                "id": "Q5ZE56YL",
+                "name": "Needlework Supplies",
+                "slug": "arts-crafts-sewing-supplies-needlework-supplies"
+              },
+              {
+                "id": "Q5VM1E66",
+                "name": "Organization, Storage & Transport",
+                "slug": "arts-crafts-sewing-supplies-organization-storage-transport"
+              },
+              {
+                "id": "Q927926L",
+                "name": "Painting, Drawing, & Art Supplies",
+                "slug": "arts-crafts-sewing-supplies-painting-drawing-art-supplies"
+              },
+              {
+                "id": "XWMN0MLP",
+                "name": "Printmaking Supplies",
+                "slug": "arts-crafts-sewing-supplies-printmaking-supplies"
+              },
+              {
+                "id": "81ZMYZ4Y",
+                "name": "Scrapbooking & Stamping Supplies",
+                "slug": "arts-crafts-sewing-supplies-scrapbooking-stamping-supplies"
+              },
+              {
+                "id": "XP0GPWO3",
+                "name": "Sewing Supplies",
+                "slug": "arts-crafts-sewing-supplies-sewing-supplies"
+              }
+            ]
+          },
+          {
+            "id": "RYV2O5P5",
+            "name": "Automotive Supplies & Car Parts",
+            "slug": "car-parts",
+            "subCategories": [
+              {
+                "id": "XWM4GJ04",
+                "name": "Automotive Performance Parts & Accessories",
+                "slug": "car-parts-automotive-performance-parts"
+              },
+              {
+                "id": "RK0J731J",
+                "name": "Car Care Products",
+                "slug": "car-parts-car-care"
+              },
+              {
+                "id": "RQWE6720",
+                "name": "Car Exterior Parts & Accessories",
+                "slug": "car-parts-car-exterior-parts"
+              },
+              {
+                "id": "8E6NLV04",
+                "name": "Car Interior Accessories",
+                "slug": "car-parts-car-interior-accessories"
+              },
+              {
+                "id": "81ZLQEVZ",
+                "name": "Car Lights & Lighting Accessories",
+                "slug": "car-parts-car-lights"
+              },
+              {
+                "id": "XP0ZV0EM",
+                "name": "Car Oils & Fluids",
+                "slug": "car-parts-car-oils-fluids"
+              },
+              {
+                "id": "Q7E730KK5",
+                "name": "Car Paint & Paint Supplies",
+                "slug": "car-parts-car-paint"
+              },
+              {
+                "id": "8229DK95",
+                "name": "Car Repair Tools & Equipment",
+                "slug": "car-parts-car-repair-tools"
+              },
+              {
+                "id": "XG7MGEW9",
+                "name": "Car Replacement Parts",
+                "slug": "car-parts-car-replacement-parts"
+              },
+              {
+                "id": "QLOWOGLZL",
+                "name": "Heavy Duty & Commercial Vehicle Equipment",
+                "slug": "car-parts-heavy-duty-vehicle-equipment"
+              },
+              {
+                "id": "QW653M9L",
+                "name": "Motorcycle & Powersports Accessories",
+                "slug": "car-parts-motorcycle-accessories"
+              },
+              {
+                "id": "Q56DG535",
+                "name": "RV Parts & Accessories",
+                "slug": "car-parts-rv-parts"
+              },
+              {
+                "id": "RK0J6G6M",
+                "name": "Tires & Wheels",
+                "slug": "car-parts-tires-wheels"
+              }
+            ]
+          },
+          {
+            "id": "RQG6VKQL",
+            "name": "Baby Products",
+            "slug": "baby-products",
+            "subCategories": [
+              {
+                "id": "RQGJDKN6",
+                "name": "Baby Bathing & Skin Care Products",
+                "slug": "baby-products-baby-bathing"
+              },
+              {
+                "id": "RQGJZQOL",
+                "name": "Baby Bottles & Food",
+                "slug": "baby-products-baby-bottles"
+              },
+              {
+                "id": "RQGJ6EEL",
+                "name": "Baby Cribs & Carriers",
+                "slug": "baby-products-baby-cribs"
+              },
+              {
+                "id": "QW1WW7J5",
+                "name": "Baby Gifts",
+                "slug": "baby-products-baby-gifts"
+              },
+              {
+                "id": "RQGJJMD6",
+                "name": "Baby Health & Medical Supplies",
+                "slug": "baby-products-baby-health-supplies"
+              },
+              {
+                "id": "RQGJJ4V5",
+                "name": "Baby Safety & Babyproofing Supplies",
+                "slug": "baby-products-baby-safety-supplies"
+              },
+              {
+                "id": "QWGPV3ODL",
+                "name": "Baby Strollers & Accessories",
+                "slug": "baby-products-baby-strollers"
+              },
+              {
+                "id": "RQGJG476",
+                "name": "Car Seats & Accessories",
+                "slug": "baby-products-car-seats"
+              },
+              {
+                "id": "RQGJ0KG5",
+                "name": "Diapers",
+                "slug": "baby-products-diapers"
+              },
+              {
+                "id": "QL0Q6KWL",
+                "name": "Nursery Supplies",
+                "slug": "baby-products-nursery-supplies"
+              },
+              {
+                "id": "RQGEM125",
+                "name": "Potty Training Supplies",
+                "slug": "baby-products-potty-training-supplies"
+              },
+              {
+                "id": "RQGJY1QL",
+                "name": "Pregnancy & Maternity Supplies",
+                "slug": "baby-products-pregnancy-maternity-supplies"
+              }
+            ]
+          },
+          {
+            "id": "RQ5KWK08",
+            "name": "Beauty & Personal Care Supplies",
+            "slug": "beauty-supplies",
+            "subCategories": [
+              {
+                "id": "8227D3J1",
+                "name": "Beauty Tools & Accessories",
+                "slug": "beauty-supplies-beauty-tools"
+              },
+              {
+                "id": "XP0V52Y5",
+                "name": "Fragrances",
+                "slug": "beauty-supplies-fragrances"
+              },
+              {
+                "id": "8227PO07",
+                "name": "Hair Care Supplies",
+                "slug": "beauty-supplies-hair-care-supplies"
+              },
+              {
+                "id": "RYVQW3Q0",
+                "name": "Makeup",
+                "slug": "beauty-supplies-makeup"
+              },
+              {
+                "id": "Q7PV3J7LL",
+                "name": "Oral Care & Dental Supplies",
+                "slug": "beauty-supplies-oral-care-supplies"
+              },
+              {
+                "id": "XPYVOL3X",
+                "name": "Personal Care Supplies",
+                "slug": "beauty-supplies-personal-care-supplies"
+              },
+              {
+                "id": "XPYVN05X",
+                "name": "Shaving & Hair Removal Supplies",
+                "slug": "beauty-supplies-shaving-supplies"
+              },
+              {
+                "id": "XWMZGV2L",
+                "name": "Skin Care supplies",
+                "slug": "beauty-supplies-skin-care-supplies"
+              }
+            ]
+          },
+          {
+            "id": "DXG2NJEX",
+            "name": "Books",
+            "slug": "books",
+            "subCategories": [
+              {
+                "id": "NE8E680J",
+                "name": "Arts & Photography Books",
+                "slug": "books-art-photography-books"
+              },
+              {
+                "id": "PX6VL4R7",
+                "name": "Bibles & Christian Books",
+                "slug": "books-christian-books"
+              },
+              {
+                "id": "QK8DOX5M",
+                "name": "Biographies & Memoris",
+                "slug": "books-biographies"
+              },
+              {
+                "id": "VWXWL8GD",
+                "name": "Business & Money Books",
+                "slug": "books-business-books"
+              },
+              {
+                "id": "QVMMQZYL",
+                "name": "Calendars",
+                "slug": "books-calendars"
+              },
+              {
+                "id": "21XMGXO9",
+                "name": "Children's Books",
+                "slug": "books-childrens-books"
+              },
+              {
+                "id": "PX6WKGX7",
+                "name": "Comic Books & Graphic Novels",
+                "slug": "books-comic-books"
+              },
+              {
+                "id": "JYR0OX4W",
+                "name": "Computers & Technology Books",
+                "slug": "books-technology-books"
+              },
+              {
+                "id": "JO8LJR0D",
+                "name": "Cookbooks & Food/Wine Books",
+                "slug": "books-cookbooks"
+              },
+              {
+                "id": "EJXNEWXP",
+                "name": "Craft & Hobby Books",
+                "slug": "books-hobby-books"
+              },
+              {
+                "id": "QWJEPOQZL",
+                "name": "Education & Teaching Books",
+                "slug": "books-teaching-books"
+              },
+              {
+                "id": "DXG60QN8",
+                "name": "Engineering & Transportation Books",
+                "slug": "books-engineering-books"
+              },
+              {
+                "id": "4825OZN8",
+                "name": "GLBT Books",
+                "slug": "books-glbt-books"
+              },
+              {
+                "id": "DNX5Q807",
+                "name": "Health & Fitness Books",
+                "slug": "books-health-books"
+              },
+              {
+                "id": "WMRYQXL9",
+                "name": "History Books",
+                "slug": "books-history-books"
+              },
+              {
+                "id": "3D8V94RM",
+                "name": "Humor Books",
+                "slug": "books-humor-books"
+              },
+              {
+                "id": "YR0J7G84",
+                "name": "Law & Legal Books",
+                "slug": "books-law-books"
+              },
+              {
+                "id": "2482NRMJ",
+                "name": "Literature & Fiction Books",
+                "slug": "books-literature"
+              },
+              {
+                "id": "D8V6G7VR",
+                "name": "Medical Books",
+                "slug": "books-medical-books"
+              },
+              {
+                "id": "DPX63X7G",
+                "name": "Mysteries, Thrillers & Suspense Books",
+                "slug": "books-mysteries-suspense-books"
+              },
+              {
+                "id": "XNNVZKWX",
+                "name": "New & Used Textbooks",
+                "slug": "books-new-used-textbooks"
+              },
+              {
+                "id": "94R32805",
+                "name": "Parenting & Relationship Books",
+                "slug": "books-parenting-relationship-books"
+              },
+              {
+                "id": "QVZNLJVL",
+                "name": "Political & Social Science Books",
+                "slug": "books-social-science-books"
+              },
+              {
+                "id": "2N81YREM",
+                "name": "Reference Books",
+                "slug": "books-reference-books"
+              },
+              {
+                "id": "EN8Z1RLQ",
+                "name": "Religion & Spirituality Books",
+                "slug": "books-religious-books"
+              },
+              {
+                "id": "ZORKJ8D6",
+                "name": "Romance Novels & Books",
+                "slug": "books-romance-novels"
+              },
+              {
+                "id": "VWXWLL8G",
+                "name": "Science & Math Books",
+                "slug": "books-science-math-books"
+              },
+              {
+                "id": "NE8E6680",
+                "name": "Science Fiction & Fantasy Books",
+                "slug": "books-scifi-fantasy-books"
+              },
+              {
+                "id": "ZRJ6P6X2",
+                "name": "Self-Help Books",
+                "slug": "books-self-help-books"
+              },
+              {
+                "id": "QK8DQOR5",
+                "name": "Sports & Outdoors Books",
+                "slug": "books-sports-books"
+              },
+              {
+                "id": "21XMDGXO",
+                "name": "Teen & Young Adult Books",
+                "slug": "books-teen-ya-books"
+              },
+              {
+                "id": "QWLDDQ23L",
+                "name": "Test Preparation Books",
+                "slug": "books-test-prep-books"
+              },
+              {
+                "id": "VWXWMLRG",
+                "name": "Travel Books",
+                "slug": "books-travel-books"
+              }
+            ]
+          },
+          {
+            "id": "K8D51Y85",
+            "name": "CDs & Vinyl Records",
+            "slug": "cds-vinyl-records",
+            "subCategories": [
+              {
+                "id": "JO8LLJ80",
+                "name": "Alternative Rock CDs & Vinyl",
+                "slug": "cds-vinyl-records-alternative-rock-cds-vinyl"
+              },
+              {
+                "id": "1DXG7LR9",
+                "name": "Blues CDs & Vinyl Records",
+                "slug": "cds-vinyl-records-blues-cds-vinyl"
+              },
+              {
+                "id": "EROO7K1R",
+                "name": "Broadway CDs & Vinyl Records",
+                "slug": "cds-vinyl-records-broadway-cds-vinyl"
+              },
+              {
+                "id": "E8E2WV6X",
+                "name": "Children's Music CDs",
+                "slug": "cds-vinyl-records-childrens-music-cds"
+              },
+              {
+                "id": "YR001ZOR",
+                "name": "Christian CDs & Vinyl Records",
+                "slug": "cds-vinyl-records-christian-cds-vinyl"
+              },
+              {
+                "id": "1XMGWZGX",
+                "name": "Classic Rock CDs & Vinyl Records",
+                "slug": "cds-vinyl-records-classic-rock-cds-vinyl"
+              },
+              {
+                "id": "4MR4P1XE",
+                "name": "Classical CDs & Vinyl Records",
+                "slug": "cds-vinyl-records-classical-cds-vinyl"
+              },
+              {
+                "id": "ZRJJ1MMR",
+                "name": "Comedy & Spoken Word CDs & Vinyl Records",
+                "slug": "cds-vinyl-records-comedy-cds-vinyl"
+              },
+              {
+                "id": "1EROZ897",
+                "name": "Country CDs & Vinyl Records",
+                "slug": "cds-vinyl-records-country-cds-vinyl"
+              },
+              {
+                "id": "1DXGLR94",
+                "name": "Dance & Electronic CDs & Vinyl Records",
+                "slug": "cds-vinyl-records-electronic-cds-vinyl"
+              },
+              {
+                "id": "O5R96ERN",
+                "name": "Folk CDs & Vinyl Records",
+                "slug": "cds-vinyl-records-folk-cds-vinyl"
+              },
+              {
+                "id": "Q5Z14EG6",
+                "name": "Gospel CDs & Vinyl Records",
+                "slug": "cds-vinyl-records-gospel-cds-vinyl"
+              },
+              {
+                "id": "DXGW2ZL8",
+                "name": "Heavy Metal CDs & Vinyl Records",
+                "slug": "cds-vinyl-records-heavy-metal-cds-vinyl"
+              },
+              {
+                "id": "JXN23Y1R",
+                "name": "Holiday & Wedding CDs & Vinyl Records",
+                "slug": "cds-vinyl-records-holiday-wedding-cds-vinyl"
+              },
+              {
+                "id": "DNX5KQ80",
+                "name": "Jazz CDs & Vinyl Records",
+                "slug": "cds-vinyl-records-jazz-cds-vinyl"
+              },
+              {
+                "id": "N819WV3X",
+                "name": "Karaoke CDs & Vinyl Records",
+                "slug": "cds-vinyl-records-karaoke-cds"
+              },
+              {
+                "id": "N8ZO91NR",
+                "name": "Latin Music CDs & Vinyl Records",
+                "slug": "cds-vinyl-records-latin-music-cds-vinyl"
+              },
+              {
+                "id": "JZRJ32X2",
+                "name": "New Age CDs & Vinyl Records",
+                "slug": "cds-vinyl-records-new-age-cds-vinyl"
+              },
+              {
+                "id": "JZRJL282",
+                "name": "Opera & Classical Vocal CDs & Vinyl Records",
+                "slug": "cds-vinyl-records-opera-cds-vinyl"
+              },
+              {
+                "id": "4MR441RE",
+                "name": "Pop CDs & Vinyl Records",
+                "slug": "cds-vinyl-records-pop-cds-vinyl"
+              },
+              {
+                "id": "WN874Y8J",
+                "name": "R&B CDs & Vinyl Records",
+                "slug": "cds-vinyl-records-rb-cds-vinyl"
+              },
+              {
+                "id": "3D8V04RM",
+                "name": "Rap & Hip-Hop CDs & Vinyl Records",
+                "slug": "cds-vinyl-records-hiphop-cds-vinyl"
+              },
+              {
+                "id": "MR4NGKK8",
+                "name": "Reggae CDs & Vinyl Records",
+                "slug": "cds-vinyl-records-reggae-cds-vinyl"
+              },
+              {
+                "id": "1ERODZX9",
+                "name": "Rock CDs & Vinyl Records",
+                "slug": "cds-vinyl-records-rock-cds-vinyl"
+              },
+              {
+                "id": "DPX663X7",
+                "name": "Soundtrack CDs & Vinyl Records",
+                "slug": "cds-vinyl-records-soundtrack-cds-vinyl"
+              },
+              {
+                "id": "OZRQW5R6",
+                "name": "Special Interest CDs & Vinyl Records",
+                "slug": "cds-vinyl-records-special-interest-cds-vinyl"
+              },
+              {
+                "id": "WMRYVQRL",
+                "name": "World Music CDs & Vinyl Records",
+                "slug": "cds-vinyl-records-world-music-cds-vinyl"
+              }
+            ]
+          },
+          {
+            "id": "QWDK6JQML",
+            "name": "Clothing, Shoes & Jewelry",
+            "slug": "clothes",
+            "subCategories": [
+              {
+                "id": "QWD29E4EL",
+                "name": "Baby Clothes",
+                "slug": "clothes-baby-clothes"
+              },
+              {
+                "id": "QWD29E5N5",
+                "name": "Boys' Clothes",
+                "slug": "clothes-boys-clothes"
+              },
+              {
+                "id": "QW0ZVQVK6",
+                "name": "Costumes & Accessories",
+                "slug": "clothes-costumes"
+              },
+              {
+                "id": "QWD29E256",
+                "name": "Girls' Clothes",
+                "slug": "clothes-girls-clothes"
+              },
+              {
+                "id": "QW0ZV1K2L",
+                "name": "Jewelry & Watches",
+                "slug": "clothes-jewelry-watches"
+              },
+              {
+                "id": "Q7W95WJV5",
+                "name": "Luggage & Travel Accessories",
+                "slug": "clothes-luggage-travel-accessories"
+              },
+              {
+                "id": "QWD29EQYL",
+                "name": "Men's Clothes",
+                "slug": "clothes-mens-clothes"
+              },
+              {
+                "id": "QWD29E9Z6",
+                "name": "Novelty Socks, Hats & More",
+                "slug": "clothes-novelty-clothes"
+              },
+              {
+                "id": "QW0ZVQ675",
+                "name": "Traditional & Cultural Wear",
+                "slug": "clothes-cultural-wear"
+              },
+              {
+                "id": "QWD29E1M5",
+                "name": "Women's Clothes",
+                "slug": "clothes-womens-clothes"
+              },
+              {
+                "id": "QW0ZV1P36",
+                "name": "Work Uniforms & Safety Equipment",
+                "slug": "clothes-safety-uniforms"
+              }
+            ]
+          },
+          {
+            "id": "NX55M1QX",
+            "name": "Electronics",
+            "slug": "electronics",
+            "subCategories": [
+              {
+                "id": "QZEE6P26",
+                "name": "Car & Vehicle Electronics",
+                "slug": "electronics-car-vehicle-electronics"
+              },
+              {
+                "id": "DXG2Y0LX",
+                "name": "Chargers, TV Mounts, & Accessories",
+                "slug": "electronics-chargers-mounts"
+              },
+              {
+                "id": "X669DVGX",
+                "name": "Computers & Computer Accessories",
+                "slug": "electronics-computers"
+              },
+              {
+                "id": "8Z64DG58",
+                "name": "Digital Cameras & Photography Equipment",
+                "slug": "electronics-digital-cameras"
+              },
+              {
+                "id": "K8D292Y8",
+                "name": "GPS & Navigation",
+                "slug": "electronics-gps-navigation"
+              },
+              {
+                "id": "482GE1Y8",
+                "name": "Headphones",
+                "slug": "electronics-headphones"
+              },
+              {
+                "id": "QL5GJ93L",
+                "name": "Home Audio & Speakers",
+                "slug": "electronics-home-audio-speakers"
+              },
+              {
+                "id": "ORK2MZ18",
+                "name": "Portable Speakers & Video Equipment",
+                "slug": "electronics-portable-speakers-video-equipment"
+              },
+              {
+                "id": "RJ3945MX",
+                "name": "Security & Surveillance Equipment",
+                "slug": "electronics-security-surveillance-equipment"
+              },
+              {
+                "id": "Q10M7426",
+                "name": "Televisions & Video Equipment",
+                "slug": "electronics-televisions"
+              },
+              {
+                "id": "NX54W7LR",
+                "name": "Video Projectors for Home Theaters",
+                "slug": "electronics-video-projectors"
+              },
+              {
+                "id": "Q7PDE95V6",
+                "name": "Wearables",
+                "slug": "electronics-wearables"
+              },
+              {
+                "id": "QD66DJ9L",
+                "name": "eBook Readers & Accessories",
+                "slug": "electronics-ebook-readers"
+              }
+            ]
+          },
+          {
+            "id": "8EYQ6Q4X",
+            "name": "Health & Household",
+            "slug": "health-household",
+            "subCategories": [
+              {
+                "id": "81ZEKPLO",
+                "name": "Baby & Child Care Supplies",
+                "slug": "health-household-baby-upplies"
+              },
+              {
+                "id": "82ED275R",
+                "name": "Health Care Supplies",
+                "slug": "health-household-health-care-supplies"
+              },
+              {
+                "id": "RQWJNG66",
+                "name": "Household Supplies",
+                "slug": "health-household-household-supplies"
+              },
+              {
+                "id": "R4W3ZZ38",
+                "name": "Medical Supplies & Equipement",
+                "slug": "health-household-medical-supplies"
+              },
+              {
+                "id": "QW456PDGL",
+                "name": "Sports Nutrition & Supplements",
+                "slug": "health-household-sports-nutrition"
+              },
+              {
+                "id": "QLYGO9WL",
+                "name": "Stationery & Gift Wrap",
+                "slug": "health-household-stationery"
+              },
+              {
+                "id": "Q7PV3JN95",
+                "name": "Vision Care & Glasses",
+                "slug": "health-household-glasses"
+              },
+              {
+                "id": "82EDPENR",
+                "name": "Vitamins & Dietary Supplements",
+                "slug": "health-household-vitamins-supplements"
+              },
+              {
+                "id": "Q7PV3J2W6",
+                "name": "Wellness & Relaxation Tools",
+                "slug": "health-household-relaxation-tools"
+              }
+            ]
+          },
+          {
+            "id": "8DLN5JKX",
+            "name": "Home & Kitchen Supplies",
+            "slug": "kitchen-supplies",
+            "subCategories": [
+              {
+                "id": "RJLJ4428",
+                "name": "Bathroom Furniture & Supplies",
+                "slug": "kitchen-supplies-bathroom-furniture"
+              },
+              {
+                "id": "XM4GK9GR",
+                "name": "Bedding & Linens",
+                "slug": "kitchen-supplies-bedding"
+              },
+              {
+                "id": "X64MZPP8",
+                "name": "Event & Party Supplies",
+                "slug": "kitchen-supplies-party-supplies"
+              },
+              {
+                "id": "8LPQG3OR",
+                "name": "Furniture",
+                "slug": "kitchen-supplies-furniture"
+              },
+              {
+                "id": "QZYZ7JV6",
+                "name": "Heating, Cooling & Air Quality",
+                "slug": "kitchen-supplies-hvac"
+              },
+              {
+                "id": "8LPQ7VJR",
+                "name": "Home Décor",
+                "slug": "kitchen-supplies-home-décor"
+              },
+              {
+                "id": "ROD460EX",
+                "name": "Irons & Steamers",
+                "slug": "kitchen-supplies-irons-steamers"
+              },
+              {
+                "id": "QZYZLM55",
+                "name": "Kids' Furniture",
+                "slug": "kitchen-supplies-kids-furniture"
+              },
+              {
+                "id": "DXG20DNX",
+                "name": "Kitchen & Dining Equipment",
+                "slug": "kitchen-supplies-kitchen-equipment"
+              },
+              {
+                "id": "RYV0YZ3Y",
+                "name": "Seasonal Décor",
+                "slug": "kitchen-supplies-seasonal-décor"
+              },
+              {
+                "id": "82Q5KLNR",
+                "name": "Storage & Organization",
+                "slug": "kitchen-supplies-storage-organization"
+              },
+              {
+                "id": "8LL27WO8",
+                "name": "Vacuums & Floor Care",
+                "slug": "kitchen-supplies-vacuums"
+              },
+              {
+                "id": "RYPOOOVR",
+                "name": "Wall Art & Hangings",
+                "slug": "kitchen-supplies-wall-art"
+              }
+            ]
+          },
+          {
+            "id": "XPW03L33",
+            "name": "Industrial & Scientific Equipment",
+            "slug": "industrial-equipment",
+            "subCategories": [
+              {
+                "id": "QWKP7925",
+                "name": "Abrasive & Finishing Products",
+                "slug": "industrial-equipment-abrasive-products"
+              },
+              {
+                "id": "QWQV66PY5",
+                "name": "Additive Manufacturing Products",
+                "slug": "industrial-equipment-additive-manufacturing-products"
+              },
+              {
+                "id": "Q7K2W732L",
+                "name": "Commercial Door Products",
+                "slug": "industrial-equipment-commercial-door-products"
+              },
+              {
+                "id": "Q7MPPZY5",
+                "name": "Cutting Tools",
+                "slug": "industrial-equipment-cutting-tools"
+              },
+              {
+                "id": "Q7MPPY4L",
+                "name": "Fasteners",
+                "slug": "industrial-equipment-fasteners"
+              },
+              {
+                "id": "QZM5EVP6",
+                "name": "Filtration Equipment",
+                "slug": "industrial-equipment-filtration-equipment"
+              },
+              {
+                "id": "Q06OE016",
+                "name": "Hydraulics, Pneumatics & Plumbing Equipment",
+                "slug": "industrial-equipment-hydraulics-plumbing-equipment"
+              },
+              {
+                "id": "QW95GM56",
+                "name": "Industrial Electrical Equipment",
+                "slug": "industrial-equipment-industrial-electrical-equipment"
+              },
+              {
+                "id": "XWVMP5P1",
+                "name": "Industrial Hardware",
+                "slug": "industrial-equipment-industrial-hardware"
+              },
+              {
+                "id": "Q06OJPD5",
+                "name": "Industrial Power & Hand Tools",
+                "slug": "industrial-equipment-industrial-tools"
+              },
+              {
+                "id": "QW0J22ML",
+                "name": "Janitorial & Sanitation Supplies",
+                "slug": "industrial-equipment-janitorial-supplies"
+              },
+              {
+                "id": "QW0J2Q15",
+                "name": "Lab & Scientific Products",
+                "slug": "industrial-equipment-scientific-products"
+              },
+              {
+                "id": "QWKP0DL6",
+                "name": "Material Handling Products",
+                "slug": "industrial-equipment-material-handling-products"
+              },
+              {
+                "id": "QW0J3NV5",
+                "name": "Occupational Health & Safety Products",
+                "slug": "industrial-equipment-occupational-health-safety"
+              },
+              {
+                "id": "QWGYPMGK6",
+                "name": "Packaging & Shipping Supplies",
+                "slug": "industrial-equipment-packaging-shipping"
+              },
+              {
+                "id": "RYJVL7OG",
+                "name": "Power Transmission Products",
+                "slug": "industrial-equipment-power-tranmission-products"
+              },
+              {
+                "id": "QW6OMJJML",
+                "name": "Professional Dental Supplies",
+                "slug": "industrial-equipment-professional-dental-supplies"
+              },
+              {
+                "id": "QW6OMJG15",
+                "name": "Professional Medical Supplies",
+                "slug": "industrial-equipment-professional-medical-supplies"
+              },
+              {
+                "id": "XPW03L55",
+                "name": "Raw Materials",
+                "slug": "industrial-equipment-raw-materials"
+              },
+              {
+                "id": "QW3WEJ515",
+                "name": "Retail Store Fixtures & Equipment",
+                "slug": "industrial-equipment-retail-store-fixtures"
+              },
+              {
+                "id": "QWG5KQJEL",
+                "name": "Robotics",
+                "slug": "industrial-equipment-robotics"
+              },
+              {
+                "id": "Q7W2JMD5",
+                "name": "Science Education Materials",
+                "slug": "industrial-equipment-science-education-materials"
+              },
+              {
+                "id": "QWKP167L",
+                "name": "Tapes, Adhesives & Sealants",
+                "slug": "industrial-equipment-tapes-adhesives"
+              },
+              {
+                "id": "QWKPG746",
+                "name": "Test, Measurement & Inspection Equipement",
+                "slug": "industrial-equipment-test-measurement-equipment"
+              }
+            ]
+          },
+          {
+            "id": "QDVV7L1L",
+            "name": "Movies & TV on Blu-Ray & DVD",
+            "slug": "movies-tv",
+            "subCategories": [
+              {
+                "id": "WXW0WGQX",
+                "name": "3-6 Year Old TV on Blu-Ray & DVD",
+                "slug": "movies-tv-3-6-year-old-tv"
+              },
+              {
+                "id": "RJ3PPYZX",
+                "name": "A&E Home Video on DVD & Blu-Ray",
+                "slug": "movies-tv-ae-home-video"
+              },
+              {
+                "id": "R9N1DOER",
+                "name": "Animated TV & Movies on DVD & Blu-Ray",
+                "slug": "movies-tv-animated-tv-movies"
+              },
+              {
+                "id": "QK8D4JX5",
+                "name": "Art House & International Movies on DVD & Blu-Ray",
+                "slug": "movies-tv-art-house-movies"
+              },
+              {
+                "id": "8Z6Q4M58",
+                "name": "BBC Shows on DVD & Blu-Ray",
+                "slug": "movies-tv-bbc-shows"
+              },
+              {
+                "id": "Q0POVKG6",
+                "name": "Blu-Ray Movies",
+                "slug": "movies-tv-blu-ray-movies"
+              },
+              {
+                "id": "N81Y21ZR",
+                "name": "Characters & Series",
+                "slug": "movies-tv-characters-series"
+              },
+              {
+                "id": "N81N0MZX",
+                "name": "Classic Movies on DVD & Blu-Ray",
+                "slug": "movies-tv-classic-movies"
+              },
+              {
+                "id": "8DQMZGYR",
+                "name": "Concert Films on Blu-Ray & DVD",
+                "slug": "movies-tv-concert-films"
+              },
+              {
+                "id": "NX5P9LQX",
+                "name": "Criterion Collection on DVD & Blu-Ray",
+                "slug": "movies-tv-criterion-collection"
+              },
+              {
+                "id": "NX5M211X",
+                "name": "Cult Movies",
+                "slug": "movies-tv-cult-movies"
+              },
+              {
+                "id": "8DQM3N3R",
+                "name": "Cult Movies on DVD & Blu-Ray",
+                "slug": "movies-tv-cult-movies"
+              },
+              {
+                "id": "ORKVK918",
+                "name": "Discovery Channel Shows on DVD & Blu-Ray",
+                "slug": "movies-tv-discovery-channel"
+              },
+              {
+                "id": "MRYG0PGR",
+                "name": "Disney DVDs & Blu-Rays",
+                "slug": "movies-tv-disney"
+              },
+              {
+                "id": "K8DGE9Y8",
+                "name": "Disney Home Video on DVD & Blu-Ray",
+                "slug": "movies-tv-disney-home-video"
+              },
+              {
+                "id": "R4QE9EK8",
+                "name": "Documentaries on DVD & Blu-Ray",
+                "slug": "movies-tv-documentaries"
+              },
+              {
+                "id": "D8VML648",
+                "name": "Fully Loaded DVDs & Blu-Rays",
+                "slug": "movies-tv-fully-loaded"
+              },
+              {
+                "id": "Q05DJVG6",
+                "name": "Genre for Featured Categories",
+                "slug": "movies-tv-genre-for-featured-categories"
+              },
+              {
+                "id": "ERO6O4K8",
+                "name": "HBO Movies & Shows on DVD & Blu-Ray",
+                "slug": "movies-tv-hbo-movies-tv"
+              },
+              {
+                "id": "NX54WZ9R",
+                "name": "Holiday & Seasonal Movies on DVD & Blu-Ray",
+                "slug": "movies-tv-holiday-seasonal-movies"
+              },
+              {
+                "id": "XNEQP51X",
+                "name": "Independently Distributed",
+                "slug": "movies-tv-independently-distributed"
+              },
+              {
+                "id": "X6639QPX",
+                "name": "Independently Distributed Movies & DVDs",
+                "slug": "movies-tv-indie-movies"
+              },
+              {
+                "id": "8LL6ZOJ8",
+                "name": "John Wayne Movies & DVDs",
+                "slug": "movies-tv-john-wayne-movies"
+              },
+              {
+                "id": "Q1DWYQZ6",
+                "name": "MOD CreateSpace Video",
+                "slug": "movies-tv-mod-create-space-video"
+              },
+              {
+                "id": "X622ZW3R",
+                "name": "MTV Shows on Blu-Ray & DVD",
+                "slug": "movies-tv-mtv-shows"
+              },
+              {
+                "id": "QWVJO6QL",
+                "name": "Made-for-TV Movies on DVD",
+                "slug": "movies-tv-made-for-tv-movies"
+              },
+              {
+                "id": "QDGVGQN6",
+                "name": "Movies on Blu-Ray & DVD",
+                "slug": "movies-tv-movies"
+              },
+              {
+                "id": "XMD20WZX",
+                "name": "Musicals on Blu-Ray & DVD",
+                "slug": "movies-tv-musicals"
+              },
+              {
+                "id": "R43D0718",
+                "name": "Paramount Home Entertainment DVDs",
+                "slug": "movies-tv-paramount-home-entertainment"
+              },
+              {
+                "id": "XNNG274X",
+                "name": "Sci-Fi Series DVDs & Blu-Rays",
+                "slug": "movies-tv-sci-fi-series"
+              },
+              {
+                "id": "DXGN9K18",
+                "name": "Science Fiction & Fantasy DVDs",
+                "slug": "movies-tv-science-fiction-fantasy"
+              },
+              {
+                "id": "QWJKEQP6",
+                "name": "Shakespeare on DVD Store",
+                "slug": "movies-tv-shakespeare"
+              },
+              {
+                "id": "8DQMGLYR",
+                "name": "Studio Specials",
+                "slug": "movies-tv-studio-specials"
+              },
+              {
+                "id": "MRY7D3Q8",
+                "name": "Studio Specials on DVD & Blu-Ray",
+                "slug": "movies-tv-studio-specials"
+              },
+              {
+                "id": "8LL2JQW8",
+                "name": "TV Boxed Sets on DVD & Blu-Ray",
+                "slug": "movies-tv-tv-boxed-sets"
+              },
+              {
+                "id": "QDGVGKE5",
+                "name": "TV on DVD & Blu-Ray",
+                "slug": "movies-tv-tv"
+              }
+            ]
+          },
+          {
+            "id": "8E60OQ50",
+            "name": "Musical Instruments",
+            "slug": "musical-instruments",
+            "subCategories": [
+              {
+                "id": "QWJ54D4DL",
+                "name": "Amplifiers & Guitar Effects",
+                "slug": "musical-instruments-amplifiers-effects"
+              },
+              {
+                "id": "Q77JEZE6",
+                "name": "Band & Orchestra Instruments",
+                "slug": "musical-instruments-band-orchestra-instruments"
+              },
+              {
+                "id": "RQW4WE40",
+                "name": "Bass Guitars",
+                "slug": "musical-instruments-bass-guitars"
+              },
+              {
+                "id": "RYVZJL20",
+                "name": "DJ Equipment",
+                "slug": "musical-instruments-dj-equipment"
+              },
+              {
+                "id": "822G2542",
+                "name": "Drums & Percussion",
+                "slug": "musical-instruments-drums-percussion"
+              },
+              {
+                "id": "822G297N",
+                "name": "Electric & Acoustic Guitars",
+                "slug": "musical-instruments-guitars"
+              },
+              {
+                "id": "RYVZVGYY",
+                "name": "Electric Keyboards & MIDI",
+                "slug": "musical-instruments-electric-keyboards"
+              },
+              {
+                "id": "RK020D0J",
+                "name": "Instrument Cases, Stands & Accessories",
+                "slug": "musical-instruments-instrument-cases"
+              },
+              {
+                "id": "Q77JE01L",
+                "name": "Live Sound & Stage Equipment",
+                "slug": "musical-instruments-live-sound-equipment"
+              },
+              {
+                "id": "81ZKG6G3",
+                "name": "Microphones & Accessories",
+                "slug": "musical-instruments-microphones"
+              },
+              {
+                "id": "QWJ54DO65",
+                "name": "Stringed Instruments",
+                "slug": "musical-instruments-stringed-instruments"
+              },
+              {
+                "id": "RQW47700",
+                "name": "Studio Recording Equipment",
+                "slug": "musical-instruments-studio-recording-equipment"
+              },
+              {
+                "id": "QLN716OJ5",
+                "name": "Ukuleles, Mandolins & Banjos",
+                "slug": "musical-instruments-ukeleles-mandolins-bajos"
+              },
+              {
+                "id": "QWJ54DVYL",
+                "name": "Woodwind Instruments",
+                "slug": "musical-instruments-woodwind-instruments"
+              }
+            ]
+          },
+          {
+            "id": "8LP137ER",
+            "name": "Office Products",
+            "slug": "office-products",
+            "subCategories": [
+              {
+                "id": "X62ZLW3R",
+                "name": "Office & School Supplies",
+                "slug": "office-products-office-school-supplies"
+              },
+              {
+                "id": "K8D29YY8",
+                "name": "Office Electronics & Printers",
+                "slug": "office-products-office-electronics-printers"
+              },
+              {
+                "id": "8DL45QKX",
+                "name": "Office Furniture & Lighting",
+                "slug": "office-products-office-furniture-lighting"
+              }
+            ]
+          },
+          {
+            "id": "Q0DQYD3L",
+            "name": "Patio, Lawn & Garden Supplies",
+            "slug": "patio-lawn-garden-supplies",
+            "subCategories": [
+              {
+                "id": "QWMPL74K5",
+                "name": "Farm & Ranch Supplies",
+                "slug": "patio-lawn-garden-supplies-farm-ranch-supplies"
+              },
+              {
+                "id": "XWJ02KLR",
+                "name": "Gardening & Lawn Care Supplies",
+                "slug": "patio-lawn-garden-supplies-gardening-lawn-care-supplies"
+              },
+              {
+                "id": "R96QZGMR",
+                "name": "Generators & Portable Power Supplies",
+                "slug": "patio-lawn-garden-supplies-generators"
+              },
+              {
+                "id": "RJ3Z3V6X",
+                "name": "Grills & Outdoor Cooking Equipment",
+                "slug": "patio-lawn-garden-supplies-grills"
+              },
+              {
+                "id": "QW21965K5",
+                "name": "Havahart Traps",
+                "slug": "patio-lawn-garden-supplies-havahart-traps"
+              },
+              {
+                "id": "RODZD24X",
+                "name": "Outdoor Décor",
+                "slug": "patio-lawn-garden-supplies-outdoor-décor"
+              },
+              {
+                "id": "Q7EKG17P5",
+                "name": "Outdoor Heating & Cooling",
+                "slug": "patio-lawn-garden-supplies-outdoor-heating-cooling"
+              },
+              {
+                "id": "X669V1JX",
+                "name": "Outdoor Power Tools",
+                "slug": "patio-lawn-garden-supplies-outdoor-power"
+              },
+              {
+                "id": "82247762",
+                "name": "Outdoor Storage",
+                "slug": "patio-lawn-garden-supplies-outdoor-storage"
+              },
+              {
+                "id": "XNNZN1WX",
+                "name": "Patio Furniture & Accessories",
+                "slug": "patio-lawn-garden-supplies-patio-furniture"
+              },
+              {
+                "id": "R3ZVZ92R",
+                "name": "Pest Control & Insect Killers",
+                "slug": "patio-lawn-garden-supplies-pest-control"
+              },
+              {
+                "id": "Q10GVEM6",
+                "name": "Pools, Hot Tubs & Supplies",
+                "slug": "patio-lawn-garden-supplies-pools-hot-tubs-supplies"
+              },
+              {
+                "id": "RK7G5KPX",
+                "name": "Snow Removal Equipment",
+                "slug": "patio-lawn-garden-supplies-snow-removal-equipment"
+              }
+            ]
+          },
+          {
+            "id": "QDZE5ZK6",
+            "name": "Pet Supplies",
+            "slug": "pet-supplies",
+            "subCategories": [
+              {
+                "id": "QWZ33WDO6",
+                "name": "Buy $25 Save $5 on Kaytee",
+                "slug": "pet-supplies-buy-25-save-5-on-kaytee"
+              },
+              {
+                "id": "Q0D09GE5",
+                "name": "Cat Supplies",
+                "slug": "pet-supplies-cat-supplies"
+              },
+              {
+                "id": "Q0D0GMN6",
+                "name": "Dog Supplies",
+                "slug": "pet-supplies-dog-supplies"
+              },
+              {
+                "id": "Q0DZNZ3L",
+                "name": "Fish & Aquatic Pet Supplies",
+                "slug": "pet-supplies-fish-aquatic-pet-supplies"
+              },
+              {
+                "id": "QVN9KY66",
+                "name": "Hagen",
+                "slug": "pet-supplies-hagen"
+              },
+              {
+                "id": "Q0DZKN05",
+                "name": "Horse Supplies",
+                "slug": "pet-supplies-horse-supplies"
+              },
+              {
+                "id": "Q0D0DO1L",
+                "name": "Pet Bird Supplies",
+                "slug": "pet-supplies-pet-bird-supplies"
+              },
+              {
+                "id": "Q0DZ23D6",
+                "name": "Reptile & Amphibian Supplies",
+                "slug": "pet-supplies-reptile-amphibian-supplies"
+              },
+              {
+                "id": "Q0DZ5WK5",
+                "name": "Small Animal Supplies",
+                "slug": "pet-supplies-small-animal-supplies"
+              },
+              {
+                "id": "Q7Y7NO916",
+                "name": "Top Pet Products",
+                "slug": "pet-supplies-top-pet-products"
+              }
+            ]
+          },
+          {
+            "id": "Q4NKLDM5",
+            "name": "Smartphones, Cell Phones & Accessories",
+            "slug": "phones",
+            "subCategories": [
+              {
+                "id": "Q492P7N5",
+                "name": "Cell Phone Accessories",
+                "slug": "phones-cell-phone-accessories"
+              },
+              {
+                "id": "Q492PO36",
+                "name": "Cell Phone Cases, Holsters & Clips",
+                "slug": "phones-cell-phone-cases-holsters"
+              },
+              {
+                "id": "Q492LVDL",
+                "name": "Mobile Broadband Hot Spots & Accessories",
+                "slug": "phones-mobile-broadband"
+              },
+              {
+                "id": "QV4LZQZL",
+                "name": "SIM Cards & Prepaid Minutes",
+                "slug": "phones-sim-cards"
+              },
+              {
+                "id": "QWDMN10YL",
+                "name": "Smart Phones & Cell Phones",
+                "slug": "phones-smart-phones"
+              }
+            ]
+          },
+          {
+            "id": "NX5N9ML8",
+            "name": "Software",
+            "slug": "software",
+            "subCategories": [
+              {
+                "id": "JXNZ011X",
+                "name": "Children's Software",
+                "slug": "software-childrens-software"
+              },
+              {
+                "id": "D8VE45OR",
+                "name": "Design & Illustration Software",
+                "slug": "software-design-software"
+              },
+              {
+                "id": "N87D5OVR",
+                "name": "Education & Reference Software",
+                "slug": "software-education-software"
+              },
+              {
+                "id": "JXNZ0DZX",
+                "name": "Lifestyle & Hobby Software",
+                "slug": "software-lifestyle-hobby-software"
+              },
+              {
+                "id": "8Z6K1938",
+                "name": "Music Software",
+                "slug": "software-music-software"
+              },
+              {
+                "id": "YR0QWQ9R",
+                "name": "Operating Systems",
+                "slug": "software-operating-systems"
+              },
+              {
+                "id": "N81JMW1R",
+                "name": "Photography Software",
+                "slug": "software-photography-software"
+              },
+              {
+                "id": "JXNZ0QZX",
+                "name": "Software Utilities",
+                "slug": "software-software-utilities"
+              },
+              {
+                "id": "PX6V17GR",
+                "name": "Video Software",
+                "slug": "software-video-software"
+              }
+            ]
+          },
+          {
+            "id": "XWJ2L1PR",
+            "name": "Sports & Outdoor Supplies",
+            "slug": "sports-outdoor-supplies",
+            "subCategories": [
+              {
+                "id": "RKOGLDPX",
+                "name": "Fan Shop",
+                "slug": "sports-outdoor-supplies-fan-shop"
+              },
+              {
+                "id": "QLZY2506",
+                "name": "Outdoor Recreation & Equipment",
+                "slug": "sports-outdoor-supplies-outdoor-recreation-equipment"
+              },
+              {
+                "id": "Q722GM31L",
+                "name": "Sports & Fitness Equipment",
+                "slug": "sports-outdoor-supplies-sports-fitness-equipment"
+              }
+            ]
+          },
+          {
+            "id": "MR47W61R",
+            "name": "Tools & Home Improvement",
+            "slug": "tools-home-improvement",
+            "subCategories": [
+              {
+                "id": "RODW6E1X",
+                "name": "Building Supplies",
+                "slug": "tools-home-improvement-building-supplies"
+              },
+              {
+                "id": "X6605N4X",
+                "name": "Electrical Supplies",
+                "slug": "tools-home-improvement-electrical-supplies"
+              },
+              {
+                "id": "XMD2OQGX",
+                "name": "Hardware",
+                "slug": "tools-home-improvement-hardware"
+              },
+              {
+                "id": "R4WE1L38",
+                "name": "Kitchen & Bath Fixtures",
+                "slug": "tools-home-improvement-kitchen-bath-fixtures"
+              },
+              {
+                "id": "QWZ4761L",
+                "name": "Light Bulbs",
+                "slug": "tools-home-improvement-light-bulbs"
+              },
+              {
+                "id": "XNNG7LKX",
+                "name": "Lighting & Ceiling Fans",
+                "slug": "tools-home-improvement-lighting-ceiling-fans"
+              },
+              {
+                "id": "R3ZV3D2R",
+                "name": "Measurement & Layout Tools",
+                "slug": "tools-home-improvement-measurement-tools"
+              },
+              {
+                "id": "WXWD9ZPR",
+                "name": "Painting Supplies & Wall Treatments",
+                "slug": "tools-home-improvement-painting-supplies"
+              },
+              {
+                "id": "QWVNPMO5",
+                "name": "Power & Hand Tools",
+                "slug": "tools-home-improvement-hand-power-tools"
+              },
+              {
+                "id": "RYV0ND1Y",
+                "name": "Rough Plumbing",
+                "slug": "tools-home-improvement-rough-plumbing"
+              },
+              {
+                "id": "XGGJ7Q1X",
+                "name": "Safety & Security Equipment",
+                "slug": "tools-home-improvement-safety-security-equipment"
+              },
+              {
+                "id": "XG7ZGYM1",
+                "name": "Storage & Home Organization",
+                "slug": "tools-home-improvement-storage-organization"
+              },
+              {
+                "id": "QWYOWWJ3L",
+                "name": "Welding & Soldering Supplies",
+                "slug": "tools-home-improvement-welding-supplies"
+              }
+            ]
+          },
+          {
+            "id": "RQG6VL7L",
+            "name": "Toys & Games",
+            "slug": "toys-games",
+            "subCategories": [
+              {
+                "id": "RQGGQ9Q5",
+                "name": "Action Figures",
+                "slug": "toys-games-action-figures"
+              },
+              {
+                "id": "RQGG4NOL",
+                "name": "Arts & Crafts Supplies",
+                "slug": "toys-games-arts-crafts-supplies"
+              },
+              {
+                "id": "QWMZDVP6",
+                "name": "Baby & Toddler Toys",
+                "slug": "toys-games-baby-toddler-toys"
+              },
+              {
+                "id": "RQG3MM26",
+                "name": "Board & Card Games",
+                "slug": "toys-games-board-card-games"
+              },
+              {
+                "id": "RQGG9YP5",
+                "name": "Building & Construction Toys",
+                "slug": "toys-games-building-construction-toys"
+              },
+              {
+                "id": "RQGGZ0Q6",
+                "name": "Dolls & Accessories",
+                "slug": "toys-games-dolls-accessories"
+              },
+              {
+                "id": "RQG31EW6",
+                "name": "Dress Up & Pretend Toys",
+                "slug": "toys-games-dress-up-pretend-toys"
+              },
+              {
+                "id": "QZ3LG4E6",
+                "name": "Grown-Up Toys",
+                "slug": "toys-games-grown-up-toys"
+              },
+              {
+                "id": "QWOY7MQ5",
+                "name": "Hobbies",
+                "slug": "toys-games-hobbies"
+              },
+              {
+                "id": "RQGG6EP5",
+                "name": "Kids' Electronics",
+                "slug": "toys-games-kids-electronics"
+              },
+              {
+                "id": "RQGGEQWL",
+                "name": "Kids' Furniture, Décor & Storage",
+                "slug": "toys-games-kids-furniture"
+              },
+              {
+                "id": "RQG3LD55",
+                "name": "Learning & Educational Toys",
+                "slug": "toys-games-learning-toys"
+              },
+              {
+                "id": "RQGGOWKL",
+                "name": "Novelty & Gag Toys",
+                "slug": "toys-games-novelty-toys"
+              },
+              {
+                "id": "Q10MOD76",
+                "name": "Party Supplies",
+                "slug": "toys-games-party-supplies"
+              },
+              {
+                "id": "RQG3KP9L",
+                "name": "Puppets",
+                "slug": "toys-games-puppets"
+              },
+              {
+                "id": "RQG3OWV5",
+                "name": "Puzzles",
+                "slug": "toys-games-puzzles"
+              },
+              {
+                "id": "RQG3GG26",
+                "name": "Remote Control Toys & Play Vehicles",
+                "slug": "toys-games-remote-control-toys"
+              },
+              {
+                "id": "RQG3950L",
+                "name": "Sports Toys & Outdoor Play",
+                "slug": "toys-games-sports-toys"
+              },
+              {
+                "id": "RQG3VO65",
+                "name": "Stuffed Animals & Plush Toys",
+                "slug": "toys-games-stuffed-animals"
+              },
+              {
+                "id": "QWK19OL6",
+                "name": "Tricycles, Scooters & Wagons",
+                "slug": "toys-games-tricycles-scooters-wagons"
+              }
+            ]
+          },
+          {
+            "id": "X667VY3X",
+            "name": "Video Games",
+            "slug": "video-games",
+            "subCategories": [
+              {
+                "id": "QW6JEO7LL",
+                "name": "Kids & Family Video Games",
+                "slug": "video-games-kids-video-games"
+              },
+              {
+                "id": "ORKZDZ1R",
+                "name": "Mac Games",
+                "slug": "video-games-mac-games"
+              },
+              {
+                "id": "QDVQV9K6",
+                "name": "Nintendo 3DS Games",
+                "slug": "video-games-nintendo-3ds-games"
+              },
+              {
+                "id": "XG7GGW2M",
+                "name": "Nintendo DS Games",
+                "slug": "video-games-nintendo-ds-games"
+              },
+              {
+                "id": "QL43332N6",
+                "name": "Nintendo Switch Games",
+                "slug": "video-games-nintendo-switch-games"
+              },
+              {
+                "id": "WXWDN9QR",
+                "name": "PC Games",
+                "slug": "video-games-pc-games"
+              },
+              {
+                "id": "XWM714JQ",
+                "name": "PlayStation 3 Games",
+                "slug": "video-games-playstation-3-games"
+              },
+              {
+                "id": "QW20NJEQ6",
+                "name": "PlayStation 4 Games",
+                "slug": "video-games-playstation-4-games"
+              },
+              {
+                "id": "Q0Y7W5V6",
+                "name": "PlayStation Vita Games",
+                "slug": "video-games-playstation-vita-games"
+              },
+              {
+                "id": "ERO61DK8",
+                "name": "Retro Gaming & Microconsoles",
+                "slug": "video-games-retro-gaming"
+              },
+              {
+                "id": "81Z33201",
+                "name": "Sony PSP Games",
+                "slug": "video-games-sony-psp-games"
+              },
+              {
+                "id": "XMD1N7ZX",
+                "name": "Video Game Accessories",
+                "slug": "video-games-video-game-accessories"
+              },
+              {
+                "id": "8E637W54",
+                "name": "Wii Games",
+                "slug": "video-games-wii-games"
+              },
+              {
+                "id": "QZ7P0KLL",
+                "name": "Wii U Games",
+                "slug": "video-games-wii-u-games"
+              },
+              {
+                "id": "R44O6LOD",
+                "name": "Xbox 360 Games",
+                "slug": "video-games-xbox-360-games"
+              },
+              {
+                "id": "QW2GO3V65",
+                "name": "Xbox One Games",
+                "slug": "video-games-xbox-one-games"
+              }
+            ]
+          }
+        ],
+        "accountInteractionInfo": {
+          "type": "signed-out"
+        },
+        "StorePage": {
+          "categories": [
+            {
+              "id": "bgp",
+              "displayName": "Beauty & Health",
+              "slug": "beauty-health",
+              "createdAt": "2023-04-13T20:30:38.898Z",
+              "updatedAt": "2023-04-13T20:30:38.898Z"
+            },
+            {
+              "id": "mdg",
+              "displayName": "Energy and Utilities",
+              "slug": "energy-and-utilities",
+              "createdAt": "2023-04-13T20:28:35.773Z",
+              "updatedAt": "2023-04-13T20:28:35.773Z"
+            },
+            {
+              "createdAt": "2018-01-16T21:53:50.523Z",
+              "updatedAt": "2018-01-16T21:53:50.523Z",
+              "id": "gdp",
+              "displayName": "Shoes & Accessories",
+              "slug": "shoes-accessories"
+            },
+            {
+              "createdAt": "2018-01-16T21:53:50.201Z",
+              "updatedAt": "2018-01-16T21:53:50.201Z",
+              "id": "ejj",
+              "displayName": "Apparel",
+              "slug": "apparel"
+            },
+            {
+              "createdAt": "2018-01-16T21:53:49.558Z",
+              "updatedAt": "2018-01-16T21:53:49.558Z",
+              "id": "dry",
+              "displayName": "Electronics Hardware & Audio",
+              "slug": "electronics-hardware-audio"
+            },
+            {
+              "createdAt": "2018-01-16T21:53:48.194Z",
+              "updatedAt": "2018-01-16T21:53:48.194Z",
+              "id": "ayn",
+              "displayName": "Food & Beverage",
+              "slug": "food-beverage"
+            },
+            {
+              "createdAt": "2018-01-16T21:53:48.194Z",
+              "updatedAt": "2018-01-16T21:53:48.194Z",
+              "id": "axk",
+              "displayName": "Hobbies",
+              "slug": "hobbies"
+            },
+            {
+              "createdAt": "2018-01-16T21:53:48.193Z",
+              "updatedAt": "2018-01-16T21:53:48.193Z",
+              "id": "azk",
+              "displayName": "Software & Online Services",
+              "slug": "software-online-services"
+            },
+            {
+              "createdAt": "2018-01-16T21:53:46.191Z",
+              "updatedAt": "2018-01-16T21:53:46.191Z",
+              "id": "awp",
+              "displayName": "Sports & Fitness",
+              "slug": "sports-fitness"
+            },
+            {
+              "createdAt": "2018-01-16T21:53:46.189Z",
+              "updatedAt": "2018-01-16T21:53:46.189Z",
+              "id": "brm",
+              "displayName": "Department Stores",
+              "slug": "department-stores"
+            },
+            {
+              "createdAt": "2018-01-16T21:53:46.188Z",
+              "updatedAt": "2018-01-16T21:53:46.188Z",
+              "id": "avx",
+              "displayName": "Pets & Animals",
+              "slug": "pets-animals"
+            },
+            {
+              "createdAt": "2018-01-16T21:53:44.181Z",
+              "updatedAt": "2018-01-16T21:53:44.181Z",
+              "id": "bqz",
+              "displayName": "Books, Movies & Music",
+              "slug": "books-movies-music"
+            },
+            {
+              "createdAt": "2018-01-16T21:53:44.181Z",
+              "updatedAt": "2018-01-16T21:53:44.181Z",
+              "id": "bow",
+              "displayName": "Automotive & Vehicles",
+              "slug": "automotive-vehicles"
+            },
+            {
+              "createdAt": "2018-01-16T21:53:42.494Z",
+              "updatedAt": "2018-01-16T21:53:42.494Z",
+              "id": "bmg",
+              "displayName": "Travel & Experiences",
+              "slug": "travel-experiences"
+            },
+            {
+              "createdAt": "2018-01-16T21:53:42.491Z",
+              "updatedAt": "2018-01-16T21:53:42.491Z",
+              "id": "bny",
+              "displayName": "Toys & Kids Gear",
+              "slug": "toys-kids-gear"
+            },
+            {
+              "createdAt": "2018-01-16T21:53:40.518Z",
+              "updatedAt": "2018-01-16T21:53:40.518Z",
+              "id": "bkp",
+              "displayName": "Business Supplies & Services",
+              "slug": "business-supplies-services"
+            },
+            {
+              "createdAt": "2018-01-16T21:53:40.492Z",
+              "updatedAt": "2018-01-16T21:53:40.492Z",
+              "id": "bjo",
+              "displayName": "Home & Furnishings",
+              "slug": "home-furnishings"
+            }
+          ],
+          "subCategories": {
+            "popular": [
+              {
+                "tld": "papajohns.com",
+                "displayName": "Papa John's"
+              },
+              {
+                "tld": "amazon.com",
+                "displayName": "Amazon"
+              },
+              {
+                "tld": "doordash.com",
+                "displayName": "DoorDash"
+              },
+              {
+                "tld": "homedepot.com",
+                "displayName": "The Home Depot"
+              },
+              {
+                "tld": "pizzahut.com",
+                "displayName": "Pizza Hut"
+              },
+              {
+                "tld": "wayfair.com",
+                "displayName": "Wayfair"
+              },
+              {
+                "tld": "fashionnova.com",
+                "displayName": "Fashion Nova"
+              },
+              {
+                "tld": "target.com",
+                "displayName": "Target"
+              },
+              {
+                "tld": "walmart.com",
+                "displayName": "Walmart"
+              },
+              {
+                "tld": "etsy.com",
+                "displayName": "Etsy"
+              },
+              {
+                "tld": "wingstop.com",
+                "displayName": "Wingstop"
+              },
+              {
+                "tld": "nike.com",
+                "displayName": "Nike"
+              },
+              {
+                "tld": "lowes.com",
+                "displayName": "Lowe's"
+              },
+              {
+                "tld": "costco.com",
+                "displayName": "Costco"
+              },
+              {
+                "tld": "aa.com",
+                "displayName": "American Airlines"
+              },
+              {
+                "tld": "turo.com",
+                "displayName": "Turo"
+              },
+              {
+                "tld": "uhaul.com",
+                "displayName": "U-Haul U-Box®"
+              },
+              {
+                "tld": "chewy.com",
+                "displayName": "Chewy"
+              },
+              {
+                "tld": "ikea.com",
+                "displayName": "IKEA"
+              },
+              {
+                "tld": "oldnavy.gap.com",
+                "displayName": "Old Navy"
+              }
+            ],
+            "apparel": [
+              {
+                "tld": "ae.com",
+                "displayName": "American Eagle"
+              },
+              {
+                "tld": "express.com",
+                "displayName": "Express"
+              },
+              {
+                "tld": "llbean.com",
+                "displayName": "L.L.Bean"
+              },
+              {
+                "tld": "oldnavy.gap.com",
+                "displayName": "Old Navy"
+              },
+              {
+                "tld": "truereligion.com",
+                "displayName": "True Religion"
+              },
+              {
+                "tld": "fashionnova.com",
+                "displayName": "Fashion Nova"
+              },
+              {
+                "tld": "josbank.com",
+                "displayName": "Jos. A. Bank"
+              },
+              {
+                "tld": "victoriassecret.com",
+                "displayName": "Victoria's Secret"
+              },
+              {
+                "tld": "underarmour.com",
+                "displayName": "Under Armour"
+              },
+              {
+                "tld": "calvinklein.us",
+                "displayName": "Calvin Klein US"
+              },
+              {
+                "tld": "skims.com",
+                "displayName": "Skims"
+              }
+            ],
+            "automotive-vehicles": [
+              {
+                "tld": "napaonline.com",
+                "displayName": "NAPA"
+              },
+              {
+                "tld": "advanceautoparts.com",
+                "displayName": "Advance Auto Parts"
+              },
+              {
+                "tld": "autopartswarehouse.com",
+                "displayName": "Auto Parts Warehouse"
+              },
+              {
+                "tld": "goodyear.com",
+                "displayName": "Goodyear"
+              },
+              {
+                "tld": "tirerack.com",
+                "displayName": "Tire Rack"
+              },
+              {
+                "tld": "autobarn.com",
+                "displayName": "Auto Barn"
+              },
+              {
+                "tld": "buyautoparts.com",
+                "displayName": "BuyAutoParts"
+              }
+            ],
+            "beauty-health": [
+              {
+                "tld": "sallybeauty.com",
+                "displayName": "Sally Beauty"
+              },
+              {
+                "tld": "sephora.com",
+                "displayName": "Sephora"
+              },
+              {
+                "tld": "riteaid.com",
+                "displayName": "Rite Aid"
+              },
+              {
+                "tld": "cvs.com",
+                "displayName": "CVS"
+              },
+              {
+                "tld": "beautycon.com",
+                "displayName": "beautycon.com"
+              },
+              {
+                "tld": "ulta.com",
+                "displayName": "Ulta Beauty"
+              },
+              {
+                "tld": "fragrancenet.com",
+                "displayName": "Fragrance Net"
+              },
+              {
+                "tld": "arazabeauty.com",
+                "displayName": "Araza Natural Beauty"
+              },
+              {
+                "tld": "westmorebeauty.com",
+                "displayName": "McKenzie Westmore"
+              },
+              {
+                "tld": "moerie.com",
+                "displayName": "Moerie Beauty"
+              }
+            ],
+            "books-movies-music": [
+              {
+                "tld": "abebooks.com",
+                "displayName": "AbeBooks"
+              },
+              {
+                "tld": "barnesandnoble.com",
+                "displayName": "Barnes & Noble"
+              },
+              {
+                "tld": "booksamillion.com",
+                "displayName": "Books A Million"
+              },
+              {
+                "tld": "betterworldbooks.com",
+                "displayName": "Better World Books"
+              },
+              {
+                "tld": "thriftbooks.com",
+                "displayName": "ThriftBooks"
+              },
+              {
+                "tld": "knetbooks.com",
+                "displayName": "Knetbooks"
+              },
+              {
+                "tld": "tv.youtube.com",
+                "displayName": "YouTube TV"
+              },
+              {
+                "tld": "iseeme.com",
+                "displayName": "I See Me! Personalized Books"
+              },
+              {
+                "tld": "hulu.com",
+                "displayName": "Hulu"
+              },
+              {
+                "tld": "peacocktv.com",
+                "displayName": "Peacock TV"
+              }
+            ],
+            "business-supplies-services": [
+              {
+                "tld": "zoro.com",
+                "displayName": "Zoro"
+              },
+              {
+                "tld": "vistaprint.com",
+                "displayName": "VistaPrint"
+              },
+              {
+                "tld": "turbotax.intuit.com",
+                "displayName": "TurboTax"
+              },
+              {
+                "tld": "quill.com",
+                "displayName": "Quill"
+              },
+              {
+                "tld": "mcafee.com",
+                "displayName": "McAfee"
+              },
+              {
+                "tld": "quickbooks.intuit.com",
+                "displayName": "Intuit QuickBooks"
+              },
+              {
+                "tld": "norton.com",
+                "displayName": "Norton US"
+              },
+              {
+                "tld": "deluxe.com",
+                "displayName": "Deluxe"
+              },
+              {
+                "tld": "legalzoom.com",
+                "displayName": "LegalZoom"
+              },
+              {
+                "tld": "udemy.com",
+                "displayName": "Udemy"
+              }
+            ],
+            "department-stores": [
+              {
+                "tld": "bloomingdales.com",
+                "displayName": "Bloomingdale's"
+              },
+              {
+                "tld": "groupon.com",
+                "displayName": "Groupon"
+              },
+              {
+                "tld": "saksfifthavenue.com",
+                "displayName": "Saks Fifth Avenue"
+              },
+              {
+                "tld": "target.com",
+                "displayName": "Target"
+              },
+              {
+                "tld": "walmart.com",
+                "displayName": "Walmart"
+              },
+              {
+                "tld": "wayfair.com",
+                "displayName": "Wayfair"
+              },
+              {
+                "tld": "macys.com",
+                "displayName": "Macy's"
+              },
+              {
+                "tld": "sears.com",
+                "displayName": "Sears"
+              },
+              {
+                "tld": "marshalls.com",
+                "displayName": "Marshalls"
+              },
+              {
+                "tld": "dollartree.com",
+                "displayName": "Dollar Tree"
+              },
+              {
+                "tld": "jcpenney.com",
+                "displayName": "JCPenney"
+              }
+            ],
+            "electronics-hardware-audio": [
+              {
+                "tld": "bestbuy.com",
+                "displayName": "Best Buy"
+              },
+              {
+                "tld": "newegg.com",
+                "displayName": "Newegg"
+              },
+              {
+                "tld": "abt.com",
+                "displayName": "Abt.com"
+              },
+              {
+                "tld": "tracfone.com",
+                "displayName": "Tracfone"
+              },
+              {
+                "tld": "sony.com",
+                "displayName": "Sony"
+              },
+              {
+                "tld": "samsung.com",
+                "displayName": "Samsung"
+              },
+              {
+                "tld": "adorama.com",
+                "displayName": "Adorama"
+              },
+              {
+                "tld": "keh.com",
+                "displayName": "KEH Camera"
+              }
+            ],
+            "energy-and-utilities": [],
+            "food-beverage": [
+              {
+                "tld": "hellofresh.com",
+                "displayName": "HelloFresh"
+              },
+              {
+                "tld": "blueapron.com",
+                "displayName": "Blue Apron"
+              },
+              {
+                "tld": "thrivemarket.com",
+                "displayName": "Thrive Market"
+              },
+              {
+                "tld": "homechef.com",
+                "displayName": "Home Chef"
+              },
+              {
+                "tld": "dutchbros.com",
+                "displayName": "Dutch Bros. Coffee"
+              },
+              {
+                "tld": "revivesuperfoods.com",
+                "displayName": "Revive Superfoods"
+              },
+              {
+                "tld": "foodservicedirect.com",
+                "displayName": "Food Service Direct"
+              },
+              {
+                "tld": "parthenonfoods.com",
+                "displayName": "Parthenon Foods"
+              },
+              {
+                "tld": "risebrewingco.com",
+                "displayName": "risebrewingco.com"
+              },
+              {
+                "tld": "doordash.com",
+                "displayName": "DoorDash"
+              },
+              {
+                "tld": "thegoodcrispcompany.com",
+                "displayName": "The Good Crisp Company"
+              }
+            ],
+            "hobbies": [
+              {
+                "tld": "etsy.com",
+                "displayName": "Etsy"
+              },
+              {
+                "tld": "ancestry.com",
+                "displayName": "Ancestry"
+              },
+              {
+                "tld": "shutterfly.com",
+                "displayName": "Shutterfly"
+              },
+              {
+                "tld": "society6.com",
+                "displayName": "Society 6"
+              },
+              {
+                "tld": "cricut.com",
+                "displayName": "Cricut"
+              },
+              {
+                "tld": "dickssportinggoods.com",
+                "displayName": "DICK'S Sporting Goods"
+              },
+              {
+                "tld": "hillsound.com",
+                "displayName": "Hill Sound"
+              },
+              {
+                "tld": "publiclands.com",
+                "displayName": "Public Lands"
+              },
+              {
+                "tld": "snapfish.com",
+                "displayName": "Snapfish"
+              },
+              {
+                "tld": "yeti.com",
+                "displayName": "YETI"
+              }
+            ],
+            "home-furnishings": [
+              {
+                "tld": "ikea.com",
+                "displayName": "IKEA"
+              },
+              {
+                "tld": "thuma.co",
+                "displayName": "Thuma"
+              },
+              {
+                "tld": "casper.com",
+                "displayName": "Casper"
+              },
+              {
+                "tld": "purple.com",
+                "displayName": "Purple"
+              },
+              {
+                "tld": "eightsleep.com",
+                "displayName": "Eight Sleep"
+              },
+              {
+                "tld": "naturepedic.com",
+                "displayName": "Naturepedic"
+              },
+              {
+                "tld": "keurig.com",
+                "displayName": "Keurig"
+              },
+              {
+                "tld": "factorydirectfilters.com",
+                "displayName": "Factory Direct Filters"
+              },
+              {
+                "tld": "parachutehome.com",
+                "displayName": "Parachute"
+              },
+              {
+                "tld": "lowes.com",
+                "displayName": "Lowe's"
+              }
+            ],
+            "pets-animals": [
+              {
+                "tld": "rover.com",
+                "displayName": "Rover"
+              },
+              {
+                "tld": "thefarmersdog.com",
+                "displayName": "The Farmer's Dog"
+              },
+              {
+                "tld": "countrysidepet.com",
+                "displayName": "Countryside Pet Supply"
+              },
+              {
+                "tld": "petco.com",
+                "displayName": "Petco"
+              },
+              {
+                "tld": "chewy.com",
+                "displayName": "Chewy"
+              },
+              {
+                "tld": "1800petmeds.com",
+                "displayName": "PetMeds"
+              },
+              {
+                "tld": "food.bark.co",
+                "displayName": "Bark Food"
+              },
+              {
+                "tld": "petcarerx.com",
+                "displayName": "PetCareRx"
+              },
+              {
+                "tld": "petflow.com",
+                "displayName": "PetFlow"
+              },
+              {
+                "tld": "ruffwear.com",
+                "displayName": "Ruffwear"
+              }
+            ],
+            "shoes-accessories": [
+              {
+                "tld": "adidas.com",
+                "displayName": "adidas"
+              },
+              {
+                "tld": "dsw.com",
+                "displayName": "DSW"
+              },
+              {
+                "tld": "footlocker.com",
+                "displayName": "Foot Locker"
+              },
+              {
+                "tld": "toms.com",
+                "displayName": "TOMS"
+              },
+              {
+                "tld": "stockx.com",
+                "displayName": "StockX"
+              },
+              {
+                "tld": "clarks.com",
+                "displayName": "Clarks"
+              },
+              {
+                "tld": "asics.com",
+                "displayName": "ASICS"
+              },
+              {
+                "tld": "tecovas.com",
+                "displayName": "Tecovas"
+              },
+              {
+                "tld": "oofos.com",
+                "displayName": "OOFOS"
+              }
+            ],
+            "software-online-services": [
+              {
+                "tld": "grammarly.com",
+                "displayName": "Grammarly"
+              },
+              {
+                "tld": "rosettastone.com",
+                "displayName": "Rosetta Stone"
+              },
+              {
+                "tld": "bluehost.com",
+                "displayName": "Bluehost"
+              },
+              {
+                "tld": "name.com",
+                "displayName": "Name.com"
+              },
+              {
+                "tld": "nordvpn.com",
+                "displayName": "NordVPN"
+              },
+              {
+                "tld": "adobe.com",
+                "displayName": "Abobe"
+              },
+              {
+                "tld": "zoom.us",
+                "displayName": "Zoom"
+              },
+              {
+                "tld": "coreldraw.com",
+                "displayName": "CorelDRAW"
+              },
+              {
+                "tld": "domain.com",
+                "displayName": "Domain.com"
+              }
+            ],
+            "sports-fitness": [
+              {
+                "tld": "gnc.com",
+                "displayName": "GNC"
+              },
+              {
+                "tld": "gymshark.com",
+                "displayName": "Gymshark"
+              },
+              {
+                "tld": "champssports.com",
+                "displayName": "Champs Sports"
+              },
+              {
+                "tld": "rei.com",
+                "displayName": "REI"
+              },
+              {
+                "tld": "nflshop.com",
+                "displayName": "NFL Shop"
+              },
+              {
+                "tld": "decathlon.com",
+                "displayName": "Decathlon US"
+              },
+              {
+                "tld": "backcountry.com",
+                "displayName": "Backcountry"
+              },
+              {
+                "tld": "academy.com",
+                "displayName": "Academy Sports + Outdoors"
+              }
+            ],
+            "toys-kids-gear": [
+              {
+                "tld": "honest.com",
+                "displayName": "The Honest Company"
+              },
+              {
+                "tld": "gymboree.com",
+                "displayName": "Gymboree"
+              },
+              {
+                "tld": "gracobaby.com",
+                "displayName": "Graco"
+              },
+              {
+                "tld": "carters.com",
+                "displayName": "Carter's"
+              },
+              {
+                "tld": "gerberchildrenswear.com",
+                "displayName": "Gerber Childrenswear"
+              },
+              {
+                "tld": "lovedbaby.com",
+                "displayName": "L'oved Baby"
+              },
+              {
+                "tld": "fatbraintoys.com",
+                "displayName": "Fat Brain Toys"
+              },
+              {
+                "tld": "mcphee.com",
+                "displayName": "Archie McPhee"
+              },
+              {
+                "tld": "buybuybaby.com",
+                "displayName": "buybuy BABY"
+              }
+            ],
+            "travel-experiences": [
+              {
+                "tld": "ikonpass.com",
+                "displayName": "Ikon Pass"
+              },
+              {
+                "tld": "airbnb.com",
+                "displayName": "Airbnb"
+              },
+              {
+                "tld": "vrbo.com",
+                "displayName": "Vrbo"
+              },
+              {
+                "tld": "cheapoair.com",
+                "displayName": "CheapOair"
+              },
+              {
+                "tld": "airportparkingreservations.com",
+                "displayName": "Airport Parking Reservations"
+              },
+              {
+                "tld": "booking.com",
+                "displayName": "Booking.com"
+              },
+              {
+                "tld": "expedia.com",
+                "displayName": "Expedia"
+              },
+              {
+                "tld": "ihg.com",
+                "displayName": "IHG"
+              },
+              {
+                "tld": "prioritypass.com",
+                "displayName": "Priority Pass"
+              },
+              {
+                "tld": "agoda.com",
+                "displayName": "Agoda"
+              },
+              {
+                "tld": "ticketmaster.com",
+                "displayName": "Ticketmaster"
+              }
+            ]
+          }
+        },
+        "contentApiData": {
+          "liveEvents": [
+            {
+              "name": "Celebrate the Holiday Weekend (MLK Holiday Weekend)",
+              "slug": "celebrate-the-holiday-weekend-mlk-holiday-weekend-1",
+              "eventId": "a1e0a7f3-cbef-4fdd-bd8a-4caeae5d0312",
+              "promotionSize": 239,
+              "banner_heading": "Celebrate the Holiday Weekend with Offers",
+              "__mirage": {
+                "type": "click",
+                "trackProps": {
+                  "dataType": "event_dropdown",
+                  "feedItemId": "a1e0a7f3-cbef-4fdd-bd8a-4caeae5d0312",
+                  "feed": "live-events",
+                  "tld": "capitaloneshopping.com",
+                  "slug": "celebrate-the-holiday-weekend-mlk-holiday-weekend-1"
+                }
+              }
+            },
+            {
+              "name": "Save on Winter Essentials 2 (Generic)",
+              "slug": "save-on-winter-essentials-2-generic-1",
+              "eventId": "3be36495-47a0-44d1-89b1-f646c2504ba0",
+              "promotionSize": 29,
+              "banner_heading": "Save on Winter Essentials",
+              "__mirage": {
+                "type": "click",
+                "trackProps": {
+                  "dataType": "event_dropdown",
+                  "feedItemId": "3be36495-47a0-44d1-89b1-f646c2504ba0",
+                  "feed": "live-events",
+                  "tld": "capitaloneshopping.com",
+                  "slug": "save-on-winter-essentials-2-generic-1"
+                }
+              }
+            },
+            {
+              "name": "Update Your Home Decor This Winter 2 (Home)",
+              "slug": "update-your-home-decor-this-winter-2-home-1",
+              "eventId": "f3e7bab6-0f83-4f55-b27a-3e26d361e130",
+              "promotionSize": 25,
+              "banner_heading": "Update Your Home Decor This Winter",
+              "__mirage": {
+                "type": "click",
+                "trackProps": {
+                  "dataType": "event_dropdown",
+                  "feedItemId": "f3e7bab6-0f83-4f55-b27a-3e26d361e130",
+                  "feed": "live-events",
+                  "tld": "capitaloneshopping.com",
+                  "slug": "update-your-home-decor-this-winter-2-home-1"
+                }
+              }
+            },
+            {
+              "name": "Save on Tax Season Prep Early 1 (Tax Season Week 1)",
+              "slug": "save-on-tax-season-prep-early-1-tax-season-week-1-1",
+              "eventId": "4232503d-6304-4b5e-8c1e-e81b204d7a8e",
+              "promotionSize": 14,
+              "banner_heading": "Save on Tax Season Prep Early",
+              "__mirage": {
+                "type": "click",
+                "trackProps": {
+                  "dataType": "event_dropdown",
+                  "feedItemId": "4232503d-6304-4b5e-8c1e-e81b204d7a8e",
+                  "feed": "live-events",
+                  "tld": "capitaloneshopping.com",
+                  "slug": "save-on-tax-season-prep-early-1-tax-season-week-1-1"
+                }
+              }
+            }
+          ]
+        },
+        "referralBonus": null,
+        "referralLink": null,
+        "referredOffer": null
+      },
+      "routes/__app/s.$store.coupon": {
+        "StorePage": {
+          "site": {
+            "country": "US",
+            "limitedExposure": false,
+            "displayName": "Legend London",
+            "couponCount": 0,
+            "merchantCategories": [
+              {
+                "isRoot": true,
+                "displayName": "Apparel",
+                "index": 0,
+                "id": "ejj",
+                "slug": "apparel"
+              }
+            ],
+            "allowedCountries": ["US"],
+            "tld": "legendlondon.co",
+            "couponStats": null,
+            "enabled": true,
+            "updatedAt": "2022-09-20T13:39:43.863Z",
+            "currency": "USD",
+            "couponsInfo": {
+              "coupons": [
+                {
+                  "code": "LEGEND10",
+                  "title": "10% Off",
+                  "foundAt": "2021-04-07T22:20:52.381Z",
+                  "disabled": false,
+                  "lastWorkedAt": "2026-01-19T20:00:00.000Z",
+                  "stats": {
+                    "avg_savings": 13.82315942105263,
+                    "success_rate": 0.61290324,
+                    "tries": 31
+                  }
+                },
+                {
+                  "code": "COMMERCIAL",
+                  "title": "5% Off",
+                  "foundAt": "2025-12-11T17:17:17.797Z",
+                  "disabled": false,
+                  "lastWorkedAt": "2026-01-20T06:00:00.000Z",
+                  "stats": {
+                    "avg_savings": 9.734444,
+                    "success_rate": 0.75,
+                    "tries": 12
+                  }
+                },
+                {
+                  "code": "10EXTRA",
+                  "title": "10% Off",
+                  "foundAt": "2024-09-22T23:19:19.135Z",
+                  "disabled": false,
+                  "stats": {
+                    "avg_savings": 0,
+                    "success_rate": 0,
+                    "tries": 14
+                  }
+                },
+                {
+                  "code": "ACTIVE",
+                  "title": "20% Off",
+                  "foundAt": "2024-08-25T20:30:49.033Z",
+                  "disabled": false,
+                  "stats": {
+                    "avg_savings": 0,
+                    "success_rate": 0,
+                    "tries": 14
+                  }
+                },
+                {
+                  "code": "active10",
+                  "title": "10% Off",
+                  "foundAt": "2024-10-10T07:19:18.596Z",
+                  "disabled": false,
+                  "stats": {
+                    "avg_savings": 0,
+                    "success_rate": 0,
+                    "tries": 14
+                  }
+                },
+                {
+                  "code": "BACK10D2RJ8HC7",
+                  "title": "10% Off",
+                  "foundAt": "2024-10-28T06:35:25.316Z",
+                  "disabled": false,
+                  "stats": {
+                    "avg_savings": 0,
+                    "success_rate": 0,
+                    "tries": 14
+                  }
+                },
+                {
+                  "code": "BACK10MT5NG9GV",
+                  "title": "10% Off",
+                  "foundAt": "2024-10-28T06:35:25.305Z",
+                  "disabled": false,
+                  "stats": {
+                    "avg_savings": 0,
+                    "success_rate": 0,
+                    "tries": 14
+                  }
+                },
+                {
+                  "code": "BASICS",
+                  "title": "10% Off",
+                  "foundAt": "2025-09-10T02:27:19.127Z",
+                  "disabled": false,
+                  "stats": {
+                    "avg_savings": 0,
+                    "success_rate": 0,
+                    "tries": 14
+                  }
+                },
+                {
+                  "code": "BRETT",
+                  "title": "5% Off",
+                  "foundAt": "2025-11-27T15:17:43.340Z",
+                  "disabled": false,
+                  "stats": {
+                    "avg_savings": 0,
+                    "success_rate": 0,
+                    "tries": 0
+                  }
+                },
+                {
+                  "code": "BUY2GET1FREE",
+                  "foundAt": "2024-10-07T01:21:38.101Z",
+                  "disabled": false,
+                  "stats": {
+                    "avg_savings": 0,
+                    "success_rate": 0,
+                    "tries": 0
+                  }
+                },
+                {
+                  "code": "carpenter",
+                  "title": "20% Off",
+                  "foundAt": "2024-09-01T21:45:28.569Z",
+                  "disabled": false,
+                  "stats": {
+                    "avg_savings": 0,
+                    "success_rate": 0,
+                    "tries": 0
+                  }
+                },
+                {
+                  "code": "COACHK",
+                  "title": "20% Off",
+                  "foundAt": "2025-09-10T02:27:19.117Z",
+                  "disabled": false,
+                  "stats": {
+                    "avg_savings": 0,
+                    "success_rate": 0,
+                    "tries": 3
+                  }
+                },
+                {
+                  "code": "CODE10",
+                  "title": "60% Off",
+                  "foundAt": "2025-12-22T13:17:22.316Z",
+                  "disabled": false,
+                  "stats": {
+                    "avg_savings": 0,
+                    "success_rate": 0,
+                    "tries": 1
+                  }
+                },
+                {
+                  "code": "CODE11",
+                  "title": "44% Off",
+                  "foundAt": "2025-12-22T13:17:22.308Z",
+                  "disabled": false,
+                  "stats": {
+                    "avg_savings": 0,
+                    "success_rate": 0,
+                    "tries": 1
+                  }
+                },
+                {
+                  "code": "CODE12",
+                  "title": "50% Off",
+                  "foundAt": "2025-12-22T13:17:22.312Z",
+                  "disabled": false,
+                  "stats": {
+                    "avg_savings": 0,
+                    "success_rate": 0,
+                    "tries": 0
+                  }
+                },
+                {
+                  "code": "CODE13",
+                  "title": "60% Off",
+                  "foundAt": "2025-12-22T13:17:22.299Z",
+                  "disabled": false,
+                  "stats": {
+                    "avg_savings": 0,
+                    "success_rate": 0,
+                    "tries": 0
+                  }
+                },
+                {
+                  "code": "CODE14",
+                  "title": "40% Off",
+                  "foundAt": "2025-12-22T13:17:22.305Z",
+                  "disabled": false,
+                  "stats": {
+                    "avg_savings": 0,
+                    "success_rate": 0,
+                    "tries": 0
+                  }
+                },
+                {
+                  "code": "EMAIL10",
+                  "title": "10% Off",
+                  "foundAt": "2022-11-14T07:15:55.899Z",
+                  "disabled": false,
+                  "stats": {
+                    "avg_savings": 0,
+                    "success_rate": 0,
+                    "tries": 0
+                  }
+                },
+                {
+                  "code": "EYAD89885",
+                  "title": "10% Off",
+                  "foundAt": "2023-08-23T00:47:09.394Z",
+                  "disabled": false,
+                  "stats": {
+                    "avg_savings": 0,
+                    "success_rate": 0,
+                    "tries": 0
+                  }
+                },
+                {
+                  "code": "FOOTWEAR",
+                  "title": "20% Off",
+                  "foundAt": "2025-07-21T04:18:51.905Z",
+                  "disabled": false,
+                  "stats": {
+                    "avg_savings": 0,
+                    "success_rate": 0,
+                    "tries": 0
+                  }
+                },
+                {
+                  "code": "FUTV",
+                  "title": "5% Off",
+                  "foundAt": "2025-11-27T15:17:43.336Z",
+                  "disabled": false,
+                  "stats": {
+                    "avg_savings": 0,
+                    "success_rate": 0,
+                    "tries": 1
+                  }
+                },
+                {
+                  "code": "FW24",
+                  "title": "20% Off",
+                  "foundAt": "2024-11-17T20:32:59.930Z",
+                  "disabled": false,
+                  "stats": {
+                    "avg_savings": 0,
+                    "success_rate": 0,
+                    "tries": 0
+                  }
+                },
+                {
+                  "code": "LEGEND15",
+                  "title": "15% Off",
+                  "foundAt": "2023-09-22T18:39:22.081Z",
+                  "disabled": false,
+                  "stats": {
+                    "avg_savings": 0,
+                    "success_rate": 0,
+                    "tries": 0
+                  }
+                },
+                {
+                  "code": "LEGENDSONLY",
+                  "foundAt": "2025-11-17T08:19:12.933Z",
+                  "disabled": false,
+                  "stats": {
+                    "avg_savings": 0,
+                    "success_rate": 0,
+                    "tries": 0
+                  }
+                },
+                {
+                  "code": "LIVE10",
+                  "title": "10% Off",
+                  "foundAt": "2023-09-22T18:39:22.117Z",
+                  "disabled": false,
+                  "stats": {
+                    "avg_savings": 0,
+                    "success_rate": 0,
+                    "tries": 0
+                  }
+                },
+                {
+                  "code": "LUXAN38940",
+                  "title": "10% Off",
+                  "foundAt": "2023-07-20T07:34:09.704Z",
+                  "disabled": false,
+                  "stats": {
+                    "avg_savings": 0,
+                    "success_rate": 0,
+                    "tries": 0
+                  }
+                },
+                {
+                  "code": "MAH",
+                  "title": "5% Off",
+                  "foundAt": "2025-11-23T15:26:59.824Z",
+                  "disabled": false,
+                  "stats": {
+                    "avg_savings": 0,
+                    "success_rate": 0,
+                    "tries": 0
+                  }
+                },
+                {
+                  "code": "STEVEN28524",
+                  "title": "10% Off",
+                  "foundAt": "2023-10-23T16:35:41.908Z",
+                  "disabled": false,
+                  "stats": {
+                    "avg_savings": 0,
+                    "success_rate": 0,
+                    "tries": 0
+                  }
+                },
+                {
+                  "code": "STRETCH",
+                  "title": "19% Off",
+                  "foundAt": "2024-12-21T10:33:45.630Z",
+                  "disabled": false,
+                  "stats": {
+                    "avg_savings": 0,
+                    "success_rate": 0,
+                    "tries": 0
+                  }
+                },
+                {
+                  "code": "TRUST15",
+                  "title": "15% Off",
+                  "foundAt": "2024-11-12T10:29:15.785Z",
+                  "disabled": false,
+                  "stats": {
+                    "avg_savings": 0,
+                    "success_rate": 0,
+                    "tries": 0
+                  }
+                },
+                {
+                  "code": "TSANDER20",
+                  "title": "20% Off",
+                  "foundAt": "2025-04-28T18:18:55.521Z",
+                  "disabled": false,
+                  "stats": {
+                    "avg_savings": 0,
+                    "success_rate": 0,
+                    "tries": 0
+                  }
+                },
+                {
+                  "code": "ZLATINA12087",
+                  "title": "10% Off",
+                  "foundAt": "2023-09-10T07:16:56.972Z",
+                  "disabled": false,
+                  "stats": {
+                    "avg_savings": 0,
+                    "success_rate": 0,
+                    "tries": 0
+                  }
+                }
+              ],
+              "latestWorking": [
+                {
+                  "code": "COMMERCIAL",
+                  "lastWorkedAt": "2026-01-20T06:00:00.000Z"
+                },
+                {
+                  "code": "LEGEND10",
+                  "lastWorkedAt": "2026-01-19T20:00:00.000Z"
+                }
+              ]
+            },
+            "promotions": [],
+            "similarDomains": [],
+            "offers": [],
+            "exclusions": ""
+          },
+          "metaVariant": null,
+          "isSemPage": false,
+          "seoMetaTags": {
+            "title": "Legend London Promo Codes & Coupons for January 2026",
+            "description": "As of January 20, 2026, Capital One Shopping currently lists 32 active Legend London coupon codes."
+          }
+        },
+        "rewardsEngineData": {
+          "enabled": true,
+          "rewards": null
+        },
+        "pageName": "store",
+        "pathname": "/s/legendlondon.co/coupon",
+        "isBot": false,
+        "searchId": null
+      }
+    },
+    "actionData": null,
+    "errors": null
+  }
+}

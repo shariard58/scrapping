@@ -67,13 +67,18 @@ def fetchURL(url):
         print(f"{R}Error fetching {url}: {e}{E}")
         return None
     
-def getZenResponse(url, headers=None, isJson=False, isCookies=False, isProxy=False):
+def getZenResponse(url, headers=None, isJson=False, isCookies=False, isProxy=False ,):
     global cookies
     try:
         if(isCookies and not cookies):
             response = client.get(url, headers=headers)
             cookies = response.cookies
         params = {"premium_proxy":"true","proxy_country":"us",}
+
+        
+        
+        print("params is", params)
+
         csheaders = {
             "Referer": "https://www.google.com",
             **(headers or {}),
@@ -459,6 +464,110 @@ def capitalone(url):
 
     print(f'{list(set(coupons))}')
     return list(set(coupons))
+
+# def capitalone1(url):
+#     coupons = []
+    
+#     try:
+#         print(f'Scraping WEB: {url}')
+#         html = getZenResponse(url) 
+#         soup = BeautifulSoup(html, 'html.parser')
+
+#         # ১. স্ক্রিপ্ট ট্যাগটি খুঁজুন
+#         tag = soup.find('script', string=lambda t: t and 'window.__remixContext' in t)
+        
+#         if tag:
+#             # ২. ট্যাগের ভেতর থেকে টেক্সট বা স্ট্রিংটি বের করুন
+#             script_txt = tag.string.strip() if tag.string else tag.text.strip()
+            
+#             # ৩. যেহেতু এখানে 'window.__remixContext = { ... };' থাকে, 
+#             # তাই সরাসরি json.loads কাজ করবে না। আমাদের Regex দিয়ে শুধু { } টুকু নিতে হবে।
+#             match = re.search(r'({.*})', script_txt, re.DOTALL)
+            
+#             if match:
+#                 json_text = match.group(1)
+#                 data_dict = json.loads(json_text)
+                
+#                 # এখন আপনি ডাটা এক্সেস করতে পারবেন
+                
+#                 coupons_data = data_dict['state']['loaderData']['routes/__app/s.$store.coupon']['StorePage']['site']['couponsInfo']['coupons']
+#                 print('coupons data', coupons_data)
+#                 # আপনার কুপন এক্সট্রাকশন লজিক এখানে লিখুন...
+
+#                 for item in coupons_data:
+#                     code = item.get('code')
+#                     if code:
+#                         coupons.append(code)
+         
+#             else:
+#                 print("JSON pattern doesn't  match ")
+#         else:
+#             print("RemixContext Script tag doesn't match")
+
+#     except json.JSONDecodeError as e:
+#         print(f"Error scraping CapitalOne: {e}")
+#     except Exception as e:
+#         print(f'Error scraping CapitalOne: {e}')
+
+#     print(f'{list(set(coupons))}')
+#     return list(set(coupons))
+
+def capitalone1(url):
+    coupons = []
+    
+    try:
+        print(f'Scraping WEB: {url}')
+        html = getZenResponse(url) 
+        soup = BeautifulSoup(html, 'html.parser')
+
+        # 1. Locate the correct script tag
+        tag = soup.find('script', string=lambda t: t and 'window.__remixContext' in t)
+        
+        if tag:
+            # 2. Extract text and clean it
+            script_txt = tag.string.strip() if tag.string else tag.text.strip()
+            
+            # 3. Use Regex to extract only the JSON object part
+            match = re.search(r'({.*})', script_txt, re.DOTALL)
+            
+            if match:
+                json_text = match.group(1)
+                data_dict = json.loads(json_text)
+                
+                # 4. Access data using safe navigation (Optional Chaining style)
+                # Note: We use .get() to avoid KeyError if any level is missing
+                loader_data = data_dict.get('state', {}).get('loaderData', {})
+                
+                # Handling the dynamic key 'routes/__app/s.$store.coupon'
+                store_route = loader_data.get('routes/__app/s.$store.coupon', {})
+                
+                # Digging deeper into the store data structure
+                coupons_list = (store_route.get('StorePage', {})
+                                          .get('site', {})
+                                          .get('couponsInfo', {})
+                                          .get('coupons', []))
+
+                # 5. Extract and normalize coupon codes
+                for item in coupons_list:
+                    code = item.get('code')
+                    if code:
+                        coupons.append(code.strip().upper())
+            else:
+                print("Regex Error: JSON pattern not found in script.")
+        else:
+            print("Extraction Error: RemixContext script tag not found.")
+
+    except json.JSONDecodeError as e:
+        print(f"JSON Error: Failed to parse script data - {e}")
+    except Exception as e:
+        print(f'General Error scraping CapitalOne: {e}')
+
+    # Remove duplicates and return
+    final_coupons = list(set(coupons))
+    print(f'Final Coupons Found: {final_coupons}')
+    return final_coupons
+
+    
 
 def retailmenot(url):
     """
@@ -1856,22 +1965,21 @@ def greenPromoCode(url):
     
     try:
         print(f'Scraping GreenPromoCode: {url}')
-        html = getZenResponse(url)
+        html = getZenResponse(url, isProxy=True)
         
         if html:
-            soup = BeautifulSoup(html, 'html.parser')          
+            soup = BeautifulSoup(html, 'html.parser')  
             coupon_elements = soup.select('.code[data-clipboard-text]')
+            
             for element in coupon_elements:
                 
                 code = element.get('data-clipboard-text')
                 
                 if code:
                     clean_code = code.strip().upper()
-                    coupons.append(clean_code)
-            
+                    coupons.append(clean_code)          
             
             if not coupons:
-                
                 desc_elements = soup.select('.description')
                 for desc in desc_elements:
                     import re
@@ -2369,9 +2477,34 @@ if __name__ == "__main__":
         # f"https://cozyearth.worthepenny.com/coupon/"
         # f"https://joincheckmate.com/merchants/cozyearth.com"
         # f"https://www.faircoupons.com/stores/cozy-earth"
-        #  f"https://www.savingheist.com/store/create-wellness/"
-         f"https://coupongrouphy.com/dealstore/create/"
-          
+        # f"https://www.savingheist.com/store/create-wellness/"
+        # f"https://coupongrouphy.com/dealstore/create/"
+        # f"https://www.faircoupons.com/stores/cozy-earth",
+        # f"https://cozyearth.worthepenny.com/coupon/"
+        # f"https://cymbiotika.worthepenny.com/coupon/"
+
+        # f"https://www.hotdeals.com/coupons/helix-sleep-promo-codes"
+        # f"https://www.faircoupons.com/stores/trycreate"
+        # f"https://joincheckmate.com/merchants/softminkyblankets.com"
+
+        # Testing Purpose 
+        # f"https://minky-couture.tenereteam.com/coupons"
+        # f"https://minkycouture.valuecom.com/?search=minky%20couture"
+        # f"https://greenpromocode.com/coupons/minky-couture/"
+        # f"https://joincheckmate.com/merchants/softminkyblankets.com"
+        # f"https://www.joinhoney.com/search?q=nobull"
+        # f"https://www.coupons.com/coupon-codes/nobull"
+        # f"https://www.coupons.com/coupon-codes/nobull"
+        # f"https://legendlondon.worthepenny.com/"
+        # f"https://legend-london.tenereteam.com/coupons"
+
+            f"https://capitaloneshopping.com/s/legendlondon.co/coupon",
+        #   f"https://www.retailmenot.com/view/legendlondon.co",
+        #   f"https://legend-london.tenereteam.com/coupons",
+        #   f"https://www.greenpromocode.com/search/legendlondon.co",
+        #   f"https://www.promopro.com/coupon-codes/se/legendlondon"
+
+        # f"https://capitaloneshopping.com/s/cozyearth.com/coupon"
 
       
     ]
@@ -2453,13 +2586,14 @@ if __name__ == "__main__":
         #     codes[key] = codes[key] + slickDeals(url) if key in codes else slickDeals(url)        
         elif('capitaloneshopping.com' in url):
             key = 'capitaloneshopping.com'
-            codes[key] = codes[key] + capitalone(url) if key in codes else capitalone(url)
+            codes[key] = codes[key] + capitalone1(url) if key in codes else capitalone1(url)
         elif('retailmenot.com' in url):
             key = 'retailmenot.com'
             codes[key] = codes[key] + retailmenot(url) if key in codes else retailmenot(url)
-        # elif('joinhoney.com' in url):
-        #     key = 'joinhoney.com'
-        #     codes[key] = codes[key] + honey(url) if key in codes else honey(url)
+
+        elif('joinhoney.com' in url):
+            key = 'joinhoney.com'
+            codes[key] = codes[key] + honey(url) if key in codes else honey(url)
         # elif('rebates.com' in url):
         #     key = 'rebates.com'
         #     codes[key] = codes[key] + rebates(url) if key in codes else rebates(url)
@@ -2585,6 +2719,10 @@ if __name__ == "__main__":
         # elif('deala.com' in url):
         #     key = 'deala.com'
         #     codes[key] = codes[key] + dealA(url) if key in codes else dealA(url)
+
+        elif('promopro.com' in url):
+            key = 'promopro.com'
+            codes[key] = codes[key] + promoPro(url) if key in codes else promoPro(url)
 
         # elif('promopro.co.uk' in url):
         #     key = 'promopro.co.uk'
