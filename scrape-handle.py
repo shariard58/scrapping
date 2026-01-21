@@ -387,27 +387,79 @@ def capitalone(handles, storeDomain, query):
     writeJson(extHandles)
     return extHandles
 
+# def retailmenot(handles, storeDomain, query):
+#     extDomain = 'retailmenot.com'
+#     extHandles = handles.copy()
+#     hasAlready = isExists(extDomain, storeDomain, handles)
+
+#     if storeDomain not in extHandles: extHandles[storeDomain] = {}
+#     if not hasAlready:
+#         extHandles[storeDomain][extDomain] = []
+
+#         url = f'https://www.retailmenot.com/view/{storeDomain}'
+#         try:
+#             response, status = getZenResponse(url)
+#             soup = BeautifulSoup(response, 'html.parser')
+
+#             elements = soup.select('[data-component-name="top_offers"]')
+#             if len(elements) > 0:
+#                 extHandles[storeDomain][extDomain].append(url)
+            
+#         except Exception as e:
+#             print(f"{R}Error fetching {url}: {e}{E}")
+
+#     writeJson(extHandles)
+#     return extHandles
+
 def retailmenot(handles, storeDomain, query):
+    print(f"Checking RetailMeNot for: {storeDomain}")
     extDomain = 'retailmenot.com'
     extHandles = handles.copy()
-    hasAlready = isExists(extDomain, storeDomain, handles)
-
-    if storeDomain not in extHandles: extHandles[storeDomain] = {}
-    if not hasAlready:
+    
+    if storeDomain not in extHandles: 
+        extHandles[storeDomain] = {}
+    if extDomain not in extHandles[storeDomain]: 
         extHandles[storeDomain][extDomain] = []
 
-        url = f'https://www.retailmenot.com/view/{storeDomain}'
+    all_names = [query['handle']] + query['query']
+    unique_names = list(dict.fromkeys(all_names))
+
+    if storeDomain.endswith('.co'):
+        tld = '.co'
+    else:
+        tld = '.com'
+
+    for name in unique_names:
+        
+        clean_name = name.replace(" ", "-").lower()
+        
+        if clean_name.endswith(('.com', '.co')):
+            final_slug = clean_name
+        else:
+            final_slug = f"{clean_name}{tld}"
+
+        url = f'https://www.retailmenot.com/view/{final_slug}'
+        
+        if url in extHandles[storeDomain][extDomain]:
+            print(f"Already exists, skipping: {url}")
+            break
+
         try:
+            print(f"Checking RetailMeNot: {url}")
             response, status = getZenResponse(url)
-            soup = BeautifulSoup(response, 'html.parser')
-
-            elements = soup.select('[data-component-name="top_offers"]')
-            if len(elements) > 0:
-                extHandles[storeDomain][extDomain].append(url)
+            print("what is the satus here", status)
             
-        except Exception as e:
-            print(f"{R}Error fetching {url}: {e}{E}")
+            if status == 200:            
+                    extHandles[storeDomain][extDomain].append(url)
+                    print(f"{G}Success! Found on RetailMeNot: {url}{E}")
+                    break 
+                
+            else:
+                print(f"{R}Not found: {url} (Status: {status}){E}")
 
+        except Exception as e:
+            print(f"{R}Error fetching RetailMeNot ({url}): {e}{E}")
+    
     writeJson(extHandles)
     return extHandles
 
@@ -792,29 +844,53 @@ def savings(handles, storeDomain, query):
     return extHandles
 
 def dealspotr(handles, storeDomain, query):
+    print(f"Checking Dealspotr for: {storeDomain}")
     extDomain = 'dealspotr.com'
     extHandles = handles.copy()
-    hasAlready = isExists(extDomain, storeDomain, handles)
-
-    if storeDomain not in extHandles: extHandles[storeDomain] = {}
-    if not hasAlready:
+    
+    if storeDomain not in extHandles: 
+        extHandles[storeDomain] = {}
+    if extDomain not in extHandles[storeDomain]: 
         extHandles[storeDomain][extDomain] = []
 
-        url = f'https://dealspotr.com/ajax/lookup.php?datatype=merchants&term={storeDomain}'
-        
-        try:
-            response, status = getZenResponse(url)
-            jsondata = json.loads(response)
+    all_names = [query['handle']] + query['query']
+    unique_names = list(dict.fromkeys(all_names))
 
-            if len(jsondata) > 0:
-                for item in jsondata:
-                    if 'url' in item and storeDomain in item['url']:
-                        handle = f'https://dealspotr.com{item["url"]}'
-                        extHandles[storeDomain][extDomain].append(handle)
-                        break
+    if storeDomain.endswith('.co'):
+        tld = '.co'
+    else:
+        tld = '.com'
+
+    for name in unique_names:
+        
+        clean_name = name.replace(" ", "-").lower()
+        
+        if clean_name.endswith(('.com', '.co')):
+            final_slug = f"{clean_name}{tld}"
+        else:
+            final_slug = f"{clean_name}"
+
+        url = f'https://dealspotr.com/promo-codes/{final_slug}'
+        
+        if url in extHandles[storeDomain][extDomain]:
+            print(f"Already exists, skipping: {url}")
+            break
+
+        try:
+            print(f"Checking Dealspotr: {url}")
+            response, status = getZenResponse(url)
+            print("What is the status here:", status)
             
+            if status == 200:
+                    extHandles[storeDomain][extDomain].append(url)
+                    print(f"{G}Success! Found on Dealspotr: {url}{E}")
+                    break 
+
+            else:
+                print(f"{R}Not found: {url} (Status: {status}){E}")
+
         except Exception as e:
-            print(f"{R}Error fetching {url}: {e}{E}")
+            print(f"{R}Error fetching Dealspotr ({url}): {e}{E}")
     
     writeJson(extHandles)
     return extHandles
@@ -1545,34 +1621,77 @@ def dazzdeals(handles, storeDomain, query):
     writeJson(extHandles)
     return extHandles
 
+# def greenpromocodes(handles, storeDomain, query):
+#     extDomain = 'greenpromocodes.com'
+#     extHandles = handles.copy()
+#     hasAlready = isExists(extDomain, storeDomain, handles)
+
+#     storeQueries = query['query']
+#     storeHandle = query['handle']
+
+#     if storeDomain not in extHandles: extHandles[storeDomain] = {}
+#     if not hasAlready:
+#         extHandles[storeDomain][extDomain] = []
+
+#         url = f'https://www.greenpromocode.com/search/'
+
+#         print("Url is", url)
+        
+#         try:
+#             response = client.post(url,
+#                 data=f'q={storeDomain}',
+#                 headers={'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+#             )
+
+#             if 'Zr-Final-Url' in response.headers:
+#                 reUrl = response.headers['Zr-Final-Url']
+#                 refineHandle = reUrl.replace('-', '').lower()
+#                 if storeHandle in refineHandle:
+#                     extHandles[storeDomain][extDomain].append(reUrl)
+             
+#         except Exception as e:
+#             print(f"{R}Error fetching {url}: {e}{E}")
+    
+#     writeJson(extHandles)
+#     return extHandles
+
+
 def greenpromocodes(handles, storeDomain, query):
     extDomain = 'greenpromocodes.com'
     extHandles = handles.copy()
-    hasAlready = isExists(extDomain, storeDomain, handles)
-
-    storeQueries = query['query']
-    storeHandle = query['handle']
-
-    if storeDomain not in extHandles: extHandles[storeDomain] = {}
-    if not hasAlready:
+    
+    if storeDomain not in extHandles: 
+        extHandles[storeDomain] = {}
+    if extDomain not in extHandles[storeDomain]: 
         extHandles[storeDomain][extDomain] = []
 
-        url = f'https://www.greenpromocode.com/search/'
-        
-        try:
-            response = client.post(url,
-                data=f'q={storeDomain}',
-                headers={'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
-            )
+    all_names = [query['handle']] + query['query']
+    
+    unique_names = list(dict.fromkeys(all_names))
 
-            if 'Zr-Final-Url' in response.headers:
-                reUrl = response.headers['Zr-Final-Url']
-                refineHandle = reUrl.replace('-', '').lower()
-                if storeHandle in refineHandle:
-                    extHandles[storeDomain][extDomain].append(reUrl)
-             
+    for name in unique_names:
+        clean_name = name.replace(" ", "-").lower()
+        url = f'https://www.greenpromocode.com/coupons/{clean_name}/'
+        if url in extHandles[storeDomain][extDomain]:
+            print(f"Already found in handles: {url}")
+            break
+
+        try:
+            print(f"Checking GreenPromoCode: {url}")
+            response, status = getZenResponse(url)
+
+            print("status is",status)
+        
+            if status == 200:
+                    extHandles[storeDomain][extDomain].append(url)
+                    print(f"{G}Success! Found on GreenPromoCode: {url}{E}")
+                    break
+            else:
+                print(f"{R}Not Found (Status {status}): {url}{E}")
+                
         except Exception as e:
             print(f"{R}Error fetching {url}: {e}{E}")
+    
     
     writeJson(extHandles)
     return extHandles
@@ -1716,28 +1835,29 @@ def promopro(handles, storeDomain, query):
 
     for name in unique_names:
         clean_name = name.replace(" ", "-").lower()
-        paths = ['', 'se/'] 
+        paths = ['',] 
 
-        for p in paths:
-            url = f'https://www.promopro.com/coupon-codes/{p}{clean_name}'
+        
+        url = f'https://www.promopro.com/coupon-codes/{clean_name}'
             
-            if url in extHandles[storeDomain][extDomain]:
-                print(f"Already exists in list, skipping: {url}")
-                continue 
+        if url in extHandles[storeDomain][extDomain]:
+            print(f"Already exists in list, skipping: {url}")
+            continue 
 
-            try:
-                print(f"Checking PromoPro: {url}")
-                response, status = getZenResponse(url, isProxy=True)
+        try:
+         print(f"Checking PromoPro: {url}")
+         response, status = getZenResponse(url, isProxy=True)
+         print("status is", status)
                 
-                if status == 200:
-                    if 'id="__next_error__"' not in response and 'Page Not Found' not in response:
-                        extHandles[storeDomain][extDomain].append(url)
-                        print(f"Success! Valid Link Added: {url}")
+         if status == 200:
+          if 'id="__next_error__"' not in response and 'Page Not Found' not in response:
+           extHandles[storeDomain][extDomain].append(url)
+           print(f"Success! Valid Link Added: {url}")
                         
-                else:
-                    print(f"Not found on path '{p}': {url} (Status: {status})")
+          else:
+            print(f"Not found on path ' {url} (Status: {status})")
 
-            except Exception as e:
+        except Exception as e:
                 print(f"Error fetching PromoPro ({url}): {e}")
                 
     writeJson(extHandles)
@@ -2168,15 +2288,14 @@ if __name__ == "__main__":
         # } ,
 
     # for joincheckmate , faircoupons , worthpenny and trupon  test
-        'cozyearth.com': {
-            'handle': 'cozyearth',
-            'query': ['cozyearth','cozy-earth', 'cozy earth']
-        },
+        # 'cozyearth.com': {
+        #     'handle': 'cozyearth',
+        #     'query': ['cozyearth','cozy-earth', 'cozy earth']
+        # },
 
-        # 'legendlondon.co': {
-        #     'handle': 'legendlondon',
-        #     'query': ['legendlondon']
-        # },   
+        # https://tigredetartan.com/
+
+       
         
         # 'misen.com': {
         #     'handle': 'misen',
@@ -2187,6 +2306,22 @@ if __name__ == "__main__":
         #     'handle': 'trycreate',
         #     'query': ['trycreate']
         # },
+
+        # https://www.riccar.com/
+
+
+        # 'riccar.com': {
+        #     'handle': 'riccar',
+        #     'query': ['riccar',]
+        # }, 
+
+        # 'kohls.com': {
+        #     'handle': 'kohls',
+        #     'query': ['kohls',]
+        # }, 
+
+
+        
 
        
     #  for savingheist test
@@ -2228,6 +2363,28 @@ if __name__ == "__main__":
         #     'query': ["bohme"]
         # },
 
+        #   'cozydays.com': {
+        #     'handle': 'cozydays',
+        #     'query': ["cozydays","cozy-days"]
+        # },
+
+        #  'todofut.com': {
+        #     'handle': 'todofut',
+        #     'query': ["todofut"]
+        # },
+
+        #   'legendlondon.co': {
+        #     'handle': 'legendlondon',
+        #     'query': ["legendlondon"]
+        # },
+
+          'tigredetartan.com': {
+            'handle': 'tigredetartan',
+            'query': ['tigredetartan']
+        },  
+
+        
+
         
     }
     
@@ -2249,12 +2406,12 @@ if __name__ == "__main__":
         # handles = honey(handles, storeDomain, storeQuery)
         # handles = rebates(handles, storeDomain, storeQuery)
         # handles = coupons(handles, storeDomain, storeQuery)
-        handles = dealcatcher(handles, storeDomain, storeQuery)
+        # handles = dealcatcher(handles, storeDomain, storeQuery)
         # handles = dontpayfull(handles, storeDomain, storeQuery)
         # handles = couponbirds(handles, storeDomain, storeQuery)
         # handles = offers(handles, storeDomain, storeQuery, algolia)
         # handles = savings(handles, storeDomain, storeQuery)
-        # handles = dealspotr(handles, storeDomain, storeQuery)
+        handles = dealspotr(handles, storeDomain, storeQuery)
         # handles = promocodes(handles, storeDomain, storeQuery)
         # handles = couponchief(handles, storeDomain, storeQuery)
         # handles = goodshop(handles, storeDomain, storeQuery)

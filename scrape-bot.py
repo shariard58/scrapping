@@ -83,6 +83,7 @@ def getZenResponse(
         params = {
             "premium_proxy": "true",
             "proxy_country": "us",
+            #"js_render":"true"
         }
 
         print("params is", params)
@@ -1534,43 +1535,80 @@ def getNextData(html):
     # return result
 
 
+# def tenereTeam(url):
+#     coupons = []
+#     try:
+#         html = getZenResponse(url)
+#         if not html:
+#             return []
+
+#         soup = BeautifulSoup(html, "html.parser")
+
+#         for strong_tag in soup.find_all("strong"):
+#             code = strong_tag.get_text(strip=True)
+
+#             if code.isupper() and 3 <= len(code) <= 15 and " " not in code:
+#                 coupons.append(code)
+
+#         for box in soup.find_all("input", value=True):
+#             val = box["value"].strip()
+#             if val.isupper() and 3 <= len(val) <= 15 and " " not in val:
+#                 coupons.append(val)
+
+#         for btn in soup.find_all(
+#             ["button", "div"], class_=re.compile(r"code|coupon", re.I)
+#         ):
+#             btn_text = btn.get_text(strip=True)
+#             if btn_text.isupper() and 3 <= len(btn_text) <= 15 and " " not in btn_text:
+#                 coupons.append(btn_text)
+
+#     except Exception as e:
+#         print(f"Error scraping Tenere: {e}")
+
+#     final_coupons = list(set(coupons))
+
+#     blacklist = ["OFF", "FREE", "GET", "DEAL", "USA", "UK", "SAVE"]
+#     final_coupons = [c for c in final_coupons if c not in blacklist]
+
+#     print(f"Success! Found: {final_coupons}")
+#     return final_coupons
+
+
 def tenereTeam(url):
     coupons = []
+
     try:
         html = getZenResponse(url)
         if not html:
             return []
 
         soup = BeautifulSoup(html, "html.parser")
+        scripts = soup.find_all("script")
 
-        for strong_tag in soup.find_all("strong"):
-            code = strong_tag.get_text(strip=True)
+        for s in scripts:
+            txt = s.get_text(strip=True)
 
-            if code.isupper() and 3 <= len(code) <= 15 and " " not in code:
+            if "__next_f.push" not in txt:
+                continue
+
+            matches = re.findall(
+             r'\\"coupon_code\\"\s*:\s*\\"([^"]+)\\"',
+               txt
+            )
+
+            print("What is the match values", matches)
+
+            for code in matches:
                 coupons.append(code)
 
-        for box in soup.find_all("input", value=True):
-            val = box["value"].strip()
-            if val.isupper() and 3 <= len(val) <= 15 and " " not in val:
-                coupons.append(val)
-
-        for btn in soup.find_all(
-            ["button", "div"], class_=re.compile(r"code|coupon", re.I)
-        ):
-            btn_text = btn.get_text(strip=True)
-            if btn_text.isupper() and 3 <= len(btn_text) <= 15 and " " not in btn_text:
-                coupons.append(btn_text)
+        print(f"{list(set(coupons))}")
+        return list(set(coupons))
 
     except Exception as e:
         print(f"Error scraping Tenere: {e}")
+        return []
 
-    final_coupons = list(set(coupons))
-
-    blacklist = ["OFF", "FREE", "GET", "DEAL", "USA", "UK", "SAVE"]
-    final_coupons = [c for c in final_coupons if c not in blacklist]
-
-    print(f"Success! Found: {final_coupons}")
-    return final_coupons
+    
 
 
 def couponCause(url):
@@ -2142,30 +2180,64 @@ def heyDiscounts(url):
     return list(set(coupons))
 
 
+# def greenPromoCode(url):
+#     coupons = []
+
+#     try:
+#         print(f"Scraping GreenPromoCode: {url}")
+#         html = getZenResponse(url, isProxy=True)
+
+#         if html:
+#             soup = BeautifulSoup(html, "html.parser")
+#             coupon_elements = soup.select(".code[data-clipboard-text]")
+#             print("length of coupon_elements",len(coupon_elements))
+
+#             for element in coupon_elements:
+
+#                 code = element.get("data-clipboard-text")
+
+#                 if code:
+#                     clean_code = code.strip().upper()
+#                     coupons.append(clean_code)
+
+#             if not coupons:
+#                 desc_elements = soup.select(".description")
+#                 for desc in desc_elements:
+#                     import re
+
+#                     match = re.search(r'[“"\'\'](.*?)[”"\'\']', desc.get_text())
+#                     if match:
+#                         coupons.append(match.group(1).strip().upper())
+
+#     except Exception as e:
+#         print(f"Error scraping GreenPromoCode: {e}")
+
+#     final_list = list(set(coupons))
+#     print(f"Final Coupons found: {final_list}")
+#     return final_list
+
 def greenPromoCode(url):
     coupons = []
 
     try:
         print(f"Scraping GreenPromoCode: {url}")
-        html = getZenResponse(url, isProxy=True)
+        html = getZenResponse(url, isProxy=True) 
 
         if html:
             soup = BeautifulSoup(html, "html.parser")
-            coupon_elements = soup.select(".code[data-clipboard-text]")
+            print("soup is", soup)
+            coupon_elements = soup.find_all("div", class_="code", attrs={"data-clipboard-text": True})
+            print("Found coupon divs:", len(coupon_elements))
 
             for element in coupon_elements:
-
                 code = element.get("data-clipboard-text")
-
                 if code:
-                    clean_code = code.strip().upper()
-                    coupons.append(clean_code)
+                    coupons.append(code.strip().upper())
 
             if not coupons:
                 desc_elements = soup.select(".description")
                 for desc in desc_elements:
                     import re
-
                     match = re.search(r'[“"\'\'](.*?)[”"\'\']', desc.get_text())
                     if match:
                         coupons.append(match.group(1).strip().upper())
@@ -2173,7 +2245,7 @@ def greenPromoCode(url):
     except Exception as e:
         print(f"Error scraping GreenPromoCode: {e}")
 
-    final_list = list(set(coupons))
+    final_list = list(dict.fromkeys(coupons))  # duplicates remove
     print(f"Final Coupons found: {final_list}")
     return final_list
 
@@ -2252,26 +2324,76 @@ def dealA(url):
     return list(set(coupons))
 
 
+# def promoPro(url):
+#     coupons = []
+
+#     try:
+#         print(f"{B}Scraping WEB: {url} {E}")
+#         html = getZenResponse(url)
+#         soup = BeautifulSoup(html, "html.parser")
+
+#         coupon_elements = soup.select("button.btn-code .text-elli-1")
+
+#         for element in coupon_elements:
+#             code = element.text.strip()
+#             if code is not None and "*" not in code:
+#                 coupons.append(code.upper())
+
+#     except Exception as e:
+#         print(f"{R}Error scraping HotDeals: {e}{E}")
+
+#     print(f"{list(set(coupons))}")
+#     return list(set(coupons))
+
+
 def promoPro(url):
     coupons = []
+    promo_ids = []
 
     try:
-        print(f"{B}Scraping WEB: {url} {E}")
-        html = getZenResponse(url)
+        parsed = urlparse(url)
+        path_parts = parsed.path.strip("/").split("/")
+        if len(path_parts) < 2:
+            print("Invalid URL structure, cannot find store slug")
+            return []
+        store_slug = path_parts[-1]
+        html = getZenResponse(url, isProxy=True)
         soup = BeautifulSoup(html, "html.parser")
 
-        coupon_elements = soup.select("button.btn-code .text-elli-1")
+        articles = soup.find_all(
+            "article",
+            class_="offer_card detail_filter_all detail_filter_code"
+        )
 
-        for element in coupon_elements:
-            code = element.text.strip()
-            if code is not None and "*" not in code:
-                coupons.append(code.upper())
+        for art in articles:
+            a_tag = art.find("a", class_="go_crd crd", attrs={"data-cid": True})
+            print("tags are", a_tag)
+            if a_tag:
+                promo_ids.append(a_tag["data-cid"])
+
+
+        for pid in promo_ids:
+            promo_url = f"https://www.promopro.com/coupon-codes/{store_slug}?promoid={pid}"
+            p_html = getZenResponse(promo_url, isProxy=True ,)
+            p_soup = BeautifulSoup(p_html, "html.parser")
+            
+
+            code_div = p_soup.find("div", id="codeText")
+            if code_div:
+                
+                code = code_div.get_text(strip=True)
+                print("code is", code)
+                if code:
+                    coupons.append(code)
+        print(coupons)
+        return list(dict.fromkeys(coupons))
 
     except Exception as e:
-        print(f"{R}Error scraping HotDeals: {e}{E}")
+        print("PromoPro Error:", e)
+        return []
 
-    print(f"{list(set(coupons))}")
-    return list(set(coupons))
+
+    
 
 
 def savvy(url):
@@ -2680,12 +2802,16 @@ if __name__ == "__main__":
         # f"https://www.coupons.com/coupon-codes/nobull"
         # f"https://legendlondon.worthepenny.com/"
         # f"https://legend-london.tenereteam.com/coupons"
-        f"https://capitaloneshopping.com/s/legendlondon.co/coupon",
-        #   f"https://www.retailmenot.com/view/legendlondon.co",
-        #   f"https://legend-london.tenereteam.com/coupons",
-        #   f"https://www.greenpromocode.com/search/legendlondon.co",
-        #   f"https://www.promopro.com/coupon-codes/se/legendlondon"
+        # f"https://capitaloneshopping.com/s/legendlondon.co/coupon",
+        # f"https://www.retailmenot.com/view/legendlondon.co",
+        # f"https://legend-london.tenereteam.com/coupons",
+        # f"https://www.greenpromocode.com/search/legendlondon.co",
+        # f"https://www.promopro.com/coupon-codes/se/legendlondon"
         # f"https://capitaloneshopping.com/s/cozyearth.com/coupon"
+        # f"https://www.greenpromocode.com/coupons/tommy-john/"
+        # f"https://www.promopro.com/coupon-codes/cozy-days"
+        # f"https://www.promopro.com/coupon-codes/cozy-days"
+        f"https://www.greenpromocode.com/coupons/cozy-days/"
     ]
     print(f"{G}Crawler started{E}")
 
