@@ -494,7 +494,7 @@ urls = [
 
     # f'https://www.rakuten.ca/cheapoair-ca', # Working
     # f'https://www.coupert.com/store/trycreate.co', # Working
-     f'https://top.coupert.com/coupons/blackbrooks.co.uk', # Working
+    # f'https://top.coupert.com/coupons/blackbrooks.co.uk', # Working
     #f'https://usa.hotdeals.com/store/cozy-earth-promo-codes', # Working
     # f'https://coupons.slickdeals.net/cozy-earth/', # Not Working
     #f'https://capitaloneshopping.com/s/currentbody.com/coupon', # Working
@@ -509,6 +509,7 @@ urls = [
     #f'https://www.couponbirds.com/codes/twosvge.com', # Working
     #f'https://www.offers.com/stores/cozyearth/', # Working
     #f'https://www.savings.com/coupons/ashleystewart.com', # Working
+    f"https://www.retailmenot.com/view/doordash.com"
 ]
 
 
