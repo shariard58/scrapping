@@ -75,6 +75,7 @@ def getZenResponse(
     isJson=False,
     isCookies=False,
     isProxy=False,
+    isJsRender = False,
 ):
     global cookies
     try:
@@ -84,11 +85,12 @@ def getZenResponse(
         params = {
             "premium_proxy": "true",
             "proxy_country": "us",
-            "js_render":"true"
-
+                  
         }
 
-        print("params is", params)
+        if isJsRender:
+            params["js_render"] = "true"
+            # params["wait"] = "3000"
 
         csheaders = {
             "Referer": "https://www.google.com",
@@ -632,8 +634,7 @@ def retailmenot(url):
         soup = BeautifulSoup(html, 'html.parser')
 
         coupon_elements = soup.select('a[data-content-datastore="offer"]')
-       
-
+        # print("coupon elements are", coupon_elements)
         # collect all dynamic ids
         for el in coupon_elements:
             uuid = el.get("data-content-uuid")
@@ -641,16 +642,13 @@ def retailmenot(url):
                 dynamic_ids.append(uuid)
 
         eventReferenceId = "ee2f6e04-cbc5-4b53-b93c-fb0eb132fbf3"
-
         # hit ANY dynamic id until codes are found
         for el in dynamic_ids:
             page_url = f"{url}?u={el}&outclicked=true&eventReferenceId={eventReferenceId}" 
-
-            html = getZenResponse(page_url)
+            print("page url is", page_url)
+            html = getZenResponse(page_url , isJsRender=True ,isProxy=True)
             soup = BeautifulSoup(html, 'html.parser')
-
-            code_divs = soup.select('div.text-purple-700.bg-gray-100.font-bold')
-
+            code_divs = soup.select('div.relative.mb-2.flex.h-12.w-full.items-center.justify-center.overflow-hidden.rounded-3xl.bg-gray-100.text-base.font-bold.leading-none.tracking-wider.text-purple-700')
             if code_divs:
                 print(f"Codes found using dynamic id: {el}")
 
@@ -1060,24 +1058,30 @@ def honey(url):
 
 def rebates(url):
     coupons = []
-
     try:
         print(f"{B}Scraping WEB: {url} {E}")
-        html = getZenResponse(url)
-        soup = BeautifulSoup(html, "html.parser")
+        html = getZenResponse(url, isJsRender=True, isProxy=True)
+        
+        if not html:
+            return []
 
-        coupon_elements = soup.select(".couponModal[data-code]")
+        pattern = r'coupon[\\"]*\s*,\s*[\\"]*code[\\"]*\s*:\s*[\\"]*([^\\"]+)'
+        
+        found_codes = re.findall(pattern, html)
+        print(f"Debug - Raw found codes: {found_codes}")
 
-        for element in coupon_elements:
-            coupon = element.get_attribute_list("data-code")[0]
-            if coupon is not None:
-                coupons.append(coupon.upper())
+        for code in found_codes:
+            clean_code = code.strip()
+            if clean_code and clean_code.lower() not in ["null", "none", "undefined"]:
+                if len(clean_code) < 30:
+                    coupons.append(clean_code.upper())
 
     except Exception as e:
         print(f"{R}Error scraping rebates: {e}{E}")
 
-    print(f"{list(set(coupons))}")
-    return list(set(coupons))
+    final_results = list(set(coupons))
+    print(f"Final results: {final_results}")
+    return final_results
 
 
 # def couponCabin(url):
@@ -1267,32 +1271,32 @@ def offersCom(url):
 
 
 def savingsCom(url):
+    print("savings")
     coupons = []
 
     try:
         print(f"{B}Scraping WEB: {url} {E}")
-        html = getZenResponse(url)
+        html = getZenResponse(url , isProxy=True, isJsRender=True)
         soup = BeautifulSoup(html, "html.parser")
 
         coupon_elements = soup.select(".module-deal.showValue.codePeek[data-offer-id]")
         for element in coupon_elements:
-            attribute = element.get_attribute_list("id")[0]
-            try:
-                couponId = attribute.split("-")[-1]
-                html2 = getZenResponse(
-                    f"https://www.savings.com/popup/detail/coupon-{couponId}.html"
-                )
+          attribute = element.get("id")   # direct string
+          if not attribute:
+            continue
+          
+          couponId = attribute.split("-")[-1]
+          html2 = getZenResponse(
+                  f"https://www.savings.com/popup/detail/coupon-{couponId}.html",
+                   isProxy=True,
+                   isJsRender=True, )
+          
+          soup2 = BeautifulSoup(html2, "html.parser")
+          coupon_elements2 = soup2.select_one('input.code.code-border[value]')
 
-                soup2 = BeautifulSoup(html2, "html.parser")
-                coupon_elements2 = soup2.select("#code-wrapper input.code")
-                for element2 in coupon_elements2:
-                    coupon = element2.get("value")
-                    if coupon:
-                        coupons.append(coupon)
-
-            except Exception as e:
-                print(f"{R}Error scraping HotDeals: {e}{E}")
-                continue
+          if coupon_elements2:
+            code = coupon_elements2.get("value")
+            coupons.append(code)
 
     except Exception as e:
         print(f"{R}Error scraping HotDeals: {e}{E}")
@@ -1301,7 +1305,9 @@ def savingsCom(url):
     return list(set(coupons))
 
 
+
 def dealSpotsR(url):
+    print("now")
     coupons = []
 
     try:
@@ -1332,6 +1338,7 @@ def dealSpotsR(url):
 
 
 def promoCodes(url):
+    print("now")
     coupons = []
     try:
         html = getZenResponse(url)
@@ -1416,7 +1423,7 @@ def goodShop(url):
         html = getZenResponse(url)
         soup = BeautifulSoup(html, "html.parser")
 
-        coupon_elements = soup.select(".has-code[data-clipboard-text]")
+        coupon_elements = soup.select("[data-clipboard-text]")
         for element in coupon_elements:
             code = element.get_attribute_list("data-clipboard-text")[0]
             if code is not None:
@@ -1670,21 +1677,25 @@ def couponCause(url):
 
     try:
         print(f"{B}Scraping WEB: {url} {E}")
-        # html = getResponse(url)
         html = getZenResponse(url)
         soup = BeautifulSoup(html, "html.parser")
+        selector = (
+            "div.bg-grey-lighter.border.border-grey-lighter.text-grey-dark.text-right"
+        )
+        coupon_elements = soup.select(selector)
 
-        coupon_elements = soup.select('div[rel="nofollow"] div:first-child')
         for element in coupon_elements:
-            code = element.text.strip()
-            if code is not None and code != "Get Offer":
+            code = element.get_text(strip=True)
+            code = code.replace("Show Code", "").strip()
+            if code and code != "Get Offer" and len(code) > 0:
                 coupons.append(code)
 
     except Exception as e:
-        print(f"{R}Error scraping HotDeals: {e}{E}")
+        print(f"{R}Error scraping CouponCause: {e}{E}")
 
-    print(f"{list(set(coupons))}")
-    return list(set(coupons))
+    final_coupons = list(set(coupons))
+    print(f"Final Extracted Coupons: {final_coupons}")
+    return final_coupons
 
 
 def goodSearch(url):
@@ -1733,8 +1744,8 @@ def valueCom(url):
         coupon_elements = soup.select("button.btn-code .code-text")
         for element in coupon_elements:
             code = element.text.strip()
-            if code is not None:
-                coupons.append(code)
+            if code and not re.match(r'^[\*\s\.\-]+$', code):
+                coupons.append(code.upper())
 
     except Exception as e:
         print(f"{R}Error scraping HotDeals: {e}{E}")
@@ -1748,22 +1759,32 @@ def loveCoupons(url):
 
     try:
         print(f"{B}Scraping WEB: {url} {E}")
-        # html = getResponse(url)
-        html = getZenResponse(url)
+        html = getZenResponse(
+              url,
+              isProxy=True,
+              isJsRender=True,
+            )
         soup = BeautifulSoup(html, "html.parser")
-
+        
         coupon_elements = soup.select('article.Offer[data-type="2"]')
+        print("coupons_elements", len(coupon_elements))
         for element in coupon_elements:
             attribute = element.get_attribute_list("data-id")[0]
+            print("The attribute is", attribute)
             try:
-                html2 = getZenResponse(f"https://www.lovecoupons.com/go/3/{attribute}")
-                soup2 = BeautifulSoup(html2, "html.parser")
-                coupon_elements2 = soup2.select(".RevealCoupon input.block")
+               reveal_url = f"https://www.lovecoupons.com/go/coupon/{attribute}"
+               html2 = getZenResponse(reveal_url, isJsRender=True, isProxy=True)
+               soup2 = BeautifulSoup(html2, "html.parser")
+               with open("lovecoupons.html", "w", encoding="utf-8") as f:
+                f.write(html2)
+                break;
+               coupon_elements2 = soup2.select(".RevealCoupon input.block")
 
-                for element2 in coupon_elements2:
+               for element2 in coupon_elements2:
                     coupon = element2.get("value")
                     if coupon:
                         coupons.append(coupon)
+
             except Exception as e:
                 print(f"{R}Error scraping HotDeals: {e}{E}")
                 continue
@@ -2051,6 +2072,9 @@ def dealDrop(url):
         raw_matches = re.findall(pattern, html_content)
 
         exclude_list = [
+            "FFFFFF",
+            "ABOUT",
+            "CONTACT"
             "DEAL",
             "DROP",
             "HTML",
@@ -2132,49 +2156,40 @@ def revounts(url):
 
 def dazzdeals(url):
     coupons = []
+    cp_values = []
 
     try:
-        print(f"{B}Scraping WEB: {url} {E}")
-        html = getZenResponse(url)
-        soup = BeautifulSoup(html, "html.parser")
-        print("Finding coupon elements...")
+        print(f"{B}Scraping WEB: {url}{E}")
+        html = getZenResponse(url, isProxy=True , isJsRender=True)
+        soup = BeautifulSoup(html, "html.parser" )
+        elements = soup.select("[data-cp]")
+        for el in elements:
+            cp = el.get("data-cp")
+            if cp:
+                cp_values.append(cp)
 
-        # Create folder to save HTML if it doesn't exist
-        if not os.path.exists("html"):
-            os.makedirs("html")
+        cp_values = list(set(cp_values))       
+        print("cp values are", cp_values)
 
-        writeToFile("html/dazzdeals.html", html)
-
-        # Select all coupon buttons
-        coupon_elements = soup.select(".couponBtn.showCouponCode.showcode")
-        print("coupon elements found:", len(coupon_elements))
-
-        for element in coupon_elements:
-            # Safely get data-cp attribute
-            couponId = element.get("data-cp")
-            if not couponId:
-                continue  # skip if no coupon ID
-
-            coupon_page_url = f"{url}?cp={couponId}"
-            print(f"Fetching coupon page: {coupon_page_url}")
-            html2 = getZenResponse(coupon_page_url)
+        for cp in cp_values:
+            cp_url = f"{url}/?cp={cp}"
+            print("cp url is", cp_url)
+            html2 = getZenResponse(cp_url, isJsRender=True, isProxy=True)
             soup2 = BeautifulSoup(html2, "html.parser")
-
-            # Extract actual coupon code
-            coupon_elements2 = soup2.select("#ccode.copy_code")
-            for element2 in coupon_elements2:
-                code = element2.get_text(strip=True)
+            print("soup2 is", soup2)
+            code_div = soup2.find("div", id="ccode")
+            print("code div is", code_div)
+            if code_div:
+                code = code_div.get_text(strip=True)
                 if code:
                     coupons.append(code)
 
     except Exception as e:
-        print(f"{R}Error scraping HotDeals: {e}{E}")
-
-    # Remove duplicates and print final list
+        print(f"{R}Error scraping DazzDeals: {e}{E}")
     unique_coupons = list(set(coupons))
-    print(f"Coupons found: {unique_coupons}")
-    return unique_coupons
+    print("Final Coupons:", unique_coupons)
 
+    return unique_coupons
 
 def heyDiscounts(url):
     coupons = []
@@ -2402,7 +2417,7 @@ def promoPro(url):
             print("Invalid URL structure, cannot find store slug")
             return []
         store_slug = path_parts[-1]
-        html = getZenResponse(url, isProxy=True)
+        html = getZenResponse(url, isProxy=True , isJsRender=True)
         soup = BeautifulSoup(html, "html.parser")
 
         articles = soup.find_all(
@@ -2419,7 +2434,7 @@ def promoPro(url):
 
         for pid in promo_ids:
             promo_url = f"https://www.promopro.com/coupon-codes/{store_slug}?promoid={pid}"
-            p_html = getZenResponse(promo_url, isProxy=True ,)
+            p_html = getZenResponse(promo_url, isProxy=True , isJsRender=True)
             p_soup = BeautifulSoup(p_html, "html.parser")
             
 
@@ -2767,7 +2782,7 @@ if __name__ == "__main__":
         # f'https://capitaloneshopping.com/s/cabelas.ca/coupon', # Working
         # f'https://www.retailmenot.com/view/soil3.com', # Working
         # f'https://www.joinhoney.com/shop/cozy-earth/', # Working
-        # f"https://rebates.com/coupons/cozyearth.com", # Working
+        #  f"https://rebates.com/coupons/cozyearth.com", # Working
         # f'https://www.coupons.com/coupon-codes/cozyearth', # Working
         # f'https://www.dealcatcher.com/coupons/cozy-earth', # Working
         # f'https://www.dontpayfull.com/at/tommyjohn.com', # Working
@@ -2796,7 +2811,7 @@ if __name__ == "__main__":
         # f'https://www.dealdrop.com/tommy-john' # Working
         # f'https://www.dealdrop.com/vaticpro.com', # Working
         # f'https://www.revounts.com.au/cozy-earth-discount-code', # Working
-        # f'https://www.dazzdeals.com/store/cozy-earth/',  # Working
+          f'https://www.dazzdeals.com/store/cozy-earth/',  # Working
         # f'https://airestech.heydiscount.co.uk/airestech-discount-code', # Working
         # f'https://www.greenpromocode.com/coupons/tommy-john/',
         # f'https://www.couponbind.com/coupons/cozyearth.com', # Working
@@ -2852,14 +2867,58 @@ if __name__ == "__main__":
         # f"https://legend-london.tenereteam.com/coupons",
         # f"https://www.greenpromocode.com/search/legendlondon.co",
         # f"https://www.promopro.com/coupon-codes/se/legendlondon"
-        # f"https://capitaloneshopping.com/s/cozyearth.com/coupon"
-        # f"https://www.greenpromocode.com/coupons/tommy-john/"
+        #  f"https://capitaloneshopping.com/s/helixsleep.com/coupon"
+        #  f"https://www.greenpromocode.com/coupons/tommy-john/"
         # f"https://www.promopro.com/coupon-codes/cozy-days"
-         f"https://www.promopro.com/coupon-codes/cozy-days"
+        # f"https://www.promopro.com/coupon-codes/cozy-days"
         # f"https://www.greenpromocode.com/coupons/christyscozycorners/"
-        # f"https://joincheckmate.com/merchants/tigredetartan.com"
-        # f"https://www.retailmenot.com/view/dsw.com?reference_uuid=56ef9c65-775a-426b-92e3-a9d88fb0b69e"
-        
+        # f"https://joincheckmate.com/merchants/cozyearth.com"
+        #  f"https://www.retailmenot.com/view/dsw.com"
+        # f"https://www.dazzdeals.com/store/cozy-earth"
+        # f"https://couponcause.com/stores/tommy-john/"
+        # f"https://www.goodshop.com/coupons/tommyjohn.com"
+        # f"https://www.dazzdeals.com/store/cozy-earth"
+        # f"https://www.lovecoupons.com/tommy-john"
+        # f"https://tommyjohn.valuecom.com/"
+        # f"https://www.retailmenot.com/view/nobullproject.com"
+
+        # For Hiron
+        # f"https://joincheckmate.com/merchants/tommyjohn.com"
+        # f"https://tommy-john.tenereteam.com/coupons"
+        # f"https://capitaloneshopping.com/s/helixsleep.com/coupon"
+        # f"https://www.greenpromocode.com/coupons/tommy-john/"
+        # f"https://couponcause.com/stores/tommy-john/"
+        # f"https://www.promopro.com/coupon-codes/tommy-john"
+        # f"https://www.goodshop.com/coupons/tommyjohn.com"
+         #  f"https://www.savings.com/coupons/blinds.com"
+        # f"https://rebates.com/coupons/cozyearth.com"
+
+        # New Check 
+         # f"https://dealspotr.com/promo-codes/tommyjohn.com"
+         # f"https://www.promocodes.com/tommy-john-coupons"
+         #  f"https://www.couponchief.com/tommyjohn"
+         # f"https://simplycodes.com/store/cymbiotika.com"
+         #  f"https://www.goodsearch.com/coupons/helixsleep.com"
+         # f"https://nobull.knoji.com/promo-codes/"
+         # f"http://www.swagbucks.com/shop/fahertybrand.com-coupons"
+         #  f"https://www.joinsmarty.com/cozyearth-coupons"
+         # f"https://refermate.com/stores/nobull-bbq-promo-codes"
+         #  f"https://www.discountreactor.com/coupons/tommyjohn.com"
+         #  f"https://www.couponbox.com/coupons/tommy-john"
+         # f"https://www.dealdrop.com/nobull"
+         # f"https://www.revounts.com.au/tommy-johns-discount-code"
+         # f"https://www.greenpromocode.com/coupons/minky-couture/"
+         # f"https://www.couponbind.com/coupons/tommyjohn.com"
+         # f"https://www.deala.com/tommy-john"
+         # f"https://www.promopro.com/coupon-codes/tommy-john"
+         # f"https://www.retailmenot.com/view/helixsleep.com"
+         # f"https://www.dazzdeals.com/category/coffee"
+         # f"https://tommyjohn.valuecom.com/"
+        #    f"https://www.lovecoupons.com/tommy-john"
+        #  f"https://www.joinsmarty.com/tommyjohn-coupons"
+        # For Bhome
+        # f"https://nobull.knoji.com/promo-codes/try--competitor-codes/"
+        #  f"https://www.savings.com/coupons/nobullproject.com"
     ]
     print(f"{G}Crawler started{E}")
 
@@ -2930,9 +2989,9 @@ if __name__ == "__main__":
         elif "hotdeals.com" in url:
             key = "hotdeals.com"
             codes[key] = codes[key] + hotDeals(url) if key in codes else hotDeals(url)
-        # elif('slickdeals.net' in url):
-        #     key = 'slickdeals.net'
-        #     codes[key] = codes[key] + slickDeals(url) if key in codes else slickDeals(url)
+        elif('slickdeals.net' in url):
+            key = 'slickdeals.net'
+            codes[key] = codes[key] + slickDeals(url) if key in codes else slickDeals(url)
         elif "capitaloneshopping.com" in url:
             key = "capitaloneshopping.com"
             codes[key] = (
@@ -2947,17 +3006,18 @@ if __name__ == "__main__":
         elif "joinhoney.com" in url:
             key = "joinhoney.com"
             codes[key] = codes[key] + honey(url) if key in codes else honey(url)
-        # elif('rebates.com' in url):
-        #     key = 'rebates.com'
-        #     codes[key] = codes[key] + rebates(url) if key in codes else rebates(url)
+
+        elif('rebates.com' in url):
+            key = 'rebates.com'
+            codes[key] = codes[key] + rebates(url) if key in codes else rebates(url)
         # elif('couponcabin.com' in url):
         #     key = 'couponcabin.com'
         #     codes[key] = codes[key] + couponCabin(url) if key in codes else couponCabin(url)
-        elif "coupons.com" in url:
-            key = "coupons.com"
-            codes[key] = (
-                codes[key] + couponsCom(url) if key in codes else couponsCom(url)
-            )
+        # elif "coupons.com" in url:
+        #     key = "coupons.com"
+        #     codes[key] = (
+        #         codes[key] + couponsCom(url) if key in codes else couponsCom(url)
+        #     )
         # elif('dealcatcher.com' in url):
         #     key = 'dealcatcher.com'
         #     codes[key] = codes[key] + dealCatcher(url) if key in codes else dealCatcher(url)
@@ -2991,20 +3051,20 @@ if __name__ == "__main__":
             codes[key] = (
                 codes[key] + promoCodes(url) if key in codes else promoCodes(url)
             )
-        # elif('couponchief.com' in url):
-        #     key = 'couponchief.com'
-        #     codes[key] = codes[key] + couponChief(url) if key in codes else couponChief(url)
-        # elif('goodshop.com' in url):
-        #     key = 'goodshop.com'
-        #     codes[key] = codes[key] + goodShop(url) if key in codes else goodShop(url)
+        elif('couponchief.com' in url):
+            key = 'couponchief.com'
+            codes[key] = codes[key] + couponChief(url) if key in codes else couponChief(url)
+        elif('goodshop.com' in url):
+            key = 'goodshop.com'
+            codes[key] = codes[key] + goodShop(url) if key in codes else goodShop(url)
         elif "tenereteam.com" in url:
             key = "tenereteam.com"
             codes[key] = (
                 codes[key] + tenereTeam(url) if key in codes else tenereTeam(url)
             )
-        # elif('couponcause.com' in url):
-        #     key = 'couponcause.com'
-        #     codes[key] = codes[key] + couponCause(url) if key in codes else couponCause(url)
+        elif('couponcause.com' in url):
+            key = 'couponcause.com'
+            codes[key] = codes[key] + couponCause(url) if key in codes else couponCause(url)
         elif "goodsearch.com" in url:
             key = "goodsearch.com"
             codes[key] = (
@@ -3013,6 +3073,7 @@ if __name__ == "__main__":
         elif "valuecom.com" in url:
             key = "valuecom.com"
             codes[key] = codes[key] + valueCom(url) if key in codes else valueCom(url)
+
         elif "lovecoupons.com" in url:
             key = "lovecoupons.com"
             codes[key] = (
@@ -3021,9 +3082,9 @@ if __name__ == "__main__":
         elif "knoji.com" in url:
             key = "knoji.com"
             codes[key] = codes[key] + knoji(url) if key in codes else knoji(url)
-        # elif('swagbucks.com' in url):
-        #     key = 'swagbucks.com'
-        #     codes[key] = codes[key] + swagBucks(url) if key in codes else swagBucks(url)
+        elif('swagbucks.com' in url):
+            key = 'swagbucks.com'
+            codes[key] = codes[key] + swagBucks(url) if key in codes else swagBucks(url)
         elif "joinsmarty.com" in url:
             key = "joinsmarty.com"
             codes[key] = (
@@ -3032,18 +3093,18 @@ if __name__ == "__main__":
         # elif('rebatesme.com' in url):
         #     key = 'rebatesme.com'
         #     codes[key] = codes[key] + rebatesMe(url) if key in codes else rebatesMe(url)
-        # elif('refermate.com' in url):
-        #     key = 'refermate.com'
-        #     codes[key] = codes[key] + referMate(url) if key in codes else referMate(url)
+        elif('refermate.com' in url):
+            key = 'refermate.com'
+            codes[key] = codes[key] + referMate(url) if key in codes else referMate(url)
         # elif('joincheckmate.com' in url):
         #     key = 'joincheckmate.com'
         #     codes[key] = codes[key] + joinCheckmate(url) if key in codes else joinCheckmate(url)
-        # elif('discountreactor.com' in url):
-        #     key = 'discountreactor.com'
-        #     codes[key] = codes[key] + discountReactor(url) if key in codes else discountReactor(url)
-        # elif('couponbox.com' in url):
-        #     key = 'couponbox.com'
-        #     codes[key] = codes[key] + couponBox(url) if key in codes else couponBox(url)
+        elif('discountreactor.com' in url):
+            key = 'discountreactor.com'
+            codes[key] = codes[key] + discountReactor(url) if key in codes else discountReactor(url)
+        elif('couponbox.com' in url):
+            key = 'couponbox.com'
+            codes[key] = codes[key] + couponBox(url) if key in codes else couponBox(url)
         elif "dealdrop.com" in url:
             key = "dealdrop.com"
 
@@ -3063,9 +3124,10 @@ if __name__ == "__main__":
 
             codes[key] = codes.get(key, []) + scraped_data
 
-        # elif('revounts.com.au' in url):
-        #     key = 'revounts.com.au'
-        #     codes[key] = codes[key] + revounts(url) if key in codes else revounts(url)
+        elif('revounts.com.au' in url):
+            key = 'revounts.com.au'
+            codes[key] = codes[key] + revounts(url) if key in codes else revounts(url)
+
         elif "dazzdeals.com" in url:
             key = "dazzdeals.com"
             scraped_data = dazzdeals(url)
@@ -3085,15 +3147,15 @@ if __name__ == "__main__":
                 if key in codes
                 else greenPromoCode(url)
             )
-        # elif('couponbind.com' in url):
-        #     key = 'couponbind.com'
-        #     codes[key] = codes[key] + couponBind(url) if key in codes else couponBind(url)
+        elif('couponbind.com' in url):
+            key = 'couponbind.com'
+            codes[key] = codes[key] + couponBind(url) if key in codes else couponBind(url)
         # # elif('lovedeals.ai' in url):
         # #     key = 'lovedeals.ai'
         # #     codes[key] = codes[key] + lovedeals(url) if key in codes else lovedeals(url)
-        # elif('deala.com' in url):
-        #     key = 'deala.com'
-        #     codes[key] = codes[key] + dealA(url) if key in codes else dealA(url)
+        elif('deala.com' in url):
+            key = 'deala.com'
+            codes[key] = codes[key] + dealA(url) if key in codes else dealA(url)
 
         elif "promopro.com" in url:
             key = "promopro.com"

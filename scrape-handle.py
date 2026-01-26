@@ -2378,14 +2378,18 @@ if __name__ == "__main__":
         #     'query': ["legendlondon"]
         # },
 
-          'tigredetartan.com': {
-            'handle': 'tigredetartan',
-            'query': ['tigredetartan']
+        #   'tigredetartan.com': {
+        #     'handle': 'tigredetartan',
+        #     'query': ['tigredetartan']
+        # },  
+
+
+         'davidstea.com': {
+            'handle': 'davidstea',
+            'query': ['davidstea']
         },  
 
-        
-
-        
+      
     }
     
 
@@ -2395,14 +2399,14 @@ if __name__ == "__main__":
     for storeDomain, storeQuery in queries.items():
         print(f'{Y}Scraping Handle: {storeDomain} {E}')
         
-        # handles = coupert(handles, storeDomain, storeQuery)
+        handles = coupert(handles, storeDomain, storeQuery)
         # handles = discounttime(handles, storeDomain, storeQuery)
         # handles = karmanow(handles, storeDomain, storeQuery)
         # handles = rakuten(handles, storeDomain, storeQuery)
         # handles = hotdeals(handles, storeDomain, storeQuery)
         # handles = slickdeals(handles, storeDomain, storeQuery)
         # handles = capitalone(handles, storeDomain, storeQuery)
-        handles = retailmenot(handles, storeDomain, storeQuery)
+        # handles = retailmenot(handles, storeDomain, storeQuery)
         # handles = honey(handles, storeDomain, storeQuery)
         # handles = rebates(handles, storeDomain, storeQuery)
         # handles = coupons(handles, storeDomain, storeQuery)
