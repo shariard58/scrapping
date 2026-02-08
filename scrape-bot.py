@@ -649,7 +649,7 @@ def retailmenot(url):
                 f"{url}?u={el}&outclicked=true&eventReferenceId={eventReferenceId}"
             )
             print("page url is", page_url)
-            html = getZenResponse(page_url, js_render=True)
+            html = getZenResponse(page_url, isProxy=True, isJsRender=True)
             soup = BeautifulSoup(html, "html.parser")
             code_divs = soup.select(
                 "div.relative.mb-2.flex.h-12.w-full.items-center.justify-center.overflow-hidden.rounded-3xl.bg-gray-100.text-base.font-bold.leading-none.tracking-wider.text-purple-700"
@@ -2831,7 +2831,7 @@ if __name__ == "__main__":
         # f"https://daughtersofindia.valuecom.com/"
         # "https://cozyearth.worthepenny.com/coupon/"
         # Link From Scrapper
-        f"https://cozy-earth.troupon.com/",
+        # f"https://cozy-earth.troupon.com/",
         # f"https://cozyearth.worthepenny.com/coupon/"
         # f"https://joincheckmate.com/merchants/cozyearth.com"
         # f"https://www.faircoupons.com/stores/cozy-earth"
@@ -2864,7 +2864,7 @@ if __name__ == "__main__":
         # f"https://www.promopro.com/coupon-codes/cozy-days"
         # f"https://www.greenpromocode.com/coupons/christyscozycorners/"
         # f"https://joincheckmate.com/merchants/cozyearth.com"
-        #  f"https://www.retailmenot.com/view/dsw.com"
+        # f"https://www.retailmenot.com/view/dsw.com"
         # f"https://www.dazzdeals.com/store/cozy-earth"
         # f"https://couponcause.com/stores/tommy-john/"
         # f"https://www.goodshop.com/coupons/tommyjohn.com"
@@ -2901,7 +2901,7 @@ if __name__ == "__main__":
         # f"https://www.deala.com/tommy-john"
         # f"https://www.promopro.com/coupon-codes/tommy-john"
         # f"https://www.retailmenot.com/view/helixsleep.com"
-        # f"https://www.dazzdeals.com/category/coffee"
+        f"https://www.dazzdeals.com/category/coffee"
         # f"https://tommyjohn.valuecom.com/"
         #    f"https://www.lovecoupons.com/tommy-john"
         # f"https://www.joinsmarty.com/tommyjohn-coupons"

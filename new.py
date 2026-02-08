@@ -5,9 +5,55 @@ from urllib.parse import parse_qs, urlparse
 
 import requests
 from bs4 import BeautifulSoup
+from zenrows import ZenRowsClient
+
+client = ZenRowsClient("fa0f561cee2fa9ba7976f152b852a663fdcd8791")
 
 
-def getZenrowsResponse(url, is_json=False, isProxy=False, js_render=False):
+def getZenResponseAlter(
+    url,
+    headers=None,
+    is_json=False,
+    isProxy=False,
+    js_render=False,
+):
+
+    try:
+        params = {
+            "premium_proxy": "true",
+            "proxy_country": "us",
+        }
+
+        if js_render:
+            params["js_render"] = "true"
+
+        csheaders = {
+            "Referer": "https://www.google.com",
+            **(headers or {}),
+        }
+
+        response = (
+            client.get(url, headers=csheaders, params=params)
+            if isProxy
+            else client.get(url, headers=csheaders)
+        )
+
+        if is_json:
+            return response
+        return response.text
+    except Exception as e:
+        print(f"Error fetching {url}: {e}")
+        return None
+
+
+def getZenrowsResponse(
+    url,
+    is_json=False,
+    isProxy=False,
+    js_render=False,
+    isCookies=False,
+    headers=None,
+):
     try:
         params = {"apikey": "fa0f561cee2fa9ba7976f152b852a663fdcd8791", "url": url}
         if isProxy:
@@ -17,7 +63,15 @@ def getZenrowsResponse(url, is_json=False, isProxy=False, js_render=False):
         if js_render:
             params["js_render"] = "true"
 
-        response = requests.get("https://api.zenrows.com/v1/", params=params)
+        csheaders = {
+            "Referer": "https://www.google.com",
+            **(headers or {}),
+            **({"Cookies": cookies} if isCookies and cookies else {}),
+        }
+
+        response = requests.get(
+            "https://api.zenrows.com/v1/", params=params, headers=csheaders
+        )
         if is_json:
             return response
         else:
@@ -79,43 +133,58 @@ def fetch_coupons_from_dazzdeals(links):
     Args: links (list) - List of DazzDeals page URLs
     Returns: list - List of uppercase coupon codes
     """
-    coupons = []
-    cp_values = []
+    all_coupons = []
+
     try:
         if not links:
             return []
 
-        urls = [link.strip() for link in links]  # remove whitespace
-        coupons = []
+        urls = [link.strip() for link in links]
+
         for url in urls:
-            html = getZenrowsResponse(url, isProxy=True, js_render=True)
+            cp_values = []
+
+            html = getZenResponseAlter(url, js_render=True, isProxy=True)
             if not html:
+                print(f"Failed to fetch DazzDeals page: {url}")
                 continue
 
             soup = BeautifulSoup(html, "html.parser")
             elements = soup.select("[data-cp]")
+
             for el in elements:
                 cp = el.get("data-cp")
                 if cp:
                     cp_values.append(cp)
 
-            cp_values = list(set(cp_values))
-            for cp in cp_values:
-                cp_url = f"{url}/?cp={cp}"
-                html2 = getZenrowsResponse(cp_url, isProxy=True, js_render=True)
-                soup2 = BeautifulSoup(html2, "html.parser")
-                code_div = soup2.find("div", id="ccode")
-                if code_div:
-                    code = code_div.get_text(strip=True)
-                    if code:
-                        coupons.append(code)
-        unique_coupons = list(set(coupons))
-        print(f"Found {len(unique_coupons)} unique coupons from DazzDeals")
-        print(unique_coupons)
+            unique_cp_values = list(set(cp_values))
+            print(f"Found {len(unique_cp_values)} unique cp values for {url}")
+            for cp in unique_cp_values:
+                try:
+                    cp_url = f"{url}/?cp={cp}"
+                    html2 = getZenResponseAlter(cp_url, js_render=True, isProxy=True)
+
+                    if not html2:
+                        continue
+
+                    soup2 = BeautifulSoup(html2, "html.parser")
+                    code_div = soup2.find("div", id="ccode")
+
+                    if code_div:
+                        code = code_div.get_text(strip=True)
+                        if code:
+                            all_coupons.append(code.upper())
+
+                except Exception as e:
+                    print(f"Error fetching cp modal {cp} from {url}: {e}")
+                    continue
+
+        unique_coupons = list(set(all_coupons))
+        print(f"Total unique coupons from DazzDeals: {len(unique_coupons)}")
         return unique_coupons
 
     except Exception as e:
-        print(f"Error dazzdeals fetching {e}")
+        print(f"Error dazzdeals fetching: {e}")
         return []
 
 
@@ -521,79 +590,6 @@ def fetch_coupons_from_dealdrop(links):
         return []
 
 
-def fetch_coupons_from_dazzdeals(links):
-    """
-    Fetch coupons from DazzDeals using modal extraction with coupon IDs.
-    Args: links (list) - List of DazzDeals page URLs
-    Returns: list - List of uppercase coupon codes
-    """
-    all_coupons = []  # ✅ renamed for clarity
-
-    try:
-        if not links:
-            return []
-
-        urls = [link.strip() for link in links]
-
-        for url in urls:
-            cp_values = []  # ✅ প্রতি URL এর জন্য নতুন list
-
-            html = getZenrowsResponse(url, js_render=True)
-            if not html:
-                print(f"Failed to fetch DazzDeals page: {url}")
-                continue
-
-            soup = BeautifulSoup(html, "html.parser")
-            elements = soup.select("[data-cp]")
-
-            # ✅ এই URL থেকে সব cp collect করা
-            for el in elements:
-                cp = el.get("data-cp")
-                if cp:
-                    cp_values.append(cp)
-
-            # ✅ Duplicates remove (এই URL এর মধ্যে)
-            unique_cp_values = list(set(cp_values))
-            print(f"Found {len(unique_cp_values)} unique cp values for {url}")
-            print(f"cp values for {url}: {unique_cp_values}")
-
-            # ✅ প্রতিটি cp দিয়ে modal fetch করা
-            for cp in unique_cp_values:
-                try:
-                    cp_url = f"{url}/?cp={cp}"
-                    print("cp url is", cp_url)
-                    html2 = getZenrowsResponse(
-                        cp_url,
-                    )
-
-                    print("html2 is", html2)
-                    break
-
-                    if not html2:
-                        continue
-
-                    soup2 = BeautifulSoup(html2, "html.parser")
-                    code_div = soup2.find("div", id="ccode")
-
-                    if code_div:
-                        code = code_div.get_text(strip=True)
-                        if code:
-                            all_coupons.append(code.upper())  # ✅ uppercase
-
-                except Exception as e:
-                    print(f"Error fetching cp modal {cp} from {url}: {e}")
-                    continue
-
-        # ✅ Final dedup across all URLs
-        unique_coupons = list(set(all_coupons))
-        print(f"Total unique coupons from DazzDeals: {len(unique_coupons)}")
-        return unique_coupons
-
-    except Exception as e:
-        print(f"Error dazzdeals fetching: {e}")
-        return []
-
-
 def fetch_coupons_from_deala(links):
     """
     Fetch coupons from DealA by parsing serverApp-state JSON data.
@@ -918,65 +914,55 @@ def fetch_coupons_from_couponcause(links):
 
 
 def fetch_coupons_from_retailmenot(links):
-    """
-    Fetch coupons from RetailMeNot by handling dynamic pages and modal extraction.
-    Args:
-        links (list): List of RetailMeNot store URLs
-    Returns:
-        list: Unique uppercase coupon codes
-    """
     coupons = []
-    dynamic_ids = []
-    print("inside retailme not")
 
-    try:
-        if not links:
-            return []
-        urls = [link.strip() for link in links if link.strip()]
-        for url in urls:
-            try:
-                print(f"Scraping RetailMeNot: {url}")
-                html = getZenrowsResponse(url, js_render=True)
-                if not html:
-                    continue
-
-                soup = BeautifulSoup(html, "html.parser")
-                coupon_elements = soup.select('a[data-content-datastore="offer"]')
-                for el in coupon_elements:
-                    uuid = el.get("data-content-uuid")
-                    if uuid:
-                        dynamic_ids.append(uuid)
-                dynamic_ids = list(set(dynamic_ids))
-                eventReferenceId = "ee2f6e04-cbc5-4b53-b93c-fb0eb132fbf3"
-
-                for el in dynamic_ids:
-                    page_url = f"{url}?outclicked=true"
-                    print("page url is", page_url)
-                    html2 = getZenrowsResponse(page_url, isJsRender=True)
-                    soup2 = BeautifulSoup(html2, "html.parser")
-                    print("soup2 is", soup2)
-                    code_divs = soup2.select(
-                        "div.relative.mb-2.flex.h-12.w-full.items-center.justify-center.overflow-hidden.rounded-3xl.bg-gray-100.text-base.font-bold.leading-none.tracking-wider.text-purple-700"
-                    )
-                    if code_divs:
-                        for div in code_divs:
-                            code = div.get_text(strip=True)
-                            if code:
-                                coupons.append(code)
-                        break
-                    else:
-                        print(f"No code found for dynamic id: {el}")
-
-            except Exception as e:
-                print(f"Error scraping retailmenot:")
-
-        # 4️⃣ unique + uppercase
-        final_coupons = list(set(code.upper() for code in coupons if code))
-        return final_coupons
-
-    except Exception as e:
-        print(f"RetailMeNot fatal error: {e}")
+    if not links:
         return []
+
+    for url in links:
+        print(f"Scraping RetailMeNot: {url}")
+
+        html = getZenResponseAlter(url, js_render=True, isProxy=True)
+        if not html:
+            continue
+
+        soup = BeautifulSoup(html, "html.parser")
+        coupon_elements = soup.select('a[data-content-datastore="offer"]')
+
+        dynamic_ids = list(
+            set(
+                el.get("data-content-uuid")
+                for el in coupon_elements
+                if el.get("data-content-uuid")
+            )
+        )
+
+        eventReferenceId = "ee2f6e04-cbc5-4b53-b93c-fb0eb132fbf3"
+
+        for el in dynamic_ids:
+            page_url = (
+                f"{url}?u={el}&outclicked=true&eventReferenceId={eventReferenceId}"
+            )
+            print("page url is", page_url)
+
+            html2 = getZenResponseAlter(page_url, js_render=True, isProxy=True)
+
+            if not html2:
+                continue
+
+            soup2 = BeautifulSoup(html2, "html.parser")
+            code_divs = soup2.select(
+                "div.relative.mb-2.flex.h-12.w-full.items-center.justify-center.overflow-hidden.rounded-3xl.bg-gray-100.text-base.font-bold.leading-none.tracking-wider.text-purple-700"
+            )
+
+            if code_divs:
+                for div in code_divs:
+                    code = div.get_text(strip=True)
+                    if code:
+                        coupons.append(code)
+                break
+
+    return list(set(code.upper() for code in coupons if code))
 
 
 def fetch_coupons_from_couponbind(links):
@@ -1528,10 +1514,10 @@ def fetch_coupons_from_troupon(links):
 
 def fetch_coupons():
     links = [
-        "https://cozy-earth.troupon.com/",
+        "https://www.dazzdeals.com/category/coffee",
     ]
-    coupons = fetch_coupons_from_troupon(links)
-    print(f"Fetched {len(coupons)} coupons from troupon")
+    coupons = fetch_coupons_from_dazzdeals(links)
+    print(f"Fetched {len(coupons)} coupons from retailmenot")
     print(coupons)
 
 
